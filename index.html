@@ -120,7 +120,7 @@
             transition: all 0.4s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
             position: relative;
-            z-index: 2100; /* Raised up cleanly so layer clicks don't map trap click functions */
+            z-index: 2100;
         }
         .enter-btn:hover { background-color: var(--text-dark); color: white; }
 
@@ -244,7 +244,7 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        /* --- REALIGNED VERTICAL VENUE FRAME OVERRIDE --- */
+        /* --- BALANCED VERTICAL VENUE PICTURE COMPONENT --- */
         .venue-display-frame {
             width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto;
             border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
@@ -252,7 +252,7 @@
         }
         .venue-photo { 
             width: 100%; height: 100%; object-fit: cover; 
-            object-position: center 45%; /* REPOSITIONED COGNIZANCE: Shifts view higher up to capture sky elements clearly */
+            object-position: center 42%; /* Adjusted here to perfectly frame the sky and beach layout */
         }
 
         /* --- THE DYNAMIC JOURNEY STORY MODULE --- */
@@ -293,17 +293,7 @@
         .story-interactive-card .story-year { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
         .story-interactive-card .story-heading { font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 6px; }
 
-        /* --- INDIA TRAVEL CANVAS --- */
-        .travel-map-container {
-            width: 100%; max-width: 320px; height: 340px; margin: 0 auto 12px auto;
-            background: #cbdce6; border: 2px solid var(--text-dark);
-            border-radius: 14px; overflow: hidden; position: relative;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.1);
-        }
-        #travel-canvas { width: 100%; height: 100%; display: block; }
-        .map-caption { font-size: 0.75rem; font-style: italic; margin-top: 0; margin-bottom: 25px; color: var(--text-muted); font-weight: 500; }
-
-        /* --- MICRO MAP ACTION BAR --- */
+        /* --- COMPACT LOCATION ACTION CONTAINER --- */
         .map-widget-box {
             width: 100%; max-width: 200px; margin: 25px auto 10px auto;
             background: rgba(255, 255, 255, 0.9); border: 1px solid var(--text-dark);
@@ -330,7 +320,7 @@
             font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; border-radius: 15px;
         }
 
-        /* --- THE INTERACTIVE BEACH CARD TRACK --- */
+        /* --- INTERACTIVE CARD TRACKS --- */
         .beach-map-track { position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%; }
         .beach-map-track::before {
             content: ''; position: absolute; top: 0; left: 24px; width: 6px; height: 100%;
@@ -469,7 +459,7 @@
         <circle cx="120" cy="45" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
         <circle cx="180" cy="40" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
         <circle cx="240" cy="15" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-        <circle cx="300" cy="40" r="5" fill="#f5c242" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
+        <circle cx="300" cy="40" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
         <circle cx="360" cy="45" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
         <circle cx="420" cy="33" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
     </svg>
@@ -578,14 +568,9 @@
                 <img src="venue.jpeg" alt="Dallas Beach Resorts" class="venue-photo">
             </div>
 
-            <div class="travel-map-container">
-                <canvas id="travel-canvas"></canvas>
-            </div>
-            <p class="map-caption">All roads lead to the celebration...</p>
-
-            <p class="venue-title">Dallas Beach Resorts</p>
-            <p class="details-p" style="font-weight: 500; margin-top: 8px;">Ashvem Beach</p>
-            <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
+            <p class="venue-title" style="font-family: var(--font-serif); font-size: 1.7rem; font-weight: 600; margin-bottom: 6px;">Dallas Beach Resorts</p>
+            <p class="details-p" style="font-weight: 500;">Ashvem Beach,</p>
+            <p class="details-p">Morjim–Mandrem Road</p>
             <p class="details-p">North Goa, Goa — 403512</p>
             
             <div class="map-widget-box">
@@ -690,6 +675,7 @@
                     </div>
                 </div>
                 <div class="form-group"><label>Guests</label><select id="guests-count"><option>1 Person</option><option>2 People</option></select></div>
+                <div id="blessings-trigger-node"></div>
                 <button type="submit" class="submit-btn">Send Response</button>
             </form>
         </section>
@@ -710,9 +696,6 @@
         let birds = [];
         let coverFlares = [];
         let dynamicParticles = []; 
-        let travelHubs = []; 
-        let activeRouteIndex = 0;
-        let activeRouteProgress = 0;
         
         let swayTime = 0;
         let coverAnimationId = null;
@@ -728,6 +711,12 @@
         function initCoverCanvas() {
             canvasCover.width = window.innerWidth;
             canvasCover.height = window.innerHeight;
+        }
+
+        // --- SUB ROUTINE: STATIC REFRESH MOCK OVERRIDE STUB REMOVAL ---
+        function initTravelRouteMap() {
+            // Function stub kept perfectly balanced to prevent runtime object compilation breaks
+            return true;
         }
 
         function initCoverFlares() {
@@ -773,7 +762,6 @@
             resizeCanvas();
             window.addEventListener('resize', () => { resizeCanvas(); initCoverCanvas(); });
             initBeachAssets();
-            initTravelRouteMap(); 
             renderBeachEngineLoop();
             setTimeout(initClassicSandScratchCard, 350);
         }
@@ -915,59 +903,6 @@
             canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
             canvas.addEventListener('touchmove', scratch, {passive: false});
             window.addEventListener('touchend', () => isDrawing = false);
-        }
-
-        function initTravelRouteMap() {
-            const travelCanvas = document.getElementById('travel-canvas');
-            const tCtx = travelCanvas.getContext('2d');
-            travelCanvas.width = 320; travelCanvas.height = 340;
-            const destGoa = { x: 105, y: 245 };
-            const routes = [
-                { startX: 100, startY: 100 }, { startX: 130, startY: 120 }, { startX: 235, startY: 140 },
-                { startX: 140, startY: 165 }, { startX: 145, startY: 175 }, { startX: 155, startY: 180 }, { startX: 102, startY: 215 }
-            ];
-
-            function drawIndiaOutline(ctx) {
-                ctx.save(); ctx.beginPath(); ctx.moveTo(70, 40); ctx.lineTo(130, 30); ctx.lineTo(155, 50); ctx.lineTo(145, 85);
-                ctx.lineTo(195, 100); ctx.lineTo(260, 115); ctx.lineTo(290, 150); ctx.lineTo(250, 190); ctx.lineTo(215, 205); ctx.lineTo(185, 240);
-                ctx.lineTo(150, 320); ctx.lineTo(135, 335); ctx.lineTo(130, 310); ctx.lineTo(105, 250); ctx.lineTo(95, 210); ctx.lineTo(65, 175);
-                ctx.lineTo(80, 150); ctx.lineTo(55, 140); ctx.lineTo(65, 105); ctx.closePath();
-                ctx.fillStyle = '#eaf2f7'; ctx.fill(); ctx.strokeStyle = 'rgba(13,34,47,0.18)'; ctx.lineWidth = 2; ctx.stroke(); ctx.restore();
-            }
-
-            function drawTravelMapLoop() {
-                tCtx.clearRect(0, 0, travelCanvas.width, travelCanvas.height);
-                drawIndiaOutline(tCtx);
-                activeRouteProgress += 0.012;
-                if (activeRouteProgress > 1) { activeRouteProgress = 0; activeRouteIndex = (activeRouteIndex + 1) % routes.length; }
-
-                routes.forEach((route, idx) => {
-                    tCtx.beginPath(); tCtx.moveTo(route.startX, route.startY);
-                    const midX = (route.startX + destGoa.x) / 2 - (idx * 2); const midY = (route.startY + destGoa.y) / 2 - 20;
-                    tCtx.quadraticCurveTo(midX, midY, destGoa.x, destGoa.y);
-
-                    if (idx < activeRouteIndex) {
-                        tCtx.strokeStyle = '#e64c3c'; tCtx.lineWidth = 3; tCtx.stroke();
-                    } else if (idx === activeRouteIndex) {
-                        tCtx.save(); tCtx.strokeStyle = 'rgba(230,76,60,0.2)'; tCtx.lineWidth = 3; tCtx.stroke();
-                        tCtx.beginPath(); tCtx.strokeStyle = '#e64c3c'; tCtx.lineWidth = 3.5; tCtx.moveTo(route.startX, route.startY);
-                        let currX = route.startX; let currY = route.startY;
-                        for (let t = 0; t <= activeRouteProgress; t += 0.05) {
-                            currX = (1 - t) * (1 - t) * route.startX + 2 * (1 - t) * t * midX + t * t * destGoa.x;
-                            currY = (1 - t) * (1 - t) * route.startY + 2 * (1 - t) * t * midY + t * t * destGoa.y;
-                            tCtx.lineTo(currX, currY);
-                        }
-                        tCtx.stroke(); tCtx.translate(currX, currY); tCtx.fillStyle = '#d35400'; tCtx.fillRect(-5, -4, 10, 7); tCtx.fillStyle = '#f1c40f'; tCtx.fillRect(-2, -2, 4, 4); tCtx.restore();
-                    } else {
-                        tCtx.strokeStyle = 'rgba(13,34,47,0.06)'; tCtx.lineWidth = 1.5; tCtx.stroke();
-                    }
-                });
-
-                tCtx.fillStyle = '#e64c3c'; tCtx.beginPath(); tCtx.arc(destGoa.x, destGoa.y, 6, 0, Math.PI * 2); tCtx.fill(); tCtx.strokeStyle = '#ffffff'; tCtx.lineWidth = 2; tCtx.stroke();
-                tCtx.fillStyle = '#231f20'; tCtx.font = '700 11px Montserrat'; tCtx.letterSpacing = '1px'; tCtx.fillText('GOA', destGoa.x - 12, destGoa.y + 19);
-                requestAnimationFrame(drawTravelMapLoop);
-            }
-            drawTravelMapLoop();
         }
 
         function renderBeachEngineLoop() {
