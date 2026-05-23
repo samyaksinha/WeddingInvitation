@@ -144,7 +144,6 @@
             position: relative;
             z-index: 5;
             box-shadow: 0 0 50px rgba(13, 34, 47, 0.15);
-            /* Rich, balanced golden-orange gradient progression across the content timeline */
             background: linear-gradient(180deg, var(--sand-warm) 0%, var(--honey-glow) 35%, var(--amber-blush) 70%, var(--sundowner-orange) 100%);
         }
 
@@ -196,6 +195,65 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
+        /* --- MAP WIDGET STYLING --- */
+        .map-widget-box {
+            width: 100%;
+            max-width: 340px;
+            margin: 30px auto 10px auto;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--text-dark);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease;
+        }
+        .map-widget-box:active {
+            transform: scale(0.98);
+        }
+        .map-graphic-preview {
+            width: 100%;
+            height: 120px;
+            background-color: #e5e3df;
+            /* Dynamic aesthetic abstract line mapping representation */
+            background-image: 
+                linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.06) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.06) 50%, transparent 51%),
+                radial-gradient(circle at 70% 40%, var(--sunset-rose) 8px, transparent 9px);
+            position: relative;
+        }
+        .map-pin-icon {
+            position: absolute;
+            top: 40%; left: 70%;
+            transform: translate(-50%, -50%);
+            width: 24px; height: 24px;
+            fill: var(--ocean-navy);
+            animation: pinBounce 2s ease-in-out infinite;
+        }
+        .map-action-bar {
+            padding: 15px;
+            background: #ffffff;
+            border-top: 1px solid rgba(35,31,32,0.1);
+            text-align: center;
+        }
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--text-dark);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 25px;
+            box-shadow: 0 4px 12px rgba(35,31,32,0.15);
+        }
+
         /* --- TIMELINE ELEMENTS --- */
         .timeline { margin-top: 40px; text-align: left; padding-left: 15px; position: relative; }
         .timeline::before { content: ''; position: absolute; left: 4px; top: 5px; width: 1px; height: 92%; background-color: var(--text-dark); }
@@ -232,11 +290,12 @@
         .submit-btn { width: 100%; background-color: var(--text-dark); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s; }
         .submit-btn:hover { background-color: var(--ocean-navy); }
 
-        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--text-dark); opacity: 0.8; background-color: transparent; letter-spacing: 1px; font-weight: 500; }
+        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--text-dark); opacity: 0.7; background-color: transparent; letter-spacing: 1px; font-weight: 500; }
 
         @keyframes waveSwim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-6px); } }
     </style>
 </head>
 <body>
@@ -308,6 +367,20 @@
             <p class="details-p" style="font-weight: 500; margin-top: 8px; color: var(--ocean-navy);">Ashvem Beach</p>
             <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
             <p class="details-p">North Goa, Goa — 403512</p>
+            
+            <div class="map-widget-box">
+                <div class="map-graphic-preview">
+                    <svg class="map-pin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                </div>
+                <div class="map-action-bar">
+                    <a href="https://maps.google.com/?q=Dallas+Beach+Resorts+Ashvem+Beach+Goa" target="_blank" class="map-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                        Open in Google Maps
+                    </a>
+                </div>
+            </div>
             
             <div class="wave-separator">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -412,7 +485,7 @@
             ctxCover.clearRect(0, 0, canvasCover.width, canvasCover.height);
             swayTime += 0.012;
 
-            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE (Warm Sunset Tone Match) ---
+            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE ---
             ctxCover.save();
             ctxCover.strokeStyle = 'rgba(94, 82, 85, 0.2)'; 
             ctxCover.lineWidth = 2.5;
