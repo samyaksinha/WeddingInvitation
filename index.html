@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Samyak &amp; Sakshi - Wedding Invitation</title>
+    <title>Samyak & Sakshi - Wedding Invitation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -195,11 +195,11 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        /* --- OPTIMIZED VERTICAL VENUE FRAME --- */
+        /* --- TALL VENUE FRAME WITH SKY FOCUS --- */
         .venue-display-frame {
             width: 100%;
             max-width: 320px;
-            height: 380px; /* Tall viewport configuration to naturally preserve vertical alignment rules */
+            height: 380px; 
             margin: 0 auto 30px auto;
             border-radius: 16px;
             overflow: hidden;
@@ -211,13 +211,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: bottom center; /* anchors view context dynamically to base elements */
+            object-position: top center; /* LOCKS ALIGNMENT TO THE TOP TO RENDER THE SUNSET SECURELY */
         }
 
         /* --- SLIMMED MICRO MAP WIDGET --- */
         .map-widget-box {
             width: 100%;
-            max-width: 200px; /* Reduced profile */
+            max-width: 200px; 
             margin: 25px auto 10px auto;
             background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--text-dark);
@@ -231,7 +231,7 @@
         }
         .map-graphic-preview {
             width: 100%;
-            height: 50px; /* Extremely lean aspect crop tracking map design accents */
+            height: 50px; 
             background-color: #e5e3df;
             background-image: 
                 linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
@@ -321,10 +321,10 @@
 
         <div class="curtain-content">
             <div class="illustration-frame">
-                <img src="https://raw.githubusercontent.com/samyaksinha/WeddingInvitation/main/couple.jpeg" alt="Samyak &amp; Sakshi" class="couple-img">
+                <img src="https://raw.githubusercontent.com/samyaksinha/WeddingInvitation/main/couple.jpeg" alt="Samyak & Sakshi" class="couple-img">
             </div>
             <p class="intro-tag">A sandy celebration awaits</p>
-            <h1>Samyak &amp; Sakshi</h1>
+            <h1>Samyak & Sakshi</h1>
             <p class="location-tag">Goa, India</p>
             <button class="enter-btn" onclick="openInvitation()">Open Invitation</button>
         </div>
@@ -342,7 +342,7 @@
         <canvas id="beach-bg-canvas"></canvas>
 
         <section class="hero">
-            <h2>Samyak<span class="ampersand">&amp;</span>Sakshi</h2>
+            <h2>Samyak<span class="ampersand">&</span>Sakshi</h2>
             <p class="sub-banner">Are getting married</p>
             
             <div class="scratch-container">
@@ -381,7 +381,7 @@
             <h3 class="section-title">The Venue</h3>
             
             <div class="venue-display-frame">
-                <img src="venue1.jpeg" alt="Dallas Beach Resorts" class="venue-photo">
+                <img src="venue.jpeg" alt="Dallas Beach Resorts" class="venue-photo">
             </div>
 
             <p class="venue-title">Dallas Beach Resorts</p>
@@ -462,7 +462,7 @@
 
         <footer>
             <p>Thank you for sharing this journey with us.</p>
-            <p style="margin-top: 12px; font-size: 0.65rem; color: var(--text-dark); opacity: 0.7;">S&amp;S • 2026 • GOA</p>
+            <p style="margin-top: 12px; font-size: 0.65rem; color: var(--text-dark); opacity: 0.7;">S&S • 2026 • GOA</p>
         </footer>
     </div>
 
