@@ -135,11 +135,11 @@
         .cover-wave-layer:nth-child(2) { fill: var(--sundowner-orange); opacity: 0.4; animation: waveSwim 5s linear infinite reverse; }
         .cover-wave-layer:nth-child(3) { fill: var(--sand-warm); opacity: 1; animation: waveSwim 3s linear infinite; }
 
-        /* --- FIXED PARTICLES INTERACTION OVERLAY LAYER --- */
+        /* --- IMMERSIVE VIEWPORT BACKGROUND CANVAS --- */
         #beach-bg-canvas {
             position: fixed; 
             top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 3; /* Placed cleanly above gradients but allows clean text interactions */
+            z-index: 3; 
             pointer-events: none;
         }
 
@@ -187,6 +187,7 @@
             --dynamic-title: #d49a3b;
         }
         #main-content.wedding-active {
+            /* Traditional Rich Saffron Sundowner Gradient Mix */
             background: linear-gradient(180deg, #4d1215 0%, #b84322 45%, #fca34d 100%) !important;
             --dynamic-text: #fff6ee;
             --dynamic-title: #fdb366;
@@ -747,7 +748,6 @@
                     ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
                 });
             } else if (activeAtmosphere === 'sangeet') {
-                // Background environmental ambient loop combined with the interactive notes
                 sparkles.forEach(p => {
                     p.y -= p.speed * 0.5; p.phase += 0.02;
                     if (p.y < -20) p.y = canvasBg.height + 20;
@@ -760,7 +760,7 @@
                 });
             }
 
-            // Render ALL interactive elements safely contained inside the unified global array layer
+            // Render ALL interactive elements safely contained inside unified runtime tracking loops
             dynamicParticles.forEach(p => {
                 p.y += p.speedY;
                 p.x += p.speedX;
@@ -788,12 +788,23 @@
                     ctxBg.fill();
                 } else if (activeAtmosphere === 'wedding') {
                     if (p.isAmber) {
+                        // Rising Embers Mechanics
                         if (p.y < -20) { p.y = canvasBg.height + 20; p.x = Math.random() * canvasBg.width; }
                         ctxBg.beginPath();
                         ctxBg.fillStyle = p.color;
                         ctxBg.arc(0, 0, p.size, 0, Math.PI * 2);
                         ctxBg.fill();
+                    } else if (p.isPetal) {
+                        // Falling Rose Petals Geometry Rendering
+                        if (p.y > canvasBg.height + 20) { p.y = -20; p.x = Math.random() * canvasBg.width; }
+                        ctxBg.fillStyle = p.color;
+                        ctxBg.beginPath();
+                        ctxBg.moveTo(0, 0);
+                        ctxBg.bezierCurveTo(-p.size, -p.size, -p.size * 1.5, p.size * 0.5, 0, p.size * 1.5);
+                        ctxBg.bezierCurveTo(p.size * 1.5, p.size * 0.5, p.size, -p.size, 0, 0);
+                        ctxBg.fill();
                     } else {
+                        // Falling Firework physics friction tracking hooks
                         p.speedY += p.gravity;
                         p.speedX *= p.friction;
                         p.opacity -= p.fadeSpeed;
@@ -810,7 +821,7 @@
             });
 
             if (activeAtmosphere === 'wedding') {
-                dynamicParticles = dynamicParticles.filter(p => p.isAmber || p.opacity > 0);
+                dynamicParticles = dynamicParticles.filter(p => p.isAmber || p.isPetal || p.opacity > 0);
             }
 
             requestAnimationFrame(renderBeachEngineLoop);
@@ -853,18 +864,13 @@
             if (mode === 'sangeet') {
                 containerFrame.className = 'visible sangeet-active';
                 bodyNode.className = 'sangeet-mode';
-                // Active flying musical notation streams initialized on selection loop
                 const notesList = ['♪', '♫', '♬', '♩'];
                 for(let i = 0; i < 45; i++) {
                     dynamicParticles.push({
-                        x: Math.random() * canvasBg.width,
-                        y: Math.random() * canvasBg.height,
-                        speedY: -(Math.random() * 1.2 + 0.6),
-                        speedX: Math.random() * 0.6 - 0.3,
-                        size: Math.random() * 12 + 12,
-                        angle: Math.random() * Math.PI,
-                        rotSpeed: Math.random() * 0.02 - 0.01,
-                        isAmber: false,
+                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
+                        speedY: -(Math.random() * 1.2 + 0.6), speedX: Math.random() * 0.6 - 0.3,
+                        size: Math.random() * 12 + 12, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.02 - 0.01,
+                        isAmber: false, isPetal: false,
                         char: notesList[Math.floor(Math.random() * notesList.length)],
                         color: Math.random() > 0.4 ? 'rgba(233, 184, 137, 0.6)' : 'rgba(95, 158, 160, 0.7)'
                     });
@@ -872,17 +878,13 @@
             } else if (mode === 'haldi') {
                 containerFrame.className = 'visible haldi-active';
                 bodyNode.className = 'haldi-mode';
-                // Voluminous shower cascade matrix configuration using full layout coverage parameters
                 for(let i=0; i<75; i++) {
                     dynamicParticles.push({
                         x: Math.random() * canvasBg.width,
                         y: Math.random() * canvasBg.height - canvasBg.height, 
-                        speedY: Math.random() * 2.0 + 1.5, 
-                        speedX: Math.sin(Math.random() * Math.PI) * 0.6,
-                        size: Math.random() * 14 + 10, 
-                        angle: Math.random() * Math.PI, 
-                        rotSpeed: Math.random() * 0.05 - 0.025,
-                        isAmber: false,
+                        speedY: Math.random() * 2.0 + 1.5, speedX: Math.sin(Math.random() * Math.PI) * 0.6,
+                        size: Math.random() * 14 + 10, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.05 - 0.025,
+                        isAmber: false, isPetal: false,
                         color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)'
                     });
                 }
@@ -890,20 +892,29 @@
                 containerFrame.className = 'visible wedding-active';
                 bodyNode.className = 'wedding-mode';
                 
-                // 1. Setup rising warm golden hour horizon fire embers
+                // 1. Setup rising warm sunset embers
                 for(let i=0; i<35; i++) {
                     dynamicParticles.push({
-                        x: Math.random() * canvasBg.width,
-                        y: Math.random() * canvasBg.height,
-                        speedY: -(Math.random() * 0.8 + 0.3),
-                        speedX: Math.random() * 0.4 - 0.2,
-                        size: Math.random() * 3 + 1.5,
-                        angle: 0, rotSpeed: 0,
-                        isAmber: true,
+                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
+                        speedY: -(Math.random() * 0.8 + 0.3), speedX: Math.random() * 0.4 - 0.2,
+                        size: Math.random() * 3 + 1.5, angle: 0, rotSpeed: 0,
+                        isAmber: true, isPetal: false,
                         color: Math.random() > 0.5 ? 'rgba(253, 179, 102, 0.6)' : 'rgba(226, 142, 125, 0.5)'
                     });
                 }
-                // 2. Fire continuous explosive loops tracking maps canvas frameworks
+
+                // 2. Setup cascading rose-crimson flower petals floating across entire screen viewport
+                for(let i=0; i<30; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height - canvasBg.height,
+                        speedY: Math.random() * 1.2 + 0.8, speedX: Math.random() * 0.8 - 0.4,
+                        size: Math.random() * 8 + 6, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.03 - 0.015,
+                        isAmber: false, isPetal: true,
+                        color: 'rgba(226, 142, 125, 0.75)' /* Velvet Rose-crimson tint matching variables mapping palette layout */
+                    });
+                }
+
+                // 3. Fire continuous explosive firework trail layers
                 launchWeddingFireworks();
             }
         }
@@ -926,7 +937,7 @@
                     gravity: 0.08, friction: 0.95,
                     size: Math.random() * 2.5 + 1,
                     opacity: 1, fadeSpeed: Math.random() * 0.014 + 0.007,
-                    isAmber: false,
+                    isAmber: false, isPetal: false,
                     color: burstColor
                 });
             }
