@@ -15,10 +15,10 @@
             --sundowner-orange: #fca34d;
             --sunset-rose: #e28e7d;
             --gold-glow: #e9b889;
-            --sand-warm: #f7e6d4; /* Warm sunlit sand base */
-            --honey-glow: #f5d3b3; /* Rich golden hour tone */
-            --amber-blush: #e8b495; /* Mellow orange-blush accent */
-            --text-dark: #231f20; /* Sunset charcoal text */
+            --sand-warm: #f7e6d4; 
+            --honey-glow: #f5d3b3; 
+            --amber-blush: #e8b495; 
+            --text-dark: #231f20; 
             --text-muted: #5e5255;
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
@@ -41,7 +41,7 @@
             line-height: 1.6;
         }
 
-        /* --- LANDING COVER (Cinematic Sunset Pulse) --- */
+        /* --- LANDING COVER --- */
         #curtain-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -115,7 +115,6 @@
         }
         .enter-btn:hover { background-color: var(--text-dark); color: white; }
 
-        /* Multi-Layered Sunset Sea Waves on Cover */
         .cover-waves {
             position: absolute;
             bottom: 0; left: 0; width: 100%; height: 75px;
@@ -126,7 +125,7 @@
         .cover-wave-layer:nth-child(2) { fill: var(--sundowner-orange); opacity: 0.4; animation: waveSwim 5s linear infinite reverse; }
         .cover-wave-layer:nth-child(3) { fill: var(--sand-warm); opacity: 1; animation: waveSwim 3s linear infinite; }
 
-        /* --- INTEGRATED BACKGROUND CANVAS --- */
+        /* --- BACKGROUND CANVAS --- */
         #beach-bg-canvas {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -157,7 +156,6 @@
             z-index: 2; 
         }
 
-        /* --- SHORELINE WAVES BETWEEN CHAPTERS --- */
         .wave-separator {
             position: absolute;
             bottom: 0; left: 0; width: 100%; height: 45px;
@@ -195,7 +193,7 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        /* --- TALL VENUE FRAME WITH SKY FOCUS --- */
+        /* --- VENUE DISPLAY FRAME --- */
         .venue-display-frame {
             width: 100%;
             max-width: 320px;
@@ -208,31 +206,19 @@
             background: #ffffff;
         }
         .venue-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: top center; /* LOCKS ALIGNMENT TO THE TOP TO RENDER THE SUNSET SECURELY */
+            width: 100%; height: 100%; object-fit: cover; object-position: top center;
         }
 
         /* --- SLIMMED MICRO MAP WIDGET --- */
         .map-widget-box {
-            width: 100%;
-            max-width: 200px; 
-            margin: 25px auto 10px auto;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid var(--text-dark);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            width: 100%; max-width: 200px; margin: 25px auto 10px auto;
+            background: rgba(255, 255, 255, 0.9); border: 1px solid var(--text-dark);
+            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             transition: transform 0.2s ease;
         }
-        .map-widget-box:active {
-            transform: scale(0.98);
-        }
+        .map-widget-box:active { transform: scale(0.98); }
         .map-graphic-preview {
-            width: 100%;
-            height: 50px; 
-            background-color: #e5e3df;
+            width: 100%; height: 50px; background-color: #e5e3df;
             background-image: 
                 linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
                 linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
@@ -240,45 +226,120 @@
             position: relative;
         }
         .map-pin-icon {
-            position: absolute;
-            top: 45%; left: 60%;
-            transform: translate(-50%, -50%);
-            width: 16px; height: 16px;
-            fill: var(--ocean-navy);
-            animation: pinBounce 2s ease-in-out infinite;
+            position: absolute; top: 45%; left: 60%; transform: translate(-50%, -50%);
+            width: 16px; height: 16px; fill: var(--ocean-navy); animation: pinBounce 2s ease-in-out infinite;
         }
-        .map-action-bar {
-            padding: 8px 10px;
-            background: #ffffff;
-            border-top: 1px solid rgba(35,31,32,0.1);
-        }
+        .map-action-bar { padding: 8px 10px; background: #ffffff; border-top: 1px solid rgba(35,31,32,0.1); }
         .map-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            width: 100%;
-            padding: 8px;
-            background-color: var(--text-dark);
-            color: #ffffff;
-            font-family: var(--font-sans);
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            text-decoration: none;
-            border-radius: 15px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 100%;
+            padding: 8px; background-color: var(--text-dark); color: #ffffff; font-family: var(--font-sans);
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; border-radius: 15px;
         }
 
-        /* --- TIMELINE ELEMENTS --- */
-        .timeline { margin-top: 40px; text-align: left; padding-left: 15px; position: relative; }
-        .timeline::before { content: ''; position: absolute; left: 4px; top: 5px; width: 1px; height: 92%; background-color: var(--text-dark); }
-        .timeline-date-header { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-dark); font-weight: 600; margin: 30px 0 15px -15px; display: flex; align-items: center; gap: 10px; }
-        .timeline-date-header::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(to right, var(--text-dark), transparent); }
-        .timeline-item { position: relative; margin-bottom: 28px; padding-left: 25px; }
-        .timeline-item::before { content: ''; position: absolute; left: -14px; top: 7px; width: 7px; height: 7px; background-color: var(--text-dark); border-radius: 50%; }
-        .time { font-size: 0.75rem; color: var(--text-dark); font-weight: 600; letter-spacing: 0.5px; opacity: 0.8; }
-        .event-title { font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-dark); }
+        /* --- THE INTERACTIVE GOA BEACH MAP TIMELINE (OPTION 1) --- */
+        .beach-map-track {
+            position: relative;
+            margin: 40px auto 0 auto;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        /* Winding Sand Foot-Path Center Line Vector Replacement */
+        .beach-map-track::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 24px;
+            width: 6px; height: 100%;
+            background: var(--sand-gold);
+            border-radius: 10px;
+            box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .track-node-wrapper {
+            position: relative;
+            margin-bottom: 45px;
+            padding-left: 55px;
+            text-align: left;
+            cursor: pointer;
+        }
+        .track-node-wrapper:last-of-type { margin-bottom: 0; }
+
+        /* The Footprint/Marker on the Beach Track */
+        .track-marker {
+            position: absolute;
+            left: 15px; top: 12px;
+            width: 24px; height: 24px;
+            background: #ffffff;
+            border: 3px solid var(--text-dark);
+            border-radius: 50%;
+            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .track-marker::after {
+            content: '🌴'; font-size: 0.6rem; opacity: 0; transition: opacity 0.3s;
+        }
+
+        /* Interactive Card Layouts */
+        .track-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid var(--text-dark);
+            padding: 20px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .track-node-wrapper:hover .track-card, .track-node-wrapper:active .track-card {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            background: #ffffff;
+        }
+        .track-node-wrapper:hover .track-marker {
+            background: var(--sundowner-orange);
+            transform: scale(1.2);
+        }
+        .track-node-wrapper:hover .track-marker::after { opacity: 1; }
+
+        .track-card .event-date-lbl {
+            font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; color: var(--sunset-rose);
+        }
+        .track-card .event-time-lbl {
+            font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-bottom: 4px;
+        }
+        .track-card .event-title-lbl {
+            font-family: var(--font-serif); font-size: 1.5rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 6px;
+        }
+        .track-card .event-hint-lbl {
+            font-size: 0.7rem; font-style: italic; color: var(--seaglass-teal); display: inline-block; margin-top: 5px;
+        }
+
+        /* Specific Interaction Modules Elements */
+        .fairy-lights-container {
+            display: flex; justify-content: space-around; width: 100%; position: absolute; top: -10px; left: 0; opacity: 0; transition: opacity 0.4s;
+        }
+        .fairy-bulb {
+            width: 6px; height: 10px; background: #e5e3df; border-radius: 50%; animation: lightDim 1s infinite alternate;
+        }
+        .fairy-bulb:nth-child(2n) { animation-delay: 0.3s; }
+        .fairy-bulb:nth-child(3n) { animation-delay: 0.6s; }
+
+        /* Activating classes triggered via JavaScript handlers */
+        .track-node-wrapper.active-sangeet .fairy-lights-container { opacity: 1; top: 4px; }
+        .track-node-wrapper.active-sangeet .fairy-bulb { background: #f5c242; box-shadow: 0 0 8px #f5c242; }
+        
+        .marigold-drop-burst {
+            position: absolute; pointer-events: none; width: 6px; height: 6px; background: var(--haldi-yellow); border-radius: 50%; z-index: 15;
+        }
+        
+        .mandap-frame-svg {
+            position: absolute; bottom: -20px; right: -20px; width: 80px; height: 80px; fill: none; stroke: var(--sand-gold); stroke-width: 1; opacity: 0.3; transition: all 0.5s ease;
+        }
+        .track-node-wrapper.active-wedding .mandap-frame-svg {
+            stroke: var(--sundowner-orange); opacity: 0.8; transform: scale(1.1) rotate(-5deg);
+        }
 
         /* --- COUNTDOWN BOX MATRIX --- */
         .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
@@ -304,7 +365,6 @@
         .radio-option { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-dark); cursor: pointer; font-weight: 500; }
         .radio-option input { width: auto; accent-color: var(--ocean-navy); }
         .submit-btn { width: 100%; background-color: var(--text-dark); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s; }
-        .submit-btn:hover { background-color: var(--ocean-navy); }
 
         footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--text-dark); opacity: 0.7; background-color: transparent; letter-spacing: 1px; font-weight: 500; }
 
@@ -312,6 +372,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-4px); } }
+        @keyframes lightDim { from { opacity: 0.4; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -412,14 +473,51 @@
 
         <section id="schedule">
             <h3 class="section-title">The Schedule</h3>
-            <div class="timeline">
-                <div class="timeline-date-header">Friday, 11th Dec</div>
-                <div class="timeline-item"><div class="time">05:00 PM</div><div class="event-title">Sangeet</div></div>
+            
+            <div class="beach-map-track">
                 
-                <div class="timeline-date-header">Saturday, 12th Dec</div>
-                <div class="timeline-item"><div class="time">11:00 AM</div><div class="event-title">Haldi</div></div>
-                <div class="timeline-item"><div class="time">04:30 PM</div><div class="event-title">Wedding Ceremony</div></div>
-                <div class="timeline-item"><div class="time">06:30 PM onwards</div><div class="event-title">Dinner Celebration</div></div>
+                <div class="track-node-wrapper" id="node-sangeet" onclick="toggleSangeetLights()">
+                    <div class="track-marker"></div>
+                    <div class="track-card">
+                        <div class="fairy-lights-container">
+                            <div class="fairy-bulb"></div><div class="fairy-bulb"></div><div class="fairy-bulb"></div><div class="fairy-bulb"></div><div class="fairy-bulb"></div>
+                        </div>
+                        <span class="event-date-lbl">Friday, 11th Dec</span>
+                        <p class="event-time-lbl">05:00 PM</p>
+                        <h4 class="event-title-lbl">Sangeet Night</h4>
+                        <p class="details-p">Music, dance, and a starry sky over the ocean wave breaks.</p>
+                        <span class="event-hint-lbl">✨ Tap card to light up the night</span>
+                    </div>
+                </div>
+
+                <div class="track-node-wrapper" id="node-haldi" onclick="triggerMarigoldBurst(event)">
+                    <div class="track-marker"></div>
+                    <div class="track-card">
+                        <span class="event-date-lbl">Saturday, 12th Dec</span>
+                        <p class="event-time-lbl">11:00 AM</p>
+                        <h4 class="event-title-lbl">Haldi Ceremony</h4>
+                        <p class="details-p">A bright sunburst gathering by the shore filled with love and turmeric wraps.</p>
+                        <span class="event-hint-lbl">🌼 Tap card to scatter flower petals</span>
+                    </div>
+                </div>
+
+                <div class="track-node-wrapper" id="node-wedding" onclick="toggleWeddingMandap()">
+                    <div class="track-marker"></div>
+                    <div class="track-card">
+                        <svg class="mandap-frame-svg" viewBox="0 0 100 100">
+                            <path d="M20,90 L20,30 L80,30 L80,90 M10,30 Q50,5 90,30 M30,30 Q50,15 70,30" stroke-linecap="round"/>
+                        </svg>
+                        <span class="event-date-lbl">Saturday, 12th Dec</span>
+                        <p class="event-time-lbl">04:30 PM</p>
+                        <h4 class="event-title-lbl">Wedding Ceremony</h4>
+                        <p class="details-p">Our sunset vows under the mandap shade as the tide rolls in.</p>
+                        
+                        <p class="event-time-lbl" style="margin-top: 12px; font-weight: 600;">06:30 PM onwards</p>
+                        <h5 class="event-title-lbl" style="font-size: 1.1rem;">Dinner Celebration</h5>
+                        <span class="event-hint-lbl">🌅 Tap card to illuminate the altar</span>
+                    </div>
+                </div>
+
             </div>
             
             <div class="wave-separator">
@@ -506,32 +604,24 @@
             ctxCover.clearRect(0, 0, canvasCover.width, canvasCover.height);
             swayTime += 0.012;
 
-            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE ---
             ctxCover.save();
             ctxCover.strokeStyle = 'rgba(94, 82, 85, 0.2)'; 
             ctxCover.lineWidth = 2.5;
-
             drawPalmBranchFrame(ctxCover, 0, 0, 130, 0.6 + Math.sin(swayTime)*0.04);
             drawPalmBranchFrame(ctxCover, -10, 20, 110, 0.9 + Math.cos(swayTime)*0.03);
-
             drawPalmBranchFrame(ctxCover, canvasCover.width, 0, 130, 2.5 + Math.sin(swayTime)*0.04);
             drawPalmBranchFrame(ctxCover, canvasCover.width + 10, 20, 110, 2.2 + Math.cos(swayTime)*0.03);
             ctxCover.restore();
 
-            // --- 2. DRAW FLOATING SUN FLARES ON COVER ---
             coverFlares.forEach(f => {
-                f.y -= f.speed;
-                f.phase += 0.015;
+                f.y -= f.speed; f.phase += 0.015;
                 if (f.y < -20) f.y = canvasCover.height + 20;
-
                 let opacity = (Math.sin(f.phase) + 1) / 2 * 0.35;
                 ctxCover.beginPath();
                 let gradient = ctxCover.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.size);
                 gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                ctxCover.fillStyle = gradient;
-                ctxCover.arc(f.x, f.y, f.size, 0, Math.PI * 2);
-                ctxCover.fill();
+                ctxCover.fillStyle = gradient; ctxCover.arc(f.x, f.y, f.size, 0, Math.PI * 2); ctxCover.fill();
             });
 
             coverAnimationId = requestAnimationFrame(renderCoverEngineLoop);
@@ -539,46 +629,31 @@
 
         function openInvitation() {
             if(coverAnimationId) cancelAnimationFrame(coverAnimationId);
-
             document.getElementById('main-content').classList.add('visible');
             document.getElementById('curtain-overlay').classList.add('opened');
-            
             resizeCanvas();
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-                initCoverCanvas();
-            });
-            
+            window.addEventListener('resize', () => { resizeCanvas(); initCoverCanvas(); });
             initBeachAssets();
             renderBeachEngineLoop();
-            
             setTimeout(initSandScratchCard, 350);
         }
 
         function resizeCanvas() {
             const containerRect = document.getElementById('main-content').getBoundingClientRect();
-            canvasBg.width = containerRect.width;
-            canvasBg.height = containerRect.height;
+            canvasBg.width = containerRect.width; canvasBg.height = containerRect.height;
         }
 
         function initBeachAssets() {
             for (let i = 0; i < 25; i++) {
                 sparkles.push({
-                    x: Math.random() * canvasBg.width,
-                    y: Math.random() * canvasBg.height,
-                    size: Math.random() * 14 + 6,
-                    speed: Math.random() * 0.5 + 0.2,
-                    phase: Math.random() * Math.PI
+                    x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
+                    size: Math.random() * 14 + 6, speed: Math.random() * 0.5 + 0.2, phase: Math.random() * Math.PI
                 });
             }
-
             for (let i = 0; i < 4; i++) {
                 birds.push({
-                    x: Math.random() * canvasBg.width,
-                    y: 120 + (Math.random() * 250),
-                    speed: Math.random() * 0.3 + 0.15,
-                    size: Math.random() * 6 + 10,
-                    wingPhase: Math.random() * Math.PI
+                    x: Math.random() * canvasBg.width, y: 120 + (Math.random() * 250),
+                    speed: Math.random() * 0.3 + 0.15, size: Math.random() * 6 + 10, wingPhase: Math.random() * Math.PI
                 });
             }
         }
@@ -586,75 +661,85 @@
         function renderBeachEngineLoop() {
             ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
 
-            // --- A. DRAW INNER SWAYING PALM LEAVES ---
             ctxBg.save();
-            ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.12)'; 
-            ctxBg.lineWidth = 2;
-            
+            ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.12)'; ctxBg.lineWidth = 2;
             drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.18, 110, 0.4 + Math.sin(swayTime)*0.05);
             drawPalmBranchFrame(ctxBg, 10, canvasBg.height * 0.52, 120, 0.2 + Math.cos(swayTime)*0.04);
-            
             drawPalmBranchFrame(ctxBg, canvasBg.width - 20, canvasBg.height * 0.32, 110, 2.8 + Math.sin(swayTime)*0.05);
             drawPalmBranchFrame(ctxBg, canvasBg.width - 10, canvasBg.height * 0.68, 120, 2.6 + Math.cos(swayTime)*0.04);
             ctxBg.restore();
 
-            // --- B. DRAW SOARING SEAGULL BIRDS ---
             birds.forEach(b => {
-                b.x += b.speed;
-                b.wingPhase += 0.06;
+                b.x += b.speed; b.wingPhase += 0.06;
                 if (b.x > canvasBg.width + 30) b.x = -30;
-
-                ctxBg.save();
-                ctxBg.strokeStyle = 'rgba(13, 34, 47, 0.2)';
-                ctxBg.lineWidth = 1.5;
-                ctxBg.beginPath();
-                
+                ctxBg.save(); ctxBg.strokeStyle = 'rgba(13, 34, 47, 0.2)'; ctxBg.lineWidth = 1.5; ctxBg.beginPath();
                 let wingY = Math.sin(b.wingPhase) * (b.size * 0.35);
                 ctxBg.moveTo(b.x - b.size, b.y + wingY);
                 ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.25, b.x, b.y);
                 ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.25, b.x + b.size, b.y + wingY);
-                ctxBg.stroke();
-                ctxBg.restore();
+                ctxBg.stroke(); ctxBg.restore();
             });
 
-            // --- C. DRAW WARM SUNSET FLARES ---
             sparkles.forEach(p => {
-                p.y -= p.speed;
-                p.phase += 0.015;
+                p.y -= p.speed; p.phase += 0.015;
                 if (p.y < -20) p.y = canvasBg.height + 20;
-
                 let opacity = (Math.sin(p.phase) + 1) / 2 * 0.4;
                 ctxBg.beginPath();
                 let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
                 gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                ctxBg.fillStyle = gradient;
-                ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctxBg.fill();
+                ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
             });
 
             requestAnimationFrame(renderBeachEngineLoop);
         }
 
         function drawPalmBranchFrame(context, x, y, length, angle) {
-            context.save();
-            context.translate(x, y);
-            context.rotate(angle);
-            
-            context.beginPath();
-            context.moveTo(0, 0);
-            context.quadraticCurveTo(length*0.5, 15, length, 0);
-            context.stroke();
-            
+            context.save(); context.translate(x, y); context.rotate(angle); context.beginPath(); context.moveTo(0, 0);
+            context.quadraticCurveTo(length*0.5, 15, length, 0); context.stroke();
             for (let i = 10; i < length; i += 6) {
-                let r = i / length;
-                let leafH = 30 * (1 - r*0.4);
-                context.beginPath();
-                context.moveTo(i, 5 * r);
-                context.quadraticCurveTo(i - 5, leafH, i - 12, leafH * 1.1);
-                context.stroke();
+                let r = i / length; let leafH = 30 * (1 - r*0.4); context.beginPath(); context.moveTo(i, 5 * r);
+                context.quadraticCurveTo(i - 5, leafH, i - 12, leafH * 1.1); context.stroke();
             }
             context.restore();
+        }
+
+        // --- SCHEDULE NODE INTERACTIVE SCRIPTS (OPTION 1 MECHANICS) ---
+        function toggleSangeetLights() {
+            document.getElementById('node-sangeet').classList.toggle('active-sangeet');
+        }
+
+        function toggleWeddingMandap() {
+            document.getElementById('node-wedding').classList.toggle('active-wedding');
+        }
+
+        function triggerMarigoldBurst(event) {
+            const card = event.currentTarget.querySelector('.track-card');
+            const rect = card.getBoundingClientRect();
+            
+            for (let i = 0; i < 12; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'marigold-drop-burst';
+                
+                // Spawn dots at localized touch coordinate points inside target card
+                petal.style.left = (event.clientX ? event.clientX - rect.left : rect.width / 2) + 'px';
+                petal.style.top = (event.clientY ? event.clientY - rect.top : rect.height / 2) + 'px';
+                
+                card.appendChild(petal);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 60 + 40;
+                const destinationX = Math.cos(angle) * velocity;
+                const destinationY = Math.sin(angle) * velocity + 30; // added gravity vector gravity loop
+                
+                petal.animate([
+                    { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+                    { transform: `translate(${destinationX}px, ${destinationY}px) scale(0.2)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 600 + 400,
+                    easing: 'cubic-bezier(0.1, 0.8, 0.3, 1)'
+                }).onfinish = () => petal.remove();
+            }
         }
 
         // --- Interactive Sand Drawing Canvas Layer ---
@@ -662,15 +747,11 @@
             const canvas = document.getElementById('scratch-canvas');
             const ctx = canvas.getContext('2d');
             let isDrawing = false;
-            
-            ctx.fillStyle = '#dfcaaf'; 
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
+            ctx.fillStyle = '#dfcaaf'; ctx.fillRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < 800; i++) {
                 ctx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80';
                 ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
             }
-            
             ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px';
             ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
 
@@ -683,7 +764,6 @@
                 ctx.globalCompositeOperation = 'destination-out';
                 ctx.beginPath(); ctx.arc(x, y, 26, 0, Math.PI * 2); ctx.fill();
             }
-            
             canvas.addEventListener('mousedown', () => isDrawing = true);
             canvas.addEventListener('mousemove', scratch);
             window.addEventListener('mouseup', () => isDrawing = false);
