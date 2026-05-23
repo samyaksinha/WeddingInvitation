@@ -455,7 +455,7 @@
 <body id="invitation-body">
 
     <audio id="audio-playback-node" loop>
-        <source src="https://raw.githubusercontent.com/samyaksinha/WeddingInvitation/main/audio1.mp3" type="audio/mp3">
+        <source src="https://raw.githubusercontent.com/samyaksinha/WeddingInvitation/main/audio.mp3" type="audio/mp3">
     </audio>
 
     <div id="curtain-overlay">
@@ -795,6 +795,7 @@
             
             // DYNAMIC WEB AUDIO API HOOK: Triggers the pre-loaded background score instantly upon entering 
             if (audioPlayer) {
+                audioPlayer.volume = 0.3; // 👈 0.0 (silent) to 1.0 (full) — adjust to taste
                 audioPlayer.play().catch(err => console.log("Audio autoplay requires user interaction handshake: ", err));
             }
             
