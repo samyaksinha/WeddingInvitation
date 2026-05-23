@@ -10,11 +10,14 @@
     
     <style>
         :root {
+            /* Warm Beach Sunset Palette */
             --bg-coastal: #fdfbf7;
             --ocean-navy: #1b3644;
             --seaglass-teal: #5f9ea0;
             --sand-gold: #d4be9f;
             --sand-light: #f4eee3;
+            --sunset-glow: #fdf0e6;
+            --sunset-pink: #f7e1d7;
             --text-dark: #2c3e46;
             --text-muted: #708090;
             --font-serif: 'Cormorant Garamond', serif;
@@ -40,20 +43,31 @@
             line-height: 1.6;
         }
 
-        /* --- LANDING CURTAIN OVERLAY (Fixed Scale & Center) --- */
+        /* --- LANDING CURTAIN OVERLAY (Beach Sunset Theme) --- */
         #curtain-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, #ffffff, var(--bg-coastal));
+            /* Gorgeous soft sunset gradient background */
+            background: linear-gradient(135deg, #ffffff 0%, var(--sunset-glow) 50%, var(--sunset-pink) 100%);
             z-index: 1000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+        }
+
+        #curtain-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            /* Subtle coconut palm silhouette background vector pattern */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.04'%3E%3Cpath d='M10,100 Q30,60 70,70 M70,70 Q50,40 20,50 M70,70 Q80,40 60,30' fill='none' stroke='%231b3644' stroke-width='2'/%3E%3C/svg%3E");
+            background-size: 200px;
+            pointer-events: none;
         }
 
         #curtain-overlay.opened {
@@ -68,6 +82,8 @@
             width: 100%;
             max-width: 400px;
             animation: fadeIn 1.2s ease;
+            position: relative;
+            z-index: 2;
         }
 
         /* Fixed Portrait Image Frame Container */
@@ -83,6 +99,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .couple-img {
@@ -142,6 +159,23 @@
             box-shadow: 0 5px 15px rgba(95, 158, 160, 0.3);
         }
 
+        /* --- MOVING WAVE WATER DECOR AT CURTAIN BOTTOM --- */
+        .curtain-waves {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            fill: #ffffff;
+        }
+        
+        .wave-layer {
+            animation: waveMove 4s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+        }
+        .wave-layer:nth-child(2) {
+            fill: rgba(255, 255, 255, 0.4);
+            animation: waveMove 6s cubic-bezier(0.36, 0.45, 0.63, 0.53) -2s infinite;
+        }
+
         /* --- MAIN MOBILE WRAPPER --- */
         #main-content {
             opacity: 0;
@@ -164,6 +198,20 @@
             text-align: center;
             border-bottom: 1px solid var(--sand-light);
             background-color: #ffffff;
+            position: relative;
+        }
+
+        /* Beautiful Section Breaks using stylized ocean vectors */
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,90 350,90 500,0 C650,90 850,90 1000,0 C1150,90 1350,90 1500,0 L1500,120 L0,120 Z' fill='%23fdfbf7'/%3E%3C/svg%3E");
+            background-size: 100% 12px;
+            z-index: 5;
         }
 
         .section-title {
@@ -175,17 +223,6 @@
             color: var(--ocean-navy);
             position: relative;
             display: inline-block;
-        }
-
-        .section-title::after {
-            content: '〜';
-            position: absolute;
-            bottom: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            font-size: 1.2rem;
-            color: var(--seaglass-teal);
         }
 
         /* --- HERO & SAND SCRATCH SECTION --- */
@@ -547,9 +584,16 @@
             border-top: 1px solid var(--sand-light);
         }
 
+        /* Keyframe Animations */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes waveMove {
+            0% { transform: translateX(0) translateZ(0) scaleY(1); }
+            50% { transform: translateX(-25%) translateZ(0) scaleY(0.8); }
+            100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
         }
     </style>
 </head>
@@ -566,6 +610,16 @@
             <p class="location-tag">Goa, India</p>
             <button class="enter-btn" onclick="openInvitation()">Open Invitation</button>
         </div>
+
+        <svg class="curtain-waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" />
+            </defs>
+            <g class="wave-parallax">
+                <use xlink:href="#gentle-wave" x="48" y="3" class="wave-layer" />
+                <use xlink:href="#gentle-wave" x="48" y="5" class="wave-layer" />
+            </g>
+        </svg>
     </div>
 
     <div id="main-content">
