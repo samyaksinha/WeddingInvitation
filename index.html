@@ -23,8 +23,8 @@
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
             --haldi-yellow: #f5c242;
-            --pastel-pink: #fbe3e3; /* Updated Pastel Pink for Haldi */
-            --sundowner-sky: #ffcd94; /* Warm Sundowner sky for Wedding */
+            --pastel-pink: #fbe3e3; 
+            --sundowner-sky: #ffcd94; 
             --wedding-green: #2e5a44;
             
             /* Dynamic State Overrides */
@@ -120,6 +120,8 @@
             border-radius: 30px;
             transition: all 0.4s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 100;
         }
         .enter-btn:hover { background-color: var(--text-dark); color: white; }
 
@@ -141,7 +143,7 @@
             pointer-events: none;
         }
 
-        /* --- OVERHEAD FIXED CANOPIES (Conditional mode layers) --- */
+        /* --- OVERHEAD FIXED CANOPIES --- */
         #fullscreen-fixed-canopy {
             position: fixed;
             top: -20px; left: 50%;
@@ -182,7 +184,7 @@
         #main-content.haldi-active {
             background: var(--pastel-pink) !important;
             --dynamic-text: #231f20;
-            --dynamic-title: var(--haldi-yellow);
+            --dynamic-title: #d49a3b;
         }
         #main-content.wedding-active {
             background: linear-gradient(180deg, var(--sand-warm) 0%, var(--sundowner-sky) 50%, var(--sundowner-orange) 100%) !important;
@@ -196,7 +198,7 @@
         }
         #main-content.haldi-active .track-card {
              background: rgba(255, 255, 255, 0.6) !important;
-             border-color: var(--haldi-yellow) !important;
+             border-color: var(--sundowner-orange) !important;
         }
 
         section {
@@ -249,7 +251,7 @@
         .venue-display-frame {
             width: 100%;
             max-width: 320px;
-            height: 380px; /* Preserve full vertical view */
+            height: 380px; 
             margin: 0 auto 30px auto;
             border-radius: 16px;
             overflow: hidden;
@@ -261,7 +263,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: bottom center; /* anchor context naturally */
+            object-position: bottom center; 
         }
 
         /* --- SLIMMED MICRO MAP WIDGET --- */
@@ -333,7 +335,7 @@
 
         .track-card .event-date-lbl { font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; color: var(--sunset-rose); transition: color 0.5s; }
         #main-content.sangeet-active .track-card .event-date-lbl, #main-content.wedding-active .track-card .event-date-lbl { color: var(--gold-glow); }
-        #main-content.haldi-active .track-card .event-date-lbl { color: var(--haldi-yellow); }
+        #main-content.haldi-active .track-card .event-date-lbl { color: #d49a3b; }
 
         .track-card .event-time-lbl { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-bottom: 4px; transition: color 0.5s; }
         .track-card .event-title-lbl { font-family: var(--font-serif); font-size: 1.5rem; color: var(--dynamic-text); line-height: 1.2; margin-bottom: 6px; transition: color 0.5s; }
@@ -347,9 +349,9 @@
         .mandap-frame-svg {
             position: absolute; bottom: -15px; right: -15px; width: 75px; height: 75px; fill: none; stroke: var(--sand-gold); stroke-width: 1; opacity: 0.4; transition: all 0.5s ease;
         }
-        .track-node-wrapper.selected .mandap-frame-svg { stroke: #ffffff; opacity: 0.9; transform: scale(1.15) rotate(-3deg); }
+        .track-node-wrapper.selected .mandap-frame-svg { stroke: var(--ocean-navy); opacity: 0.9; transform: scale(1.15) rotate(-3deg); }
         body.wedding-mode .mandap-frame-svg {
-            stroke: #ffffff;
+            stroke: var(--ocean-navy);
             opacity: 0.9;
             filter: drop-shadow(0 0 10px #fca34d);
             animation: mandapPulse 3s infinite alternate;
@@ -395,6 +397,9 @@
         #main-content.wedding-active .form-group label, #main-content.wedding-active .radio-option, #main-content.wedding-active footer p {
             color: #ffffff !important;
         }
+        #main-content.wedding-active .form-group label, #main-content.wedding-active .radio-option, #main-content.wedding-active footer p, #main-content.wedding-active .section-title {
+            color: var(--ocean-navy) !important;
+        }
 
         footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--dynamic-text); opacity: 0.7; background-color: transparent; letter-spacing: 1px; font-weight: 500; transition: color 0.5s; }
 
@@ -430,7 +435,7 @@
     </div>
 
     <svg id="fullscreen-fixed-canopy" viewBox="0 0 480 120" preserveAspectRatio="none">
-        <path d="M-10,15 Q120,70 240,15 Q360,70 490,15" fill="none" stroke="rgba(245,194,66,0.4)" stroke-width="2"/>
+        <path d="M-10,15 Q120,70 240,15 Q360,70 490,15" fill="none" stroke="rgba(245,194,66,0.5)" stroke-width="2"/>
         <circle cx="60" cy="33" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
         <circle cx="120" cy="45" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
         <circle cx="180" cy="40" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
@@ -535,7 +540,7 @@
                         <span class="event-date-lbl">Saturday, 12th Dec</span>
                         <p class="event-time-lbl">11:00 AM</p>
                         <h4 class="event-title-lbl">Haldi Ceremony</h4>
-                        <p class="details-p">A bright saffron gathering filled with love and intensified flower showers.</p>
+                        <p class="details-p">A beautiful gathering filled with love and an intensive flower shower.</p>
                         <span class="event-hint-lbl">🌼 Tap for Fullscreen Pastel Pink Shower</span>
                     </div>
                 </div>
@@ -613,11 +618,11 @@
         let sparkles = [];
         let birds = [];
         let coverFlares = [];
-        let dynamicParticles = []; // For Haldi/Wedding intense fullscreen effects
+        let dynamicParticles = []; 
         
         let swayTime = 0;
         let coverAnimationId = null;
-        let activeAtmosphere = 'default'; // modes: default, sangeet, haldi, wedding
+        let activeAtmosphere = 'default'; 
 
         window.addEventListener('DOMContentLoaded', () => {
             initCoverCanvas();
@@ -701,12 +706,12 @@
         function renderBeachEngineLoop() {
             ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
 
-            // --- A. DRAW IMMERSIVE PALM OVERLAYS (Conditional Tints) ---
+            // --- A. DRAW IMMERSIVE PALM OVERLAYS ---
             ctxBg.save();
             if (activeAtmosphere === 'sangeet') {
                 ctxBg.strokeStyle = 'rgba(233, 184, 137, 0.08)'; 
             } else if (activeAtmosphere === 'wedding' || activeAtmosphere === 'haldi') {
-                ctxBg.strokeStyle = 'rgba(35, 31, 32, 0.08)'; // Darken branches for contrast
+                ctxBg.strokeStyle = 'rgba(35, 31, 32, 0.08)'; 
             } else {
                 ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.1)'; 
             }
@@ -717,7 +722,7 @@
             drawPalmBranchFrame(ctxBg, canvasBg.width - 10, canvasBg.height * 0.75, 120, 2.6 + Math.cos(swayTime)*0.04);
             ctxBg.restore();
 
-            // --- B. DRAW SOARING BIRDS (Hide in Sangeet night mode) ---
+            // --- B. DRAW SOARING BIRDS ---
             if (activeAtmosphere !== 'sangeet') {
                 birds.forEach(b => {
                     b.x += b.speed; b.wingPhase += 0.05;
@@ -733,7 +738,6 @@
 
             // --- C. DRAW ATMOSPHERE OVERRIDE SYSTEM ---
             if (activeAtmosphere === 'default') {
-                // Baseline soft sparkles
                 sparkles.forEach(p => {
                     p.y -= p.speed; p.phase += 0.01;
                     if (p.y < -20) p.y = canvasBg.height + 20;
@@ -745,7 +749,6 @@
                     ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
                 });
             } else if (activeAtmosphere === 'sangeet') {
-                // Blue Sangeet Embers
                 sparkles.forEach(p => {
                     p.y -= p.speed * 0.5; p.phase += 0.02;
                     if (p.y < -20) p.y = canvasBg.height + 20;
@@ -757,14 +760,12 @@
                     ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
                 });
             } else {
-                // Active dynamic ecosystem execution (Haldi Shower / Wedding Fireworks)
                 dynamicParticles.forEach(p => {
                     p.y += p.speedY;
                     p.x += p.speedX;
                     p.angle += p.rotSpeed;
 
                     if (activeAtmosphere === 'haldi') {
-                        // Cascade larger, distinct marigold blossom geometry silhouettesstorm cascade system grid array
                         if (p.y > canvasBg.height + 30) {
                             p.y = -30; p.x = Math.random() * canvasBg.width;
                         }
@@ -773,7 +774,6 @@
                         ctxBg.rotate(p.angle);
                         ctxBg.fillStyle = p.color;
                         ctxBg.beginPath();
-                        // Draw a 5-petal marigold bloom shape structure loop
                         for (let i = 0; i < 5; i++) { 
                             ctxBg.rotate(Math.PI / 2.5);
                             ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8);
@@ -782,14 +782,13 @@
                         ctxBg.fill();
                         ctxBg.restore();
                     } else if (activeAtmosphere === 'wedding') {
-                        // Firework Particle Physics definintions defines logic defines defines definintions
                         p.y += p.speedY;
-                        p.speedY += p.gravity; // Apply gravity defining logic defined define defined parameters definitions
-                        p.speedX *= p.friction; // Apply air friction defining defined defininitions
-                        p.opacity -= p.fadeSpeed; // define fade definintions matrices metrics
+                        p.speedY += p.gravity; 
+                        p.speedX *= p.friction; 
+                        p.opacity -= p.fadeSpeed; 
 
                         if (p.opacity <= 0) {
-                            p.opacity = 0; // mark dead targets defines defined definintions
+                            p.opacity = 0; 
                         } else {
                             ctxBg.globalAlpha = p.opacity;
                             ctxBg.beginPath();
@@ -800,10 +799,9 @@
                     }
                 });
                 
-                // Cleanup dead wedding firework particles matrix definition lists defined matrices defines defined define definitions defined definition matrices defined matrices defines defines defines lists defines defines definitions matrix
                 if(activeAtmosphere === 'wedding') {
                     dynamicParticles = dynamicParticles.filter(p => p.opacity > 0);
-                    ctxBg.globalAlpha = 1.0; // Reset globalAlpha defininitions definition defined definintions metrics matrix definition defines define definition definitions definitions list definitions definitions definitions list
+                    ctxBg.globalAlpha = 1.0; 
                 }
             }
 
@@ -825,14 +823,12 @@
             const containerFrame = document.getElementById('main-content');
             const bodyNode = document.getElementById('invitation-body');
             
-            // Clean previously selected sibling item tags loop frames
             document.querySelectorAll('.track-node-wrapper').forEach(el => {
                 if(el.id !== `node-${mode}`) el.classList.remove('selected');
             });
 
             const targetingNode = document.getElementById(`node-${mode}`);
             
-            // Reset clauses
             if (activeAtmosphere === mode) {
                 activeAtmosphere = 'default';
                 containerFrame.className = 'visible';
@@ -844,7 +840,7 @@
 
             activeAtmosphere = mode;
             targetingNode.classList.add('selected');
-            dynamicParticles = []; // flush state matrix parameters defined matrix definitions defined matrices define logic matrices define logic matrices defines defined define matrix defined definitions metrics definintions defined matrices definition defines defines logic defines define matrices defined matrices defining defined matrix definition
+            dynamicParticles = []; 
 
             if (mode === 'sangeet') {
                 containerFrame.className = 'visible sangeet-active';
@@ -852,20 +848,20 @@
             } else if (mode === 'haldi') {
                 containerFrame.className = 'visible haldi-active';
                 bodyNode.className = 'haldi-mode';
-                // Define a voluminous shower cascade matrix define logic defined matrices definition defines defined definitions define definition definitions matrix define definition definitions matrix defined metrics defined metrics definintions defined logic definintions definintions matrices defining matrices defined metrics definintions matrices defines define definitions definition lists definitions list definintions lists
-                for(let i=0; i<35; i++) {
+                // Doubled petal count and increased base flower dimensions for an intensive shower effect
+                for(let i=0; i<70; i++) {
                     dynamicParticles.push({
                         x: Math.random() * canvasBg.width,
-                        y: Math.random() * canvasBg.height - canvasBg.height, // spawn high define logics targets metrics defined matrix defines logics matrix defining logics defines define matrices definition defined definitions metrics matrix define definition
-                        speedY: Math.random() * 1.5 + 1.0, speedX: Math.sin(Math.random() * Math.PI) * 0.5,
-                        size: Math.random() * 8 + 6, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.04 - 0.02,
-                        color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.8)' : 'rgba(243, 138, 26, 0.7)'
+                        y: Math.random() * canvasBg.height - canvasBg.height, 
+                        speedY: Math.random() * 2.0 + 1.5, speedX: Math.sin(Math.random() * Math.PI) * 0.6,
+                        size: Math.random() * 14 + 10, // Significantly larger marigold sizing
+                        angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.05 - 0.025,
+                        color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)'
                     });
                 }
             } else if (mode === 'wedding') {
                 containerFrame.className = 'visible wedding-active';
                 bodyNode.className = 'wedding-mode';
-                // Trigger a firework sequence definition defining logics defines define logic definintions defined definitions defines defines defined define matrix
                 launchWeddingFireworks();
             }
         }
@@ -874,26 +870,25 @@
             if (activeAtmosphere !== 'wedding') return;
 
             const x = Math.random() * canvasBg.width;
-            const y = canvasBg.height * 0.3; // mid-air burst definintions defines logic defines defines defines definintions metrics
-            const particleCount = 60;
+            const y = canvasBg.height * 0.3; 
+            const particleCount = 65;
             const colors = ['#fca34d', '#fdb366', '#ffffff', '#e9b889'];
             const burstColor = colors[Math.floor(Math.random()*colors.length)];
 
             for (let i = 0; i < particleCount; i++) {
                 const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 6 + 2;
+                const speed = Math.random() * 7 + 2;
                 dynamicParticles.push({
                     x: x, y: y,
                     speedX: Math.cos(angle) * speed, speedY: Math.sin(angle) * speed,
-                    gravity: 0.1, friction: 0.96,
-                    size: Math.random() * 2 + 1,
-                    opacity: 1, fadeSpeed: Math.random() * 0.015 + 0.005,
+                    gravity: 0.09, friction: 0.95,
+                    size: Math.random() * 2.5 + 1,
+                    opacity: 1, fadeSpeed: Math.random() * 0.012 + 0.006,
                     color: burstColor
                 });
             }
             
-            // Queue next burst define metrics defined matrices defines define matrix defines define matrix defines define logic defines logic definintions defined metrics defined matrix definition matrices defined matrix definition definitions metrics matrix define logic matrices defines defined matrix
-            setTimeout(launchWeddingFireworks, Math.random() * 1500 + 1000);
+            setTimeout(launchWeddingFireworks, Math.random() * 1200 + 800);
         }
 
         // --- Interactive Sand Drawing Canvas Layer ---
@@ -936,4 +931,7 @@
             document.getElementById('secs').innerText = Math.floor((diff % (1000*60)) / 1000).toString().padStart(2,'0');
         }, 1000);
 
-        function handleRSVP(e) { e.preventDefault(); alert("RSVP Recorded! See you under the Goa sunset
+        function handleRSVP(e) { e.preventDefault(); alert("RSVP Recorded! See you under the Goa sunset!"); }
+    </script>
+</body>
+</html>
