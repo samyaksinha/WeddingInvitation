@@ -40,7 +40,7 @@
             line-height: 1.6;
         }
 
-        /* --- LANDING CURTAIN OVERLAY (Fixed Display Fix) --- */
+        /* --- LANDING CURTAIN OVERLAY (Fixed Scale & Center) --- */
         #curtain-overlay {
             position: fixed;
             top: 0;
@@ -70,60 +70,61 @@
             animation: fadeIn 1.2s ease;
         }
 
-        /* Subtle Portrait Illustration Container */
+        /* Fixed Portrait Image Frame Container */
         .illustration-frame {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 20px auto;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 30px auto;
             border-radius: 50%;
             background: #ffffff;
-            padding: 8px;
-            box-shadow: 0 10px 25px rgba(212, 190, 159, 0.3);
-            border: 1px solid var(--sand-gold);
+            overflow: hidden; /* Ensures the image stays cropped neatly inside the circle */
+            box-shadow: 0 12px 28px rgba(212, 190, 159, 0.45);
+            border: 2px solid var(--sand-gold);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .couple-svg {
+        .couple-img {
             width: 100%;
             height: 100%;
-            opacity: 0.85;
+            object-fit: cover; /* Perfectly scales and crops your image into the circle */
         }
 
         .curtain-content p.intro-tag {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--seaglass-teal);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .curtain-content h1 {
             font-family: var(--font-serif);
-            font-size: 2.4rem;
+            font-size: 2.6rem;
             font-weight: 300;
             letter-spacing: 1px;
             color: var(--ocean-navy);
-            line-height: 1.2;
-            margin-bottom: 5px;
+            line-height: 1.3;
+            margin-bottom: 8px;
         }
 
         .curtain-content p.location-tag {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--sand-gold);
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             font-weight: 500;
         }
 
         .enter-btn {
             background: none;
             border: 1px solid var(--seaglass-teal);
-            padding: 14px 40px;
+            padding: 14px 45px;
             font-family: var(--font-sans);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--ocean-navy);
@@ -144,7 +145,7 @@
         /* --- MAIN MOBILE WRAPPER --- */
         #main-content {
             opacity: 0;
-            display: none; /* Keep layout hidden completely to save mobile browser paint cycles */
+            display: none; 
             max-width: 480px;
             margin: 0 auto;
             background: #ffffff;
@@ -557,183 +558,242 @@
     <div id="curtain-overlay">
         <div class="curtain-content">
             <div class="illustration-frame">
-                <svg class="couple-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <g fill="none" stroke="#6b5b47" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M 65,65 C 60,40 85,35 85,55 C 85,65 75,70 70,85 C 68,90 62,110 60,130" />
-                        <path d="M 68,78 C 55,82 48,95 48,115 C 48,135 52,150 55,160" />
-                        <path d="M 72,42 C 58,45 52,60 52,85 C 52,110 56,125 56,135" />
-                        <path d="M 78,44 C 88,44 94,52 92,62 C 90,72 82,85 82,95" />
-                        <circle cx="68" cy="56" r="6" fill="#f4eee3" stroke="#4a3f31" stroke-width="1" />
-                        <circle cx="80" cy="57" r="6" fill="#f4eee3" stroke="#4a3f31" stroke-width="1" />
-                        <line x1="74" y1="56.5" x2="74" y2="56.5" />
-                        <path d="M 54,118 Q 60,114 66,120" stroke-width="0.8" stroke="#a3927e" />
-                        <path d="M 56,132 Q 62,130 64,136" stroke-width="0.8" stroke="#a3927e" />
+                <img src="couple.jpg" alt="Samyak &amp; Sakshi" class="couple-img">
+            </div>
 
-                        <path d="M 124,42 C 112,42 108,52 110,65 C 112,74 120,80 126,80 C 134,80 138,70 136,58 C 134,48 128,42 124,42 Z" />
-                        <rect x="112" y="52" width="10" height="8" rx="2" stroke="#4a3f31" stroke-width="1"/>
-                        <rect x="126" y="52" width="10" height="8" rx="2" stroke="#4a3f31" stroke-width="1"/>
-                        <line x1="122" y1="56" x2="126" y2="56" />
-                        <path d="M 112,68 Q 116,76 124,76 Q 132,76 134,67" stroke="#bdae99" stroke-dash            background-color: #f5f2eb;
-            color: var(--text-dark);
-            overflow-x: hidden;
-            line-height: 1.6;
+            <p class="intro-tag">A sandy celebration awaits</p>
+            <h1>Samyak &amp; Sakshi</h1>
+            <p class="location-tag">Goa, India</p>
+            <button class="enter-btn" onclick="openInvitation()">Open Invitation</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <section class="hero">
+            <h2>Samyak<span class="ampersand">&amp;</span>Sakshi</h2>
+            <p class="sub-banner">Are getting married</p>
+            
+            <div class="scratch-container">
+                <div class="scratch-reveal-text">
+                    <span class="date">DECEMBER 12, 2026</span>
+                    <span class="day">Saturday</span>
+                </div>
+                <canvas id="scratch-canvas" width="280" height="150"></canvas>
+            </div>
+            <p class="scratch-instruction">Brush the sand away to reveal our date</p>
+        </section>
+
+        <section>
+            <h3 class="section-title">Counting Down</h3>
+            <div class="countdown-container">
+                <div class="countdown-box"><span class="countdown-val" id="days">00</span><span class="countdown-lbl">Days</span></div>
+                <div class="countdown-box"><span class="countdown-val" id="hours">00</span><span class="countdown-lbl">Hrs</span></div>
+                <div class="countdown-box"><span class="countdown-val" id="mins">00</span><span class="countdown-lbl">Mins</span></div>
+                <div class="countdown-box"><span class="countdown-val" id="secs">00</span><span class="countdown-lbl">Secs</span></div>
+            </div>
+        </section>
+
+        <section id="venue">
+            <h3 class="section-title">The Venue</h3>
+            <p class="venue-title">Dallas Beach Resorts</p>
+            <p class="details-p" style="font-weight: 500; margin-top: 8px; color: var(--seaglass-teal);">Ashvem Beach</p>
+            <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
+            <p class="details-p">Near Ajoba Temple, Mandrem</p>
+            <p class="details-p">North Goa, Goa — 403512</p>
+        </section>
+
+        <section id="schedule">
+            <h3 class="section-title">The Schedule</h3>
+            <div class="timeline">
+                
+                <div class="timeline-date-header">Friday, 11th December</div>
+                <div class="timeline-item">
+                    <div class="time">05:00 PM</div>
+                    <div class="event-title">Sangeet</div>
+                </div>
+
+                <div class="timeline-date-header">Saturday, 12th December</div>
+                <div class="timeline-item">
+                    <div class="time">11:00 AM</div>
+                    <div class="event-title">Haldi</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">04:30 PM</div>
+                    <div class="event-title">Wedding Ceremony</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">06:30 PM onwards</div>
+                    <div class="event-title">Dinner Celebration</div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="dress-code">
+            <h3 class="section-title">Dress Code</h3>
+            <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
+            
+            <div class="dress-code-flex">
+                <div class="dress-card">
+                    <div class="dress-event">Haldi Ceremony</div>
+                    <div class="dress-badge badge-yellow">Shades of Yellow</div>
+                </div>
+
+                <div class="dress-card">
+                    <div class="dress-event">Wedding Ceremony</div>
+                    <div class="dress-badge badge-green">Something Green</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rsvp">
+            <h3 class="section-title">RSVP</h3>
+            <p class="details-p">Kindly respond by November 1, 2026</p>
+            
+            <form class="rsvp-form" id="wedding-rsvp-form" onsubmit="handleRSVP(event)">
+                <div class="form-group">
+                    <label for="guest-name">Your Full Name</label>
+                    <input type="text" id="guest-name" required placeholder="e.g., John Doe">
+                </div>
+                
+                <div class="form-group">
+                    <label>Will you be attending?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="attendance" value="yes" checked> Joyfully Accept
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="attendance" value="no"> Regretfully Decline
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests-count">Number of Guests</label>
+                    <select id="guests-count">
+                        <option value="1">1 Person</option>
+                        <option value="2">2 People</option>
+                        <option value="3">3 People</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Response</button>
+            </form>
+        </section>
+
+        <footer>
+            <p>Thank you for being a part of our journey.</p>
+            <p style="margin-top: 12px; font-size: 0.65rem; color: var(--text-muted); opacity: 0.8;">S&amp;S • 2026 • GOA</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- 1. Curtain Management Operation ---
+        function openInvitation() {
+            const mainContent = document.getElementById('main-content');
+            mainContent.classList.add('visible');
+            document.getElementById('curtain-overlay').classList.add('opened');
+            setTimeout(initSandScratchCard, 350);
         }
 
-        /* --- LANDING CURTAIN OVERLAY --- */
-        #curtain-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, #ffffff, var(--bg-coastal));
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-            overflow-y: auto;
-            padding: 20px 0;
+        // --- 2. HTML5 Canvas Sand Layer Simulation Engine ---
+        function initSandScratchCard() {
+            const canvas = document.getElementById('scratch-canvas');
+            if(!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+
+            ctx.fillStyle = '#e3d2ba'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < 700; i++) {
+                ctx.fillStyle = Math.random() > 0.5 ? '#f4eee3' : '#c9b79c';
+                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
+            }
+
+            ctx.font = '500 10px Montserrat';
+            ctx.fillStyle = '#5c4f3c';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.letterSpacing = '3px';
+            ctx.fillText('BRUSH AWAY THE SAND', canvas.width / 2, canvas.height / 2);
+
+            function getCoords(e) {
+                const rect = canvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return {
+                    x: clientX - rect.left,
+                    y: clientY - rect.top
+                };
+            }
+
+            function scratchStart(e) {
+                isDrawing = true;
+                scratchMove(e);
+            }
+
+            function scratchMove(e) {
+                if (!isDrawing) return;
+                e.preventDefault(); 
+                const coords = getCoords(e);
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(coords.x, coords.y, 24, 0, Math.PI * 2); 
+                ctx.fill();
+            }
+
+            function scratchEnd() { isDrawing = false; }
+
+            canvas.addEventListener('mousedown', scratchStart);
+            canvas.addEventListener('mousemove', scratchMove);
+            window.addEventListener('mouseup', scratchEnd);
+
+            canvas.addEventListener('touchstart', scratchStart, { passive: false });
+            canvas.addEventListener('touchmove', scratchMove, { passive: false });
+            window.addEventListener('touchend', scratchEnd);
         }
 
-        #curtain-overlay.opened {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
+        // --- 3. Persistent Realtime Clock Engine ---
+        const targetWeddingDate = new Date('December 12, 2026 16:30:00').getTime();
 
-        .curtain-content {
-            text-align: center;
-            padding: 20px;
-            max-width: 400px;
-            animation: fadeIn 1.5s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        const clockInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetWeddingDate - now;
 
-        /* Subtle Portrait Illustration Container */
-        .illustration-frame {
-            width: 210px;
-            height: 210px;
-            margin-bottom: 25px;
-            border-radius: 50%;
-            background: #ffffff;
-            padding: 8px;
-            box-shadow: 0 10px 25px rgba(212, 190, 159, 0.3);
-            border: 1px solid var(--sand-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        .couple-svg {
-            width: 100%;
-            height: 100%;
-            opacity: 0.85;
-        }
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('mins').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('secs').innerText = String(seconds).padStart(2, '0');
 
-        .curtain-content p.intro-tag {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--seaglass-teal);
-            margin-bottom: 5px;
-        }
+            if (distance < 0) {
+                clearInterval(clockInterval);
+                document.getElementById('days').innerText = "00";
+                document.getElementById('hours').innerText = "00";
+                document.getElementById('mins').innerText = "00";
+                document.getElementById('secs').innerText = "00";
+            }
+        }, 1000);
 
-        .curtain-content h1 {
-            font-family: var(--font-serif);
-            font-size: 2.6rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            color: var(--ocean-navy);
-            line-height: 1.2;
-            margin-bottom: 5px;
+        // --- 4. Form Submission Mock Processing Unit ---
+        function handleRSVP(event) {
+            event.preventDefault();
+            const name = document.getElementById('guest-name').value;
+            const status = document.querySelector('input[name="attendance"]:checked').value;
+            
+            if(status === 'yes') {
+                alert(`Thank you, ${name}! Your confirmation details have been recorded successfully.`);
+            } else {
+                alert(`Thank you for informing us, ${name}. We appreciate your response and will miss you!`);
+            }
         }
-
-        .curtain-content p.location-tag {
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--sand-gold);
-            margin-bottom: 35px;
-            font-weight: 500;
-        }
-
-        .enter-btn {
-            background: none;
-            border: 1px solid var(--seaglass-teal);
-            padding: 14px 40px;
-            font-family: var(--font-sans);
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--ocean-navy);
-            cursor: pointer;
-            font-weight: 500;
-            background-color: transparent;
-            transition: all 0.4s ease;
-            border-radius: 25px;
-        }
-
-        .enter-btn:hover {
-            background-color: var(--seaglass-teal);
-            color: white;
-            box-shadow: 0 5px 15px rgba(95, 158, 160, 0.3);
-        }
-
-        /* --- MAIN MOBILE WRAPPER --- */
-        #main-content {
-            opacity: 0;
-            transition: opacity 1s ease 0.5s;
-            max-width: 480px;
-            margin: 0 auto;
-            background: #ffffff;
-            box-shadow: 0 0 40px rgba(27, 54, 68, 0.05);
-            min-height: 100vh;
-            position: relative;
-        }
-
-        #main-content.visible {
-            opacity: 1;
-        }
-
-        /* Coastal Wave Divider Decoration */
-        .wave-decor {
-            width: 100%;
-            height: 20px;
-            display: block;
-            fill: var(--bg-coastal);
-        }
-
-        section {
-            padding: 55px 25px;
-            text-align: center;
-            border-bottom: 1px solid var(--sand-light);
-            background-color: #ffffff;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2.1rem;
-            font-weight: 400;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            color: var(--ocean-navy);
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '〜';
-            position: absolute;
-            bottom: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            font-size: 1.2rem;
-            color: var(--seaglass-teal);
-        }
-
-        /* --- HERO & SAND SCRATCH SECTION --- */
+    </script>
+</body>
+</html>
