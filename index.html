@@ -51,12 +51,20 @@
             transition: transform 1.3s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
             background: linear-gradient(135deg, #ffffff, var(--sunset-orange), var(--sunset-rose));
             background-size: 400% 400%;
-            animation: gradientGlow 8s ease infinite; /* Dynamic Sunset Pulse */
+            animation: gradientGlow 8s ease infinite;
         }
 
         #curtain-overlay.opened {
             transform: translateY(-100%);
             opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Bounded Cover Canvas for Palms/Flares strictly inside the First Page layout */
+        #cover-anim-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
             pointer-events: none;
         }
 
@@ -106,20 +114,23 @@
         }
         .enter-btn:hover { background-color: var(--ocean-navy); color: white; }
 
-        /* Integrated Rolling Sea Waves directly on Cover layout */
+        /* Integrated Enhanced Rolling Sea Waves on Cover layout */
         .cover-waves {
             position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 60px;
-            fill: #ffffff; opacity: 0.4;
+            bottom: 0; left: 0; width: 100%; height: 75px;
+            fill: #ffffff; opacity: 0.25;
+            z-index: 5;
+            pointer-events: none;
         }
-        .cover-wave-layer { animation: waveSwim 6s linear infinite; }
-        .cover-wave-layer:nth-child(2) { opacity: 0.7; animation: waveSwim 4s linear infinite reverse; }
+        .cover-wave-layer { animation: waveSwim 8s linear infinite; fill: var(--sand-gold); }
+        .cover-wave-layer:nth-child(2) { opacity: 0.4; fill: var(--seaglass-teal); animation: waveSwim 5s linear infinite reverse; }
+        .cover-wave-layer:nth-child(3) { opacity: 0.8; fill: #ffffff; animation: waveSwim 3s linear infinite; }
 
         /* --- INTEGRATED BACKGROUND CANVAS --- */
         #beach-bg-canvas {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1; /* Renders cleanly beneath content text directly inside bounded viewport */
+            z-index: 1; 
             pointer-events: none;
         }
 
@@ -143,7 +154,7 @@
             text-align: center;
             background-color: transparent;
             position: relative;
-            z-index: 2; /* Keeps text layered readable over graphics loops */
+            z-index: 2; 
         }
 
         /* --- SHORELINE WAVES BETWEEN CHAPTER PORTS --- */
@@ -225,6 +236,8 @@
 <body>
 
     <div id="curtain-overlay">
+        <canvas id="cover-anim-canvas"></canvas>
+
         <div class="curtain-content">
             <div class="illustration-frame">
                 <img src="https://raw.githubusercontent.com/samyaksinha/WeddingInvitation/main/couple.jpeg" alt="Samyak &amp; Sakshi" class="couple-img">
@@ -238,7 +251,8 @@
         <svg class="cover-waves" viewBox="0 24 150 28" preserveAspectRatio="none">
             <defs><path id="wave-path" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" /></defs>
             <use xlink:href="#wave-path" x="48" y="0" class="cover-wave-layer" />
-            <use xlink:href="#wave-path" x="48" y="4" class="cover-wave-layer" />
+            <use xlink:href="#wave-path" x="48" y="2" class="cover-wave-layer" />
+            <use xlink:href="#wave-path" x="48" y="5" class="cover-wave-layer" />
         </svg>
     </div>
 
@@ -351,21 +365,94 @@
     </div>
 
     <script>
+        // Global background assets context
         const canvasBg = document.getElementById('beach-bg-canvas');
         const ctxBg = canvasBg.getContext('2d');
         
+        // Front Cover explicit context loops 
+        const canvasCover = document.getElementById('cover-anim-canvas');
+        const ctxCover = canvasCover.getContext('2d');
+        
         let sparkles = [];
         let birds = [];
+        let coverFlares = [];
         let swayTime = 0;
+        let coverAnimationId = null;
+
+        // Initialization execution
+        window.addEventListener('DOMContentLoaded', () => {
+            initCoverCanvas();
+            initCoverFlares();
+            renderCoverEngineLoop();
+        });
+
+        function initCoverCanvas() {
+            canvasCover.width = window.innerWidth;
+            canvasCover.height = window.innerHeight;
+        }
+
+        function initCoverFlares() {
+            for (let i = 0; i < 8; i++) {
+                coverFlares.push({
+                    x: Math.random() * canvasCover.width,
+                    y: Math.random() * canvasCover.height,
+                    size: Math.random() * 14 + 6,
+                    speed: Math.random() * 0.4 + 0.1,
+                    phase: Math.random() * Math.PI
+                });
+            }
+        }
+
+        function renderCoverEngineLoop() {
+            ctxCover.clearRect(0, 0, canvasCover.width, canvasCover.height);
+            swayTime += 0.012;
+
+            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE (Top Corners) ---
+            ctxCover.save();
+            ctxCover.strokeStyle = 'rgba(212, 190, 159, 0.28)'; // Higher visual contrast sand gold 
+            ctxCover.lineWidth = 2.5;
+
+            // Top Left Cover Tree
+            drawPalmBranchFrame(ctxCover, 0, 0, 130, 0.6 + Math.sin(swayTime)*0.04);
+            drawPalmBranchFrame(ctxCover, -10, 20, 110, 0.9 + Math.cos(swayTime)*0.03);
+
+            // Top Right Cover Tree
+            drawPalmBranchFrame(ctxCover, canvasCover.width, 0, 130, 2.5 + Math.sin(swayTime)*0.04);
+            drawPalmBranchFrame(ctxCover, canvasCover.width + 10, 20, 110, 2.2 + Math.cos(swayTime)*0.03);
+            ctxCover.restore();
+
+            // --- 2. DRAW FLOATING SUN FLARES ON COVER PAGE ---
+            coverFlares.forEach(f => {
+                f.y -= f.speed;
+                f.phase += 0.015;
+                if (f.y < -20) f.y = canvasCover.height + 20;
+
+                let opacity = (Math.sin(f.phase) + 1) / 2 * 0.3;
+                ctxCover.beginPath();
+                let gradient = ctxCover.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.size);
+                gradient.addColorStop(0, `rgba(245, 194, 66, ${opacity})`);
+                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctxCover.fillStyle = gradient;
+                ctxCover.arc(f.x, f.y, f.size, 0, Math.PI * 2);
+                ctxCover.fill();
+            });
+
+            coverAnimationId = requestAnimationFrame(renderCoverEngineLoop);
+        }
 
         function openInvitation() {
+            // Cancel cover canvas loop execution to preserve battery/compute threads
+            if(coverAnimationId) cancelAnimationFrame(coverAnimationId);
+
             document.getElementById('main-content').classList.add('visible');
             document.getElementById('curtain-overlay').classList.add('opened');
             
             resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+            window.addEventListener('resize', () => {
+                resizeCanvas();
+                initCoverCanvas();
+            });
             
-            // Core asset arrays initialization loop hooks
             initBeachAssets();
             renderBeachEngineLoop();
             
@@ -379,7 +466,6 @@
         }
 
         function initBeachAssets() {
-            // 1. Sparkles matrix mapping configuration
             for (let i = 0; i < 20; i++) {
                 sparkles.push({
                     x: Math.random() * canvasBg.width,
@@ -390,7 +476,6 @@
                 });
             }
 
-            // 2. Flight track parameters setup for Birds
             for (let i = 0; i < 4; i++) {
                 birds.push({
                     x: Math.random() * canvasBg.width,
@@ -404,20 +489,17 @@
 
         function renderBeachEngineLoop() {
             ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
-            swayTime += 0.015;
 
-            // --- A. DRAW SWAING PALM LEAVES (Centered safely underneath text boxes) ---
+            // --- A. DRAW INNER SWAYING PALM LEAVES ---
             ctxBg.save();
-            ctxBg.strokeStyle = 'rgba(212, 190, 159, 0.14)'; // Soft watercolor sand tone
+            ctxBg.strokeStyle = 'rgba(212, 190, 159, 0.14)'; 
             ctxBg.lineWidth = 2;
             
-            // Left branch pair markers
-            drawPalmBranch(20, canvasBg.height * 0.2, 110, 0.4 + Math.sin(swayTime)*0.05);
-            drawPalmBranch(10, canvasBg.height * 0.55, 120, 0.2 + Math.cos(swayTime)*0.04);
+            drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.2, 110, 0.4 + Math.sin(swayTime)*0.05);
+            drawPalmBranchFrame(ctxBg, 10, canvasBg.height * 0.55, 120, 0.2 + Math.cos(swayTime)*0.04);
             
-            // Right branch pair markers
-            drawPalmBranch(canvasBg.width - 20, canvasBg.height * 0.35, 110, 2.8 + Math.sin(swayTime)*0.05);
-            drawPalmBranch(canvasBg.width - 10, canvasBg.height * 0.72, 120, 2.6 + Math.cos(swayTime)*0.04);
+            drawPalmBranchFrame(ctxBg, canvasBg.width - 20, canvasBg.height * 0.35, 110, 2.8 + Math.sin(swayTime)*0.05);
+            drawPalmBranchFrame(ctxBg, canvasBg.width - 10, canvasBg.height * 0.72, 120, 2.6 + Math.cos(swayTime)*0.04);
             ctxBg.restore();
 
             // --- B. DRAW SOARING SEAGULL BIRDS ---
@@ -432,7 +514,6 @@
                 ctxBg.beginPath();
                 
                 let wingY = Math.sin(b.wingPhase) * (b.size * 0.4);
-                // Draw typical double arched flight layout
                 ctxBg.moveTo(b.x - b.size, b.y + wingY);
                 ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.3, b.x, b.y);
                 ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.3, b.x + b.size, b.y + wingY);
@@ -459,25 +540,26 @@
             requestAnimationFrame(renderBeachEngineLoop);
         }
 
-        function drawPalmBranch(x, y, length, angle) {
-            ctxBg.save();
-            ctxBg.translate(x, y);
-            ctxBg.rotate(angle);
+        // Shared Branch Rendering Core Logic
+        function drawPalmBranchFrame(context, x, y, length, angle) {
+            context.save();
+            context.translate(x, y);
+            context.rotate(angle);
             
-            ctxBg.beginPath();
-            ctxBg.moveTo(0, 0);
-            ctxBg.quadraticCurveTo(length*0.5, 15, length, 0);
-            ctxBg.stroke();
+            context.beginPath();
+            context.moveTo(0, 0);
+            context.quadraticCurveTo(length*0.5, 15, length, 0);
+            context.stroke();
             
             for (let i = 10; i < length; i += 6) {
                 let r = i / length;
                 let leafH = 30 * (1 - r*0.4);
-                ctxBg.beginPath();
-                ctxBg.moveTo(i, 5 * r);
-                ctxBg.quadraticCurveTo(i - 5, leafH, i - 12, leafH * 1.1);
-                ctxBg.stroke();
+                context.beginPath();
+                context.moveTo(i, 5 * r);
+                context.quadraticCurveTo(i - 5, leafH, i - 12, leafH * 1.1);
+                context.stroke();
             }
-            ctxBg.restore();
+            context.restore();
         }
 
         // --- Interactive Sand Drawing Canvas Layer ---
