@@ -10,7 +10,6 @@
     
     <style>
         :root {
-            /* Warm Beach Sunset Palette */
             --bg-coastal: #fdfbf7;
             --ocean-navy: #1b3644;
             --seaglass-teal: #5f9ea0;
@@ -22,8 +21,6 @@
             --text-muted: #708090;
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
-            
-            /* Custom Wedding Event Identifiers */
             --haldi-yellow: #f5c242;
             --wedding-green: #2e5a44;
         }
@@ -43,31 +40,20 @@
             line-height: 1.6;
         }
 
-        /* --- LANDING CURTAIN OVERLAY (Beach Sunset Theme) --- */
+        /* --- LANDING CURTAIN --- */
         #curtain-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            /* Gorgeous soft sunset gradient background */
             background: linear-gradient(135deg, #ffffff 0%, var(--sunset-glow) 50%, var(--sunset-pink) 100%);
-            z-index: 1000;
+            z-index: 2000;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
-        }
-
-        #curtain-overlay::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            /* Subtle coconut palm silhouette background vector pattern */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.04'%3E%3Cpath d='M10,100 Q30,60 70,70 M70,70 Q50,40 20,50 M70,70 Q80,40 60,30' fill='none' stroke='%231b3644' stroke-width='2'/%3E%3C/svg%3E");
-            background-size: 200px;
-            pointer-events: none;
         }
 
         #curtain-overlay.opened {
@@ -83,10 +69,9 @@
             max-width: 400px;
             animation: fadeIn 1.2s ease;
             position: relative;
-            z-index: 2;
+            z-index: 2100;
         }
 
-        /* Fixed Portrait Image Frame Container */
         .illustration-frame {
             width: 220px;
             height: 220px;
@@ -99,7 +84,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
         }
 
         .couple-img {
@@ -108,37 +92,13 @@
             object-fit: cover; 
         }
 
-        .curtain-content p.intro-tag {
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--seaglass-teal);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .curtain-content h1 {
-            font-family: var(--font-serif);
-            font-size: 2.6rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-            color: var(--ocean-navy);
-            line-height: 1.3;
-            margin-bottom: 8px;
-        }
-
-        .curtain-content p.location-tag {
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--sand-gold);
-            margin-bottom: 35px;
-            font-weight: 500;
-        }
+        .intro-tag { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--seaglass-teal); margin-bottom: 8px; font-weight: 500; }
+        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.6rem; font-weight: 300; letter-spacing: 1px; color: var(--ocean-navy); line-height: 1.3; margin-bottom: 8px; }
+        .location-tag { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--sand-gold); margin-bottom: 35px; font-weight: 500; }
 
         .enter-btn {
             background: none;
-            border: 1px solid var(--seaglass-teal);
+            border: 2px solid var(--seaglass-teal);
             padding: 14px 45px;
             font-family: var(--font-sans);
             font-size: 0.85rem;
@@ -147,36 +107,34 @@
             color: var(--ocean-navy);
             cursor: pointer;
             font-weight: 500;
-            background-color: transparent;
-            transition: all 0.4s ease;
             border-radius: 25px;
-            outline: none;
+            transition: all 0.4s ease;
         }
 
-        .enter-btn:hover {
-            background-color: var(--seaglass-teal);
-            color: white;
-            box-shadow: 0 5px 15px rgba(95, 158, 160, 0.3);
+        .enter-btn:hover { background-color: var(--seaglass-teal); color: white; }
+
+        /* --- BEACH DECORATIONS (MAIN PAGE) --- */
+        .palm-leaf {
+            position: fixed;
+            width: 150px;
+            opacity: 0.15;
+            z-index: 100;
+            pointer-events: none;
+            display: none; /* Only show after curtain opens */
+        }
+        .palm-leaf-top { top: -20px; right: -30px; transform: rotate(20deg); animation: sway 6s ease-in-out infinite; }
+        .palm-leaf-bottom { bottom: -20px; left: -30px; transform: rotate(-150deg); animation: sway 8s ease-in-out infinite; }
+
+        .bubble {
+            position: fixed;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 15s linear infinite;
         }
 
-        /* --- MOVING WAVE WATER DECOR AT CURTAIN BOTTOM --- */
-        .curtain-waves {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60px;
-            fill: #ffffff;
-        }
-        
-        .wave-layer {
-            animation: waveMove 4s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-        }
-        .wave-layer:nth-child(2) {
-            fill: rgba(255, 255, 255, 0.4);
-            animation: waveMove 6s cubic-bezier(0.36, 0.45, 0.63, 0.53) -2s infinite;
-        }
-
-        /* --- MAIN MOBILE WRAPPER --- */
+        /* --- MAIN WRAPPER --- */
         #main-content {
             opacity: 0;
             display: none; 
@@ -186,415 +144,112 @@
             box-shadow: 0 0 40px rgba(27, 54, 68, 0.05);
             min-height: 100vh;
             position: relative;
+            /* Coastal tide animation background */
+            background: linear-gradient(180deg, #ffffff 0%, #f9f7f2 100%);
+            animation: tideBackground 10s ease-in-out infinite;
         }
 
-        #main-content.visible {
-            opacity: 1;
-            display: block;
-        }
+        #main-content.visible { opacity: 1; display: block; }
+        #main-content.visible ~ .palm-leaf { display: block; }
 
         section {
-            padding: 55px 25px;
+            padding: 70px 25px;
             text-align: center;
-            border-bottom: 1px solid var(--sand-light);
-            background-color: #ffffff;
+            background-color: transparent; /* Show tide animation */
             position: relative;
+            z-index: 10;
         }
 
-        /* Beautiful Section Breaks using stylized ocean vectors */
-        section::after {
-            content: '';
+        /* Wave Section Divider */
+        .wave-divider {
             position: absolute;
-            bottom: -1px;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 12px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,90 350,90 500,0 C650,90 850,90 1000,0 C1150,90 1350,90 1500,0 L1500,120 L0,120 Z' fill='%23fdfbf7'/%3E%3C/svg%3E");
-            background-size: 100% 12px;
-            z-index: 5;
+            height: 40px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0 C150,60 350,60 500,0 C650,60 850,60 1000,0 C1150,60 1350,60 1500,0 L1500,120 L0,120 Z' fill='%23f5f2eb'/%3E%3C/svg%3E");
+            background-size: 100% 40px;
+            transform: translateY(1px);
         }
 
         .section-title {
             font-family: var(--font-serif);
             font-size: 2.1rem;
-            font-weight: 400;
-            margin-bottom: 25px;
+            color: var(--ocean-navy);
+            margin-bottom: 30px;
             letter-spacing: 1px;
-            color: var(--ocean-navy);
-            position: relative;
-            display: inline-block;
         }
 
-        /* --- HERO & SAND SCRATCH SECTION --- */
-        .hero {
-            padding: 60px 20px 45px 20px;
-            background: linear-gradient(to bottom, var(--bg-coastal), #ffffff);
-        }
+        /* --- HERO & SCRATCH --- */
+        .hero { padding-top: 80px; }
+        .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sand-gold); font-size: 2.2rem; display: block; }
+        .sub-banner { font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; }
 
-        .hero h2 {
-            font-family: var(--font-serif);
-            font-size: 2.8rem;
-            font-weight: 300;
-            line-height: 1.2;
-            color: var(--ocean-navy);
-        }
-
-        .hero .ampersand {
-            font-family: var(--font-serif);
-            font-style: italic;
-            color: var(--sand-gold);
-            font-size: 2.2rem;
-            display: block;
-            margin: 2px 0;
-        }
-
-        .hero p.sub-banner {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-top: 15px;
-            margin-bottom: 10px;
-        }
-
-        /* Sand Canvas Core Container */
         .scratch-container {
             position: relative;
             width: 280px;
             height: 150px;
             margin: 25px auto;
-            background-color: var(--sand-light);
             border-radius: 8px;
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.04);
             overflow: hidden;
             border: 1px solid rgba(212, 190, 159, 0.3);
         }
-
         .scratch-reveal-text {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-            pointer-events: none;
-            background-color: #fffdf9;
+            position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; background: #fffdf9;
         }
+        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.6rem; color: var(--ocean-navy); font-weight: 600; }
+        #scratch-canvas { position: absolute; top: 0; left: 0; touch-action: none; cursor: pointer; }
 
-        .scratch-reveal-text .date {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            color: var(--ocean-navy);
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
+        /* --- COUNTDOWN --- */
+        .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 20px; }
+        .countdown-box { background: rgba(255,255,255,0.7); border: 1px solid var(--sand-light); width: 72px; padding: 12px 0; border-radius: 6px; }
+        .countdown-val { font-family: var(--font-serif); font-size: 1.7rem; color: var(--ocean-navy); display: block; }
+        .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
 
-        .scratch-reveal-text .day {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--seaglass-teal);
-            margin-top: 5px;
-        }
+        /* --- TIMELINE --- */
+        .timeline { margin-top: 35px; text-align: left; padding-left: 15px; position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 4px; top: 5px; width: 1px; height: 93%; background-color: var(--sand-gold); }
+        .timeline-date-header { font-size: 0.75rem; text-transform: uppercase; color: var(--ocean-navy); font-weight: 600; margin: 25px 0 15px -15px; display: flex; align-items: center; gap: 8px; }
+        .timeline-date-header::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(to right, var(--sand-gold), transparent); }
+        .timeline-item { position: relative; margin-bottom: 25px; padding-left: 25px; }
+        .timeline-item::before { content: ''; position: absolute; left: -14px; top: 6px; width: 7px; height: 7px; background-color: var(--seaglass-teal); border-radius: 50%; }
+        .time { font-size: 0.75rem; color: var(--seaglass-teal); font-weight: 500; }
+        .event-title { font-family: var(--font-serif); font-size: 1.3rem; color: var(--text-dark); }
 
-        #scratch-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-            cursor: pointer;
-            touch-action: none;
-            border-radius: 6px;
-        }
+        /* --- DRESS CODE --- */
+        .dress-code-flex { display: flex; flex-direction: column; gap: 16px; margin-top: 25px; align-items: center; }
+        .dress-card { width: 90%; padding: 18px 15px; background: rgba(255,255,255,0.6); border: 1px solid var(--sand-light); border-radius: 8px; }
+        .dress-event { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+        .dress-badge { display: inline-block; padding: 7px 22px; font-size: 0.8rem; color: white; border-radius: 20px; text-transform: uppercase; }
+        .badge-yellow { background-color: var(--haldi-yellow); color: #4a3600; }
+        .badge-green { background-color: var(--wedding-green); }
 
-        .scratch-instruction {
-            font-size: 0.8rem;
-            font-style: italic;
-            color: var(--seaglass-teal);
-            margin-top: 12px;
-            font-weight: 400;
-        }
+        /* --- RSVP --- */
+        .rsvp-form { text-align: left; margin-top: 25px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--ocean-navy); margin-bottom: 6px; }
+        .form-group input, .form-group select { width: 100%; padding: 14px 12px; border: 1px solid var(--sand-gold); border-radius: 6px; outline: none; }
+        .submit-btn { width: 100%; background-color: var(--ocean-navy); color: white; border: none; padding: 16px; text-transform: uppercase; letter-spacing: 2px; border-radius: 30px; cursor: pointer; }
 
-        /* --- LIVE COUNTDOWN TIMER --- */
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-        }
+        footer { padding: 45px 20px; text-align: center; font-size: 0.75rem; color: var(--text-muted); background-color: var(--bg-coastal); }
 
-        .countdown-box {
-            background: var(--bg-coastal);
-            border: 1px solid var(--sand-light);
-            width: 72px;
-            padding: 12px 0;
-            border-radius: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+        /* --- ANIMATIONS --- */
+        @keyframes sway {
+            0%, 100% { transform: rotate(20deg) scale(1); }
+            50% { transform: rotate(25deg) scale(1.05); }
         }
-
-        .countdown-val {
-            font-family: var(--font-serif);
-            font-size: 1.7rem;
-            display: block;
-            font-weight: 400;
-            color: var(--ocean-navy);
-            line-height: 1.1;
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
         }
-
-        .countdown-lbl {
-            font-size: 0.6rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-top: 2px;
-            display: inline-block;
+        @keyframes tideBackground {
+            0%, 100% { background-position: 50% 0%; }
+            50% { background-position: 50% 100%; }
         }
-
-        /* --- VENUE MAP SECTION --- */
-        .details-p {
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            margin-bottom: 6px;
-        }
-        
-        .venue-title {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            font-weight: 400;
-            color: var(--ocean-navy);
-            margin-top: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        /* --- TIMELINE SCHEDULE SECTION --- */
-        .timeline {
-            margin-top: 35px;
-            text-align: left;
-            padding-left: 15px;
-            position: relative;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 4px;
-            top: 5px;
-            width: 1px;
-            height: 93%;
-            background-color: var(--sand-gold);
-        }
-
-        .timeline-date-header {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--ocean-navy);
-            font-weight: 600;
-            margin: 25px 0 15px -15px;
-            padding-bottom: 4px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .timeline-date-header::after {
-            content: '';
-            flex-grow: 1;
-            height: 1px;
-            background: linear-gradient(to right, var(--sand-gold), transparent);
-        }
-
-        .timeline-date-header:first-of-type {
-            margin-top: 0;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-            padding-left: 25px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -14px;
-            top: 6px;
-            width: 7px;
-            height: 7px;
-            background-color: var(--seaglass-teal);
-            border-radius: 50%;
-        }
-
-        .time {
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            color: var(--seaglass-teal);
-            font-weight: 500;
-        }
-
-        .event-title {
-            font-family: var(--font-serif);
-            font-size: 1.3rem;
-            font-weight: 400;
-            color: var(--text-dark);
-            line-height: 1.3;
-        }
-
-        /* --- COASTAL DRESS CODE SWATCH CARDS --- */
-        .dress-code-flex {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin-top: 25px;
-            align-items: center;
-        }
-
-        .dress-card {
-            width: 90%;
-            padding: 18px 15px;
-            background: var(--bg-coastal);
-            border: 1px solid var(--sand-light);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .dress-event {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .dress-badge {
-            display: inline-block;
-            padding: 7px 22px;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            font-weight: 500;
-            color: white;
-            border-radius: 20px;
-            text-transform: uppercase;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-
-        .badge-yellow {
-            background-color: var(--haldi-yellow);
-            color: #4a3600;
-        }
-
-        .badge-green {
-            background-color: var(--wedding-green);
-        }
-
-        /* --- RSVP INPUT FIELDS --- */
-        .rsvp-form {
-            text-align: left;
-            margin-top: 25px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-            color: var(--ocean-navy);
-            font-weight: 500;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 14px 12px;
-            border: 1px solid var(--sand-gold);
-            background-color: #ffffff;
-            font-family: var(--font-sans);
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            border-radius: 6px;
-            outline: none;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--seaglass-teal);
-            box-shadow: 0 0 8px rgba(95, 158, 160, 0.15);
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            margin-top: 8px;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.9rem;
-            color: var(--text-dark);
-            cursor: pointer;
-        }
-
-        .radio-option input {
-            width: auto;
-            accent-color: var(--seaglass-teal);
-        }
-
-        .submit-btn {
-            width: 100%;
-            background-color: var(--ocean-navy);
-            color: white;
-            border: none;
-            padding: 16px;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            margin-top: 10px;
-            font-weight: 500;
-            border-radius: 30px;
-            transition: all 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: var(--seaglass-teal);
-            box-shadow: 0 6px 20px rgba(95, 158, 160, 0.25);
-        }
-
-        footer {
-            padding: 45px 20px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            letter-spacing: 1.5px;
-            background-color: var(--bg-coastal);
-            border-top: 1px solid var(--sand-light);
-        }
-
-        /* Keyframe Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes waveMove {
-            0% { transform: translateX(0) translateZ(0) scaleY(1); }
-            50% { transform: translateX(-25%) translateZ(0) scaleY(0.8); }
-            100% { transform: translateX(-50%) translateZ(0) scaleY(1); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -604,30 +259,20 @@
             <div class="illustration-frame">
                 <img src="https://raw.githubusercontent.com/samyaksinha/WeddingInvitation/main/couple.jpeg" alt="Samyak &amp; Sakshi" class="couple-img">
             </div>
-
             <p class="intro-tag">A sandy celebration awaits</p>
             <h1>Samyak &amp; Sakshi</h1>
             <p class="location-tag">Goa, India</p>
             <button class="enter-btn" onclick="openInvitation()">Open Invitation</button>
         </div>
-
-        <svg class="curtain-waves" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-            <defs>
-                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" />
-            </defs>
-            <g class="wave-parallax">
-                <use xlink:href="#gentle-wave" x="48" y="3" class="wave-layer" />
-                <use xlink:href="#gentle-wave" x="48" y="5" class="wave-layer" />
-            </g>
-        </svg>
     </div>
 
+    <img src="https://www.svgrepo.com/show/475143/palm-tree.svg" class="palm-leaf palm-leaf-top" alt="Palm">
+    <img src="https://www.svgrepo.com/show/475143/palm-tree.svg" class="palm-leaf palm-leaf-bottom" alt="Palm">
+
     <div id="main-content">
-        
         <section class="hero">
             <h2>Samyak<span class="ampersand">&amp;</span>Sakshi</h2>
             <p class="sub-banner">Are getting married</p>
-            
             <div class="scratch-container">
                 <div class="scratch-reveal-text">
                     <span class="date">DECEMBER 12, 2026</span>
@@ -636,6 +281,7 @@
                 <canvas id="scratch-canvas" width="280" height="150"></canvas>
             </div>
             <p class="scratch-instruction">Brush the sand away to reveal our date</p>
+            <div class="wave-divider"></div>
         </section>
 
         <section>
@@ -646,6 +292,7 @@
                 <div class="countdown-box"><span class="countdown-val" id="mins">00</span><span class="countdown-lbl">Mins</span></div>
                 <div class="countdown-box"><span class="countdown-val" id="secs">00</span><span class="countdown-lbl">Secs</span></div>
             </div>
+            <div class="wave-divider"></div>
         </section>
 
         <section id="venue">
@@ -653,201 +300,107 @@
             <p class="venue-title">Dallas Beach Resorts</p>
             <p class="details-p" style="font-weight: 500; margin-top: 8px; color: var(--seaglass-teal);">Ashvem Beach</p>
             <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
-            <p class="details-p">Near Ajoba Temple, Mandrem</p>
             <p class="details-p">North Goa, Goa — 403512</p>
+            <div class="wave-divider"></div>
         </section>
 
         <section id="schedule">
             <h3 class="section-title">The Schedule</h3>
             <div class="timeline">
-                
-                <div class="timeline-date-header">Friday, 11th December</div>
-                <div class="timeline-item">
-                    <div class="time">05:00 PM</div>
-                    <div class="event-title">Sangeet</div>
-                </div>
-
-                <div class="timeline-date-header">Saturday, 12th December</div>
-                <div class="timeline-item">
-                    <div class="time">11:00 AM</div>
-                    <div class="event-title">Haldi</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="time">04:30 PM</div>
-                    <div class="event-title">Wedding Ceremony</div>
-                </div>
-                <div class="timeline-item">
-                    <div class="time">06:30 PM onwards</div>
-                    <div class="event-title">Dinner Celebration</div>
-                </div>
-
+                <div class="timeline-date-header">Friday, 11th Dec</div>
+                <div class="timeline-item"><div class="time">05:00 PM</div><div class="event-title">Sangeet</div></div>
+                <div class="timeline-date-header">Saturday, 12th Dec</div>
+                <div class="timeline-item"><div class="time">11:00 AM</div><div class="event-title">Haldi</div></div>
+                <div class="timeline-item"><div class="time">04:30 PM</div><div class="event-title">Wedding Ceremony</div></div>
+                <div class="timeline-item"><div class="time">06:30 PM onwards</div><div class="event-title">Dinner Celebration</div></div>
             </div>
+            <div class="wave-divider"></div>
         </section>
 
         <section id="dress-code">
             <h3 class="section-title">Dress Code</h3>
-            <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
-            
             <div class="dress-code-flex">
-                <div class="dress-card">
-                    <div class="dress-event">Haldi Ceremony</div>
-                    <div class="dress-badge badge-yellow">Shades of Yellow</div>
-                </div>
-
-                <div class="dress-card">
-                    <div class="dress-event">Wedding Ceremony</div>
-                    <div class="dress-badge badge-green">Something Green</div>
-                </div>
+                <div class="dress-card"><div class="dress-event">Haldi Ceremony</div><div class="dress-badge badge-yellow">Shades of Yellow</div></div>
+                <div class="dress-card"><div class="dress-event">Wedding Ceremony</div><div class="dress-badge badge-green">Something Green</div></div>
             </div>
+            <div class="wave-divider"></div>
         </section>
 
         <section id="rsvp">
             <h3 class="section-title">RSVP</h3>
-            <p class="details-p">Kindly respond by November 1, 2026</p>
-            
-            <form class="rsvp-form" id="wedding-rsvp-form" onsubmit="handleRSVP(event)">
-                <div class="form-group">
-                    <label for="guest-name">Your Full Name</label>
-                    <input type="text" id="guest-name" required placeholder="e.g., John Doe">
-                </div>
-                
-                <div class="form-group">
-                    <label>Will you be attending?</label>
-                    <div class="radio-group">
-                        <label class="radio-option">
-                            <input type="radio" name="attendance" value="yes" checked> Joyfully Accept
-                        </label>
-                        <label class="radio-option">
-                            <input type="radio" name="attendance" value="no"> Regretfully Decline
-                        </label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="guests-count">Number of Guests</label>
-                    <select id="guests-count">
-                        <option value="1">1 Person</option>
-                        <option value="2">2 People</option>
-                        <option value="3">3 People</option>
-                    </select>
-                </div>
-
+            <form class="rsvp-form" onsubmit="handleRSVP(event)">
+                <div class="form-group"><label>Your Full Name</label><input type="text" id="guest-name" required></div>
+                <div class="form-group"><label>Guests</label><select id="guests-count"><option>1 Person</option><option>2 People</option></select></div>
                 <button type="submit" class="submit-btn">Send Response</button>
             </form>
         </section>
 
         <footer>
-            <p>Thank you for being a part of our journey.</p>
-            <p style="margin-top: 12px; font-size: 0.65rem; color: var(--text-muted); opacity: 0.8;">S&amp;S • 2026 • GOA</p>
+            <p>S&amp;S • 2026 • GOA</p>
         </footer>
-
     </div>
 
     <script>
-        // --- 1. Curtain Management Operation ---
         function openInvitation() {
-            const mainContent = document.getElementById('main-content');
-            mainContent.classList.add('visible');
+            document.getElementById('main-content').classList.add('visible');
             document.getElementById('curtain-overlay').classList.add('opened');
+            createBubbles();
             setTimeout(initSandScratchCard, 350);
         }
 
-        // --- 2. HTML5 Canvas Sand Layer Simulation Engine ---
+        function createBubbles() {
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 15 + 5 + 'px';
+                bubble.style.width = size;
+                bubble.style.height = size;
+                bubble.style.left = Math.random() * 100 + 'vw';
+                bubble.style.animationDelay = Math.random() * 10 + 's';
+                document.body.appendChild(bubble);
+            }
+        }
+
         function initSandScratchCard() {
             const canvas = document.getElementById('scratch-canvas');
-            if(!canvas) return;
             const ctx = canvas.getContext('2d');
             let isDrawing = false;
-
             ctx.fillStyle = '#e3d2ba'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
             for (let i = 0; i < 700; i++) {
                 ctx.fillStyle = Math.random() > 0.5 ? '#f4eee3' : '#c9b79c';
                 ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
             }
+            ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#5c4f3c'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
 
-            ctx.font = '500 10px Montserrat';
-            ctx.fillStyle = '#5c4f3c';
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.letterSpacing = '3px';
-            ctx.fillText('BRUSH AWAY THE SAND', canvas.width / 2, canvas.height / 2);
-
-            function getCoords(e) {
-                const rect = canvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                return {
-                    x: clientX - rect.left,
-                    y: clientY - rect.top
-                };
-            }
-
-            function scratchStart(e) {
-                isDrawing = true;
-                scratchMove(e);
-            }
-
-            function scratchMove(e) {
+            function scratch(e) {
                 if (!isDrawing) return;
-                e.preventDefault(); 
-                const coords = getCoords(e);
+                e.preventDefault();
+                const rect = canvas.getBoundingClientRect();
+                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
                 ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath();
-                ctx.arc(coords.x, coords.y, 24, 0, Math.PI * 2); 
-                ctx.fill();
+                ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI * 2); ctx.fill();
             }
-
-            function scratchEnd() { isDrawing = false; }
-
-            canvas.addEventListener('mousedown', scratchStart);
-            canvas.addEventListener('mousemove', scratchMove);
-            window.addEventListener('mouseup', scratchEnd);
-
-            canvas.addEventListener('touchstart', scratchStart, { passive: false });
-            canvas.addEventListener('touchmove', scratchMove, { passive: false });
-            window.addEventListener('touchend', scratchEnd);
+            canvas.addEventListener('mousedown', () => isDrawing = true);
+            canvas.addEventListener('mousemove', scratch);
+            window.addEventListener('mouseup', () => isDrawing = false);
+            canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
+            canvas.addEventListener('touchmove', scratch, {passive: false});
+            window.addEventListener('touchend', () => isDrawing = false);
         }
 
-        // --- 3. Persistent Realtime Clock Engine ---
-        const targetWeddingDate = new Date('December 12, 2026 16:30:00').getTime();
-
-        const clockInterval = setInterval(function() {
+        const target = new Date('December 12, 2026 16:30:00').getTime();
+        setInterval(() => {
             const now = new Date().getTime();
-            const distance = targetWeddingDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('mins').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('secs').innerText = String(seconds).padStart(2, '0');
-
-            if (distance < 0) {
-                clearInterval(clockInterval);
-                document.getElementById('days').innerText = "00";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('mins').innerText = "00";
-                document.getElementById('secs').innerText = "00";
-            }
+            const diff = target - now;
+            document.getElementById('days').innerText = Math.floor(diff / (1000*60*60*24)).toString().padStart(2,'0');
+            document.getElementById('hours').innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0');
+            document.getElementById('mins').innerText = Math.floor((diff % (1000*60*60)) / (1000*60)).toString().padStart(2,'0');
+            document.getElementById('secs').innerText = Math.floor((diff % (1000*60)) / 1000).toString().padStart(2,'0');
         }, 1000);
 
-        // --- 4. Form Submission Mock Processing Unit ---
-        function handleRSVP(event) {
-            event.preventDefault();
-            const name = document.getElementById('guest-name').value;
-            const status = document.querySelector('input[name="attendance"]:checked').value;
-            
-            if(status === 'yes') {
-                alert(`Thank you, ${name}! Your confirmation details have been recorded successfully.`);
-            } else {
-                alert(`Thank you for informing us, ${name}. We appreciate your response and will miss you!`);
-            }
-        }
+        function handleRSVP(e) { e.preventDefault(); alert("RSVP Recorded! We can't wait to see you in Goa!"); }
     </script>
 </body>
 </html>
