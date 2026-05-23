@@ -226,21 +226,31 @@
             font-family: var(--font-serif); font-size: 2.2rem; color: var(--dynamic-title); margin-bottom: 35px; letter-spacing: 1px; font-weight: 400; transition: color 0.5s;
         }
 
-        /* --- HERO & FLUID WAVE WASH REVEAL SECTION --- */
+        /* --- HERO & INTERACTIVE BOTTLE TIDEPOOL CONTAINER --- */
         .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
         .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 500; }
 
         .scratch-container {
-            position: relative; width: 280px; height: 150px; margin: 30px auto;
-            border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(13,34,47,0.06);
-            border: 2px solid var(--text-dark); background: transparent;
+            position: relative; width: 280px; height: 160px; margin: 30px auto;
+            border-radius: 14px; overflow: hidden; box-shadow: 0 8px 25px rgba(13,34,47,0.08);
+            border: 2px solid var(--text-dark); background: #9bbcc3; /* Pool Water Wash Underlayer */
         }
+        
+        /* Stylized Unrolling Parchment Scroll Reveal Node */
         .scratch-reveal-text {
-            position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; background: #fffdf9; z-index: 1;
+            position: absolute; width: 88%; height: 84%; top: 8%; left: 6%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            background: #faf2dc; border-radius: 6px; z-index: 1;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.15), inset 0 0 15px #eddba4;
+            border: 1px solid #d4c28d; opacity: 0; transform: scale(0.4) rotate(-5deg);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.25);
         }
-        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.7rem; color: var(--text-dark); font-weight: 600; letter-spacing: 0.5px; }
-        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+        .scratch-container.uncovered .scratch-reveal-text {
+            opacity: 1; transform: scale(1) rotate(0deg);
+        }
+        
+        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.6rem; color: #42321c; font-weight: 600; letter-spacing: 0.5px; }
+        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: #735f3d; margin-top: 4px; font-weight: 600; }
         
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
@@ -488,14 +498,14 @@
             <h2>Samyak<span class="ampersand">&</span>Sakshi</h2>
             <p class="sub-banner">Are getting married</p>
             
-            <div class="scratch-container">
+            <div class="scratch-container" id="bottle-pool-box">
                 <div class="scratch-reveal-text">
                     <span class="date">DECEMBER 12, 2026</span>
                     <span class="day">Saturday</span>
                 </div>
                 <canvas id="scratch-canvas"></canvas>
             </div>
-            <p class="scratch-instruction">Tap or drag across the box to let the tide sweep the sand away</p>
+            <p class="scratch-instruction">Brush away the sand in the tidepool to discover our hidden message</p>
             
             <div class="wave-separator">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -850,88 +860,95 @@
             }
         }
 
-        // --- OPTION 1: SINE-WAVE FLUID SIMULATION ---
+        // --- SUB ROUTINE: COASTAL MESSAGE-IN-A-BOTTLE TIDE POOL DISPLACEMENT ENGINE ---
         function initIncomingWaveReveal() {
             const sCanvas = document.getElementById('scratch-canvas');
             const sCtx = sCanvas.getContext('2d');
+            const containerBox = document.getElementById('bottle-pool-box');
             
             sCanvas.width = 280;
-            sCanvas.height = 150;
+            sCanvas.height = 160;
 
-            let waveProgress = 0;
-            let isAnimating = false;
-            let waveTime = 0;
+            let totalClearedPixels = 0;
+            let targetThresholdMet = false;
+            let isDrawing = false;
 
-            function drawSandBase() {
-                sCtx.fillStyle = '#dfcaaf';
+            // Generate fine-grain static pool base layer with seafoam bubbles
+            function renderTidepoolSand() {
+                sCtx.fillStyle = '#cbae8b'; // wet sand base hue
                 sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
-                for (let i = 0; i < 500; i++) {
-                    sCtx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80';
+                
+                // Fine Sand grains
+                for (let i = 0; i < 600; i++) {
+                    sCtx.fillStyle = Math.random() > 0.5 ? '#ecdcb9' : '#a38a65';
                     sCtx.fillRect(Math.random() * sCanvas.width, Math.random() * sCanvas.height, 1.2, 1.2);
                 }
-                sCtx.font = '600 10px Montserrat'; sCtx.fillStyle = '#534335'; sCtx.textAlign = 'center'; sCtx.textBaseline = 'middle'; sCtx.letterSpacing = '2px';
-                sCtx.fillText('TOUCH TO WASH AWAY SAND', sCanvas.width / 2, sCanvas.height / 2);
-            }
-            drawSandBase();
 
-            function renderWaveLoop() {
-                if (waveProgress >= 1.3) {
-                    sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
-                    isAnimating = false;
-                    return;
-                }
-
-                // Clear out sand layer behind the crest of the incoming tide wave
-                sCtx.clearRect(0, 0, sCanvas.width * waveProgress, sCanvas.height);
-
-                waveProgress += 0.018;
-                waveTime += 0.15;
-
-                const baseWaveX = sCanvas.width * waveProgress;
-
-                // Render dynamic parabolic clipping boundary tracking curves
+                // Drawing Glass Bottle silhouette hint lines hidden beneath sand layer
                 sCtx.save();
+                sCtx.strokeStyle = 'rgba(74, 114, 122, 0.25)';
+                sCtx.lineWidth = 3;
                 sCtx.beginPath();
-                
-                // Generates sine displacements to form dynamic ocean contours across vertical columns
-                for (let y = 0; y <= sCanvas.height; y += 2) {
-                    let waveDistortion = Math.sin(y * 0.04 + waveTime) * 12;
-                    if (y === 0) sCtx.moveTo(baseWaveX + waveDistortion, y);
-                    else sCtx.lineTo(baseWaveX + waveDistortion, y);
-                }
-                
-                sCtx.lineTo(0, sCanvas.height);
-                sCtx.lineTo(0, 0);
-                sCtx.closePath();
-
-                sCtx.globalCompositeOperation = 'destination-out';
-                sCtx.fill();
-
-                // Draw Froth/Foam lines directly along edge parameters
-                sCtx.globalCompositeOperation = 'source-over';
-                sCtx.beginPath();
-                for (let y = 0; y <= sCanvas.height; y += 2) {
-                    let waveDistortion = Math.sin(y * 0.04 + waveTime) * 12;
-                    if (y === 0) sCtx.moveTo(baseWaveX + waveDistortion, y);
-                    else sCtx.lineTo(baseWaveX + waveDistortion, y);
-                }
-                sCtx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
-                sCtx.lineWidth = 6;
+                sCtx.arc(sCanvas.width/2, sCanvas.height/2 + 10, 24, 0, Math.PI*2); // main body
+                sCtx.moveTo(sCanvas.width/2 - 6, sCanvas.height/2 - 14);
+                sCtx.lineTo(sCanvas.width/2 - 6, sCanvas.height/2 - 35); // bottle neck
+                sCtx.lineTo(sCanvas.width/2 + 6, sCanvas.height/2 - 35);
+                sCtx.lineTo(sCanvas.width/2 + 6, sCanvas.height/2 - 14);
                 sCtx.stroke();
                 sCtx.restore();
 
-                requestAnimationFrame(renderWaveLoop);
+                // Instruction Layer
+                sCtx.font = '500 10px Montserrat'; sCtx.fillStyle = '#5c4b37'; sCtx.textAlign = 'center'; sCtx.letterSpacing = '1px';
+                sCtx.fillText('BRUSH SAND TO FIND THE BOTTLE', sCanvas.width / 2, sCanvas.height / 2 - 45);
+            }
+            renderTidepoolSand();
+
+            function checkClearance() {
+                if (targetThresholdMet) return;
+                
+                // Quick checking calculation sampling matrices to verify clearance percentage boundaries
+                let clearedCount = 0;
+                const imgData = sCtx.getImageData(0, 0, sCanvas.width, sCanvas.height).data;
+                // Sample every 40th pixel to save layout execution bandwidth loops
+                for (let i = 3; i < imgData.length; i += 160) {
+                    if (imgData[i] === 0) clearedCount++;
+                }
+
+                const totalSampled = imgData.length / 160;
+                if (clearedCount / totalSampled > 0.55) {
+                    targetThresholdMet = true;
+                    containerBox.classList.add('uncovered'); // Triggers unrolling scroll CSS scale animations
+                    setTimeout(() => {
+                        sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
+                    }, 500);
+                }
             }
 
-            function startWaveReveal(e) {
-                if (isAnimating) return;
+            function clearSandPath(e) {
+                if (!isDrawing || targetThresholdMet) return;
                 e.preventDefault();
-                isAnimating = true;
-                renderWaveLoop();
+                const rect = sCanvas.getBoundingClientRect();
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+
+                sCtx.save();
+                sCtx.globalCompositeOperation = 'destination-out';
+                sCtx.beginPath();
+                sCtx.arc(x, y, 24, 0, Math.PI * 2);
+                sCtx.fill();
+                sCtx.restore();
+
+                checkClearance();
             }
 
-            sCanvas.addEventListener('mousedown', startWaveReveal);
-            sCanvas.addEventListener('touchstart', startWaveReveal, { passive: false });
+            sCanvas.addEventListener('mousedown', () => isDrawing = true);
+            sCanvas.addEventListener('mousemove', clearSandPath);
+            window.addEventListener('mouseup', () => isDrawing = false);
+            sCanvas.addEventListener('touchstart', (e) => { isDrawing = true; clearSandPath(e); }, { passive: false });
+            sCanvas.addEventListener('touchmove', clearSandPath, { passive: false });
+            window.addEventListener('touchend', () => isDrawing = false);
         }
 
         function initTravelRouteMap() {
@@ -1095,22 +1112,15 @@
             setTimeout(launchWeddingFireworks, Math.random() * 1400 + 800);
         }
 
-        // --- CRITICAL CLOCK ENGINE REFIX SYSTEM ---
+        // --- CLOCK LOOP ENGINE ---
         const targetWeddingDate = new Date('December 12, 2026 16:30:00').getTime();
-        
         setInterval(() => {
             const timeDifference = targetWeddingDate - new Date().getTime();
-            
             if (timeDifference > 0) {
                 document.getElementById('days').innerText = Math.floor(timeDifference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
                 document.getElementById('hours').innerText = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
                 document.getElementById('mins').innerText = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
                 document.getElementById('secs').innerText = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
-            } else {
-                document.getElementById('days').innerText = "00";
-                document.getElementById('hours').innerText = "00";
-                document.getElementById('mins').innerText = "00";
-                document.getElementById('secs').innerText = "00";
             }
         }, 1000);
 
