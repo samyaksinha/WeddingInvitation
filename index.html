@@ -226,31 +226,21 @@
             font-family: var(--font-serif); font-size: 2.2rem; color: var(--dynamic-title); margin-bottom: 35px; letter-spacing: 1px; font-weight: 400; transition: color 0.5s;
         }
 
-        /* --- HERO & INTERACTIVE BOTTLE TIDEPOOL CONTAINER --- */
+        /* --- HERO & CLASSIC BRUSH OVERRIDE FRAME --- */
         .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
         .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 500; }
 
         .scratch-container {
-            position: relative; width: 280px; height: 160px; margin: 30px auto;
-            border-radius: 14px; overflow: hidden; box-shadow: 0 8px 25px rgba(13,34,47,0.08);
-            border: 2px solid var(--text-dark); background: #9bbcc3; /* Pool Water Wash Underlayer */
+            position: relative; width: 280px; height: 150px; margin: 30px auto;
+            border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(13,34,47,0.06);
+            border: 2px solid var(--text-dark); background: #f3dfca; /* Dynamic Wet Sand color code block fallback */
         }
-        
-        /* Stylized Unrolling Parchment Scroll Reveal Node */
         .scratch-reveal-text {
-            position: absolute; width: 88%; height: 84%; top: 8%; left: 6%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            background: #faf2dc; border-radius: 6px; z-index: 1;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.15), inset 0 0 15px #eddba4;
-            border: 1px solid #d4c28d; opacity: 0; transform: scale(0.4) rotate(-5deg);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.25);
+            position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; background: #f2dec9; z-index: 1; /* Soft sand backdrop */
         }
-        .scratch-container.uncovered .scratch-reveal-text {
-            opacity: 1; transform: scale(1) rotate(0deg);
-        }
-        
-        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.6rem; color: #42321c; font-weight: 600; letter-spacing: 0.5px; }
-        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: #735f3d; margin-top: 4px; font-weight: 600; }
+        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.7rem; color: var(--text-dark); font-weight: 600; letter-spacing: 0.5px; }
+        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
         
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
@@ -405,7 +395,7 @@
             animation: mandapPulse 2.5s infinite alternate;
         }
 
-        /* --- COUNTDOWN BOX MATRIX --- */
+        /* --- COUNTDOWN BOX --- */
         .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
         .countdown-box { background: rgba(255,255,255,0.9); border: 1px solid var(--text-dark); width: 75px; padding: 14px 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: border-color 0.5s; }
         #main-content.sangeet-active .countdown-box, #main-content.wedding-active .countdown-box { border-color: var(--dynamic-title); }
@@ -416,7 +406,7 @@
         .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); transition: color 0.5s; }
         #main-content.sangeet-active .countdown-lbl, #main-content.wedding-active .countdown-lbl { color: rgba(255,255,255,0.7); }
 
-        /* --- DRESS CODE CARDS --- */
+        /* --- DRESS CODE --- */
         .dress-code-flex { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; align-items: center; }
         .dress-card { width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.9); border: 1px solid var(--text-dark); border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.04); transition: border-color 0.5s; }
         #main-content.sangeet-active .dress-card, #main-content.wedding-active .dress-card { border-color: var(--dynamic-title); background: rgba(255,255,255,0.95); }
@@ -426,7 +416,7 @@
         .badge-yellow { background-color: var(--haldi-yellow); color: #4a3600; }
         .badge-green { background-color: var(--wedding-green); }
 
-        /* --- RSVP INPUT FIELDS --- */
+        /* --- RSVP --- */
         .rsvp-form { text-align: left; margin-top: 30px; }
         .form-group { margin-bottom: 22px; }
         .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--dynamic-text); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.5px; transition: color 0.5s; }
@@ -498,14 +488,14 @@
             <h2>Samyak<span class="ampersand">&</span>Sakshi</h2>
             <p class="sub-banner">Are getting married</p>
             
-            <div class="scratch-container" id="bottle-pool-box">
+            <div class="scratch-container" id="sand-brush-box">
                 <div class="scratch-reveal-text">
                     <span class="date">DECEMBER 12, 2026</span>
                     <span class="day">Saturday</span>
                 </div>
                 <canvas id="scratch-canvas"></canvas>
             </div>
-            <p class="scratch-instruction">Brush away the sand in the tidepool to discover our hidden message</p>
+            <p class="scratch-instruction">Brush the sand away to reveal our wedding date</p>
             
             <div class="wave-separator">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -792,7 +782,7 @@
             initBeachAssets();
             initTravelRouteMap(); 
             renderBeachEngineLoop();
-            setTimeout(initIncomingWaveReveal, 350);
+            setTimeout(initClassicSandScratchCard, 350);
         }
 
         function resizeCanvas() {
@@ -860,94 +850,81 @@
             }
         }
 
-        // --- SUB ROUTINE: COASTAL MESSAGE-IN-A-BOTTLE TIDE POOL DISPLACEMENT ENGINE ---
-        function initIncomingWaveReveal() {
-            const sCanvas = document.getElementById('scratch-canvas');
-            const sCtx = sCanvas.getContext('2d');
-            const containerBox = document.getElementById('bottle-pool-box');
-            
-            sCanvas.width = 280;
-            sCanvas.height = 160;
-
-            let totalClearedPixels = 0;
-            let targetThresholdMet = false;
+        // --- SUB ROUTINE: RETUNED CLASSIC BRUSH TO REVEAL ENGINE ---
+        function initClassicSandScratchCard() {
+            const canvas = document.getElementById('scratch-canvas');
+            const ctx = canvas.getContext('2d');
             let isDrawing = false;
-
-            // Generate fine-grain static pool base layer with seafoam bubbles
-            function renderTidepoolSand() {
-                sCtx.fillStyle = '#cbae8b'; // wet sand base hue
-                sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
-                
-                // Fine Sand grains
-                for (let i = 0; i < 600; i++) {
-                    sCtx.fillStyle = Math.random() > 0.5 ? '#ecdcb9' : '#a38a65';
-                    sCtx.fillRect(Math.random() * sCanvas.width, Math.random() * sCanvas.height, 1.2, 1.2);
-                }
-
-                // Drawing Glass Bottle silhouette hint lines hidden beneath sand layer
-                sCtx.save();
-                sCtx.strokeStyle = 'rgba(74, 114, 122, 0.25)';
-                sCtx.lineWidth = 3;
-                sCtx.beginPath();
-                sCtx.arc(sCanvas.width/2, sCanvas.height/2 + 10, 24, 0, Math.PI*2); // main body
-                sCtx.moveTo(sCanvas.width/2 - 6, sCanvas.height/2 - 14);
-                sCtx.lineTo(sCanvas.width/2 - 6, sCanvas.height/2 - 35); // bottle neck
-                sCtx.lineTo(sCanvas.width/2 + 6, sCanvas.height/2 - 35);
-                sCtx.lineTo(sCanvas.width/2 + 6, sCanvas.height/2 - 14);
-                sCtx.stroke();
-                sCtx.restore();
-
-                // Instruction Layer
-                sCtx.font = '500 10px Montserrat'; sCtx.fillStyle = '#5c4b37'; sCtx.textAlign = 'center'; sCtx.letterSpacing = '1px';
-                sCtx.fillText('BRUSH SAND TO FIND THE BOTTLE', sCanvas.width / 2, sCanvas.height / 2 - 45);
+            let percentClearingMet = false;
+            
+            canvas.width = 280;
+            canvas.height = 150;
+            
+            // Build the dry sand granular pattern on top layout canvas
+            ctx.fillStyle = '#dfcaaf'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < 700; i++) {
+                ctx.fillStyle = Math.random() > 0.5 ? '#fcf6ed' : '#b39878';
+                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
             }
-            renderTidepoolSand();
+            
+            ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px';
+            ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
 
-            function checkClearance() {
-                if (targetThresholdMet) return;
+            function verifyClearanceThreshold() {
+                if (percentClearingMet) return;
                 
-                // Quick checking calculation sampling matrices to verify clearance percentage boundaries
-                let clearedCount = 0;
-                const imgData = sCtx.getImageData(0, 0, sCanvas.width, sCanvas.height).data;
-                // Sample every 40th pixel to save layout execution bandwidth loops
-                for (let i = 3; i < imgData.length; i += 160) {
-                    if (imgData[i] === 0) clearedCount++;
+                let transparentPixels = 0;
+                const canvasData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                
+                // Sample pixel alpha fields across grids to avoid bottleneck loops
+                for (let i = 3; i < canvasData.length; i += 120) {
+                    if (canvasData[i] === 0) transparentPixels++;
                 }
 
-                const totalSampled = imgData.length / 160;
-                if (clearedCount / totalSampled > 0.55) {
-                    targetThresholdMet = true;
-                    containerBox.classList.add('uncovered'); // Triggers unrolling scroll CSS scale animations
-                    setTimeout(() => {
-                        sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
-                    }, 500);
+                if (transparentPixels / (canvasData.length / 120) > 0.55) {
+                    percentClearingMet = true;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // CELEBRATION UNLOCKED: Spawn custom starfishes & aquatic sea foam bubble particles
+                    activeAtmosphere = 'sangeet'; 
+                    dynamicParticles = [];
+                    for(let i=0; i<35; i++) {
+                        dynamicParticles.push({
+                            x: Math.random() * canvasBg.width, y: canvasBg.height + 20,
+                            speedY: -(Math.random() * 1.5 + 0.8), speedX: Math.random() * 1 - 0.5,
+                            size: Math.random() * 10 + 10, angle: Math.random() * Math.PI, rotSpeed: 0.02,
+                            char: Math.random() > 0.5 ? '⭐' : '🫧', // Starfish or beach foam bubbles
+                            color: 'rgba(233,184,137,0.8)'
+                        });
+                    }
                 }
             }
 
-            function clearSandPath(e) {
-                if (!isDrawing || targetThresholdMet) return;
+            function scratch(e) {
+                if (!isDrawing || percentClearingMet) return;
                 e.preventDefault();
-                const rect = sCanvas.getBoundingClientRect();
+                const rect = canvas.getBoundingClientRect();
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const clientY = e.touches ? e.touches[0].clientY : e.clientY;
                 const x = clientX - rect.left;
                 const y = clientY - rect.top;
-
-                sCtx.save();
-                sCtx.globalCompositeOperation = 'destination-out';
-                sCtx.beginPath();
-                sCtx.arc(x, y, 24, 0, Math.PI * 2);
-                sCtx.fill();
-                sCtx.restore();
-
-                checkClearance();
+                
+                ctx.save();
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath(); 
+                ctx.arc(x, y, 22, 0, Math.PI * 2); 
+                ctx.fill();
+                ctx.restore();
+                
+                verifyClearanceThreshold();
             }
-
-            sCanvas.addEventListener('mousedown', () => isDrawing = true);
-            sCanvas.addEventListener('mousemove', clearSandPath);
+            
+            canvas.addEventListener('mousedown', () => isDrawing = true);
+            canvas.addEventListener('mousemove', scratch);
             window.addEventListener('mouseup', () => isDrawing = false);
-            sCanvas.addEventListener('touchstart', (e) => { isDrawing = true; clearSandPath(e); }, { passive: false });
-            sCanvas.addEventListener('touchmove', clearSandPath, { passive: false });
+            canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
+            canvas.addEventListener('touchmove', scratch, {passive: false});
             window.addEventListener('touchend', () => isDrawing = false);
         }
 
@@ -1112,7 +1089,6 @@
             setTimeout(launchWeddingFireworks, Math.random() * 1400 + 800);
         }
 
-        // --- CLOCK LOOP ENGINE ---
         const targetWeddingDate = new Date('December 12, 2026 16:30:00').getTime();
         setInterval(() => {
             const timeDifference = targetWeddingDate - new Date().getTime();
