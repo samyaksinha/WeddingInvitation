@@ -10,7 +10,7 @@
     
     <style>
         :root {
-            /* Authentic Goan Beach Vibe Color Palette */
+            /* Coastal & Saffron Accent Theme Palette */
             --ocean-navy: #0d222f;
             --sundowner-orange: #fca34d;
             --sunset-rose: #e28e7d;
@@ -24,11 +24,10 @@
             --font-sans: 'Montserrat', sans-serif;
             --haldi-yellow: #f5c242;
             --pastel-pink: #fbe3e3; 
-            --sundowner-sky: #ffcd94; 
             --wedding-green: #2e5a44;
             
-            /* Continuous Beach-Wash Gradient Overlay */
-            --dynamic-bg: linear-gradient(180deg, #f7e6d4 0%, #f5d3b3 25%, #e8b495 50%, #fca34d 75%, #0d222f 100%);
+            /* High-Noon Beach Sky Baseline */
+            --dynamic-bg: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
             --dynamic-text: var(--text-dark);
             --dynamic-title: var(--text-dark);
         }
@@ -42,14 +41,14 @@
 
         body {
             font-family: var(--font-sans);
-            background-color: #0d222f; /* Ocean floor grounding color hook */
+            background-color: #0d222f;
             color: var(--dynamic-text);
             overflow-x: hidden;
             line-height: 1.6;
             transition: color 0.5s ease;
         }
 
-        /* --- LANDING COVER (Tropical Dawn Wave Overlay) --- */
+        /* --- LANDING COVER --- */
         #curtain-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -135,7 +134,7 @@
         .cover-wave-layer:nth-child(2) { fill: var(--sundowner-orange); opacity: 0.4; animation: waveSwim 5s linear infinite reverse; }
         .cover-wave-layer:nth-child(3) { fill: var(--sand-warm); opacity: 1; animation: waveSwim 3s linear infinite; }
 
-        /* --- IMMERSIVE BACKDROP PARALLAX CANVAS --- */
+        /* --- IMMERSIVE BACKGROUND CANVAS ENGINE --- */
         #beach-bg-canvas {
             position: fixed; 
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -143,7 +142,7 @@
             pointer-events: none;
         }
 
-        /* --- OVERHEAD FIXED FESTIVAL CANOPIES --- */
+        /* --- OVERHEAD FIXED CANOPIES --- */
         #fullscreen-fixed-canopy {
             position: fixed;
             top: -20px; left: 50%;
@@ -159,7 +158,7 @@
             opacity: 1; top: 0;
         }
 
-        /* --- MAIN MOBILE INVITE WRAPPER AREA --- */
+        /* --- MAIN MOBILE INVITE CONTAINER HOUSING THE BLUE SKY & PALMS --- */
         #main-content {
             opacity: 0;
             display: none; 
@@ -169,15 +168,13 @@
             position: relative;
             z-index: 5;
             box-shadow: 0 0 60px rgba(13, 34, 47, 0.3);
-            
-            /* Grounding beach textures inside reading container space natively */
             background: var(--dynamic-bg);
             transition: background 0.8s ease;
         }
 
         #main-content.visible { opacity: 1; display: block; }
 
-        /* State environmental text color transitions overrides definitions */
+        /* Environmental State Overrides */
         #main-content.sangeet-active {
             background: linear-gradient(180deg, #050d14 0%, #0d222f 50%, #1a0a1a 100%) !important;
             --dynamic-text: #f7e6d4;
@@ -194,15 +191,6 @@
             --dynamic-title: #fdb366;
         }
 
-        #main-content.sangeet-active .track-card, #main-content.wedding-active .track-card {
-            background: rgba(255,255,255,0.06) !important;
-            border-color: var(--dynamic-title) !important;
-        }
-        #main-content.haldi-active .track-card {
-             background: rgba(255, 255, 255, 0.6) !important;
-             border-color: var(--sundowner-orange) !important;
-        }
-
         section {
             padding: 90px 24px;
             text-align: center;
@@ -211,15 +199,15 @@
             z-index: 4; 
         }
 
-        /* --- ROLLING BREAK SEPARATORS --- */
+        /* --- BREAK SHORELINE SVG WAVES --- */
         .wave-separator {
             position: absolute;
             bottom: 0; left: 0; width: 100%; height: 50px;
             overflow: hidden; line-height: 0; transform: translateY(1px);
         }
         .wave-separator svg { position: relative; display: block; width: 300%; height: 50px; }
-        .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: var(--sunset-rose); opacity: 0.2; transition: fill 0.8s, opacity 0.8s; }
-        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--sand-warm); opacity: 0.4; transition: fill 0.8s, opacity 0.8s; }
+        .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: rgba(226, 142, 125, 0.4); opacity: 0.3; transition: fill 0.8s, opacity 0.8s; }
+        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: rgba(255, 255, 255, 0.3); opacity: 0.5; transition: fill 0.8s, opacity 0.8s; }
 
         #main-content.sangeet-active .wave-sep-1 { fill: #1a0a1a; opacity: 0.6; }
         #main-content.sangeet-active .wave-sep-2 { fill: #050d14; }
@@ -229,23 +217,20 @@
 
         .section-title {
             font-family: var(--font-serif); font-size: 2.4rem; color: var(--dynamic-title); margin-bottom: 35px; letter-spacing: 2px; font-weight: 400; transition: color 0.5s;
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
         }
-        #main-content.sangeet-active .section-title, #main-content.wedding-active .section-title { text-shadow: none; }
 
-        /* --- HERO & ORGANIC WET SAND CARD PANEL --- */
+        /* --- HERO & CLASSIC SAND BRUSH FRAME --- */
         .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.6rem; display: block; margin: 5px 0; }
         .sub-banner { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 600; }
 
         .scratch-container {
             position: relative; width: 280px; height: 150px; margin: 35px auto;
-            border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(13,34,47,0.12);
-            border: 2px solid var(--text-dark); background: #ecd4b9; /* Sandy beach wet base underlayer */
+            border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(13,34,47,0.15);
+            border: 2px solid var(--text-dark); background: #ecd4b9; 
         }
         .scratch-reveal-text {
             position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; background: #ebd4b9; z-index: 1;
-            background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 80%);
         }
         .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.75rem; color: var(--text-dark); font-weight: 600; letter-spacing: 0.5px; }
         .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
@@ -253,21 +238,29 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 600; letter-spacing: 0.5px; }
 
-        /* --- DISPLAY LAYOUT MODS --- */
+        /* --- PREMIUM GLASSMORPHIC CONTAINERS FOR HIGHEST LEGIBILITY --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 12px 32px rgba(13, 34, 47, 0.08);
+        }
+        #main-content.sangeet-active .glass-card { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.1); }
+        #main-content.wedding-active .glass-card { background: rgba(0, 0, 0, 0.25); border-color: rgba(255, 255, 255, 0.1); }
+
         .venue-display-frame {
             width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto;
             border-radius: 20px; overflow: hidden; box-shadow: 0 16px 35px rgba(13,34,47,0.15);
-            border: 1px solid rgba(35, 31, 32, 0.12); background: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.4); background: #ffffff;
         }
         .venue-photo { width: 100%; height: 100%; object-fit: cover; object-position: bottom center; }
 
-        /* --- OUR JOURNEY INTERACTIVE PATH TRACK --- */
+        /* --- STORY TIMELINE CARD MODULES --- */
         .story-timeline-track { position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%; }
         .story-timeline-track::before {
             content: ''; position: absolute; top: 0; left: 24px; width: 4px; height: 100%;
-            background: rgba(35, 31, 32, 0.12); border-radius: 10px;
+            background: rgba(255, 255, 255, 0.3); border-radius: 10px;
         }
-        #main-content.wedding-active .story-timeline-track::before { background: rgba(255,255,255,0.2); }
         
         .story-node-wrapper { position: relative; margin-bottom: 35px; padding-left: 55px; text-align: left; }
         .story-node-wrapper:last-of-type { margin-bottom: 0; }
@@ -280,18 +273,14 @@
         }
         
         .story-interactive-card {
-            background: rgba(255, 255, 255, 0.4); border: 1px solid rgba(35, 31, 32, 0.08);
             padding: 18px; border-radius: 14px; opacity: 0.6; transform: scale(0.97);
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
         }
         
         .story-node-wrapper.unlocked .story-interactive-card {
-            opacity: 1; transform: scale(1); background: rgba(255, 255, 255, 0.85);
-            border-color: var(--sunset-rose); box-shadow: 0 8px 22px rgba(13,34,47,0.06);
+            opacity: 1; transform: scale(1);
+            box-shadow: 0 8px 22px rgba(13,34,47,0.06);
         }
-        #main-content.wedding-active .story-node-wrapper.unlocked .story-interactive-card { background: rgba(255,255,255,0.12); border-color: var(--gold-glow); }
-
         .story-node-wrapper.unlocked .story-marker-token {
             background: var(--sand-warm); border-color: var(--sundowner-orange); transform: scale(1.2);
             box-shadow: 0 0 12px rgba(252,163,77,0.3);
@@ -299,9 +288,10 @@
 
         .story-interactive-card .story-year { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
         .story-interactive-card .story-heading { font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 6px; }
-        #main-content.wedding-active .story-interactive-card .story-heading { color: #ffffff; }
+        #main-content.sangeet-active .story-interactive-card .story-heading, #main-content.wedding-active .story-interactive-card .story-heading { color: #ffffff; }
+        #main-content.sangeet-active .details-p, #main-content.wedding-active .details-p { color: rgba(255,255,255,0.85); }
 
-        /* --- INDIA TRAVEL CANVAS --- */
+        /* --- TRAVEL GEOGRAPHY CANVAS --- */
         .travel-map-container {
             width: 100%; max-width: 320px; height: 340px; margin: 0 auto 12px auto;
             background: #b0cacf; border: 2px solid var(--text-dark);
@@ -311,7 +301,6 @@
         #travel-canvas { width: 100%; height: 100%; display: block; }
         .map-caption { font-size: 0.75rem; font-style: italic; margin-top: 0; margin-bottom: 25px; color: var(--text-muted); font-weight: 500; }
 
-        /* --- COMPACT ACTION BUTTON WIDGET --- */
         .map-widget-box {
             width: 100%; max-width: 200px; margin: 25px auto 10px auto;
             background: rgba(255, 255, 255, 0.9); border: 1px solid var(--text-dark);
@@ -338,7 +327,7 @@
             font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; border-radius: 15px;
         }
 
-        /* --- THE INTERACTIVE BEACH CARD TRACK --- */
+        /* --- MAP TRACK NODES --- */
         .beach-map-track { position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%; }
         .beach-map-track::before {
             content: ''; position: absolute; top: 0; left: 24px; width: 6px; height: 100%;
@@ -355,57 +344,49 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        .track-card {
-            background: rgba(255, 255, 255, 0.5); border: 1px solid var(--text-dark); padding: 20px;
-            border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.03); transition: all 0.4s ease;
-            position: relative; overflow: hidden; backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
-        }
+        .track-card { padding: 20px; border-radius: 14px; transition: all 0.4s ease; position: relative; overflow: hidden; }
         
         .track-node-wrapper.selected .track-card {
             transform: scale(1.02);
             border-color: var(--sundowner-orange) !important;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.9);
         }
-        .track-node-wrapper.selected .track-marker {
-            background: var(--sundowner-orange);
-            transform: scale(1.25);
-        }
+        #main-content.wedding-active .track-node-wrapper.selected .track-card { background: rgba(0,0,0,0.4); }
+        .track-node-wrapper.selected .track-marker { background: var(--sundowner-orange); transform: scale(1.25); }
 
         .mandap-frame-svg {
             position: absolute; bottom: -12px; right: -12px; width: 85px; height: 85px; fill: none; stroke: var(--gold-glow); stroke-width: 1.2; opacity: 0.35; transition: all 0.6s ease;
         }
-        .track-node-wrapper.selected .mandap-frame-svg { stroke: var(--sundowner-orange); opacity: 0.8; transform: scale(1.1) rotate(-2deg); }
         body.wedding-mode .mandap-frame-svg {
             stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 12px var(--sundowner-orange)); animation: mandapPulse 2.5s infinite alternate;
         }
 
-        /* --- COUNTDOWN BOX MATRIX --- */
+        /* --- COUNTDOWN MATRICES --- */
         .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
-        .countdown-box { background: rgba(255,255,255,0.5); border: 1px solid var(--text-dark); width: 75px; padding: 14px 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: border-color 0.5s; backdrop-filter: blur(4px); }
-        #main-content.sangeet-active .countdown-box, #main-content.wedding-active .countdown-box { border-color: var(--dynamic-title); background: rgba(255,255,255,0.1); }
+        .countdown-box { width: 75px; padding: 14px 0; border-radius: 8px; transition: border-color 0.5s; }
 
         .countdown-val { font-family: var(--font-serif); font-size: 1.8rem; color: #231f20; display: block; font-weight: 400; transition: color 0.5s; }
-        #main-content.sangeet-active .countdown-val, #main-content.wedding-active .countdown-val { color: var(--dynamic-text); }
+        #main-content.sangeet-active .countdown-val, #main-content.wedding-active .countdown-val { color: #ffffff; }
 
         .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); transition: color 0.5s; }
         #main-content.sangeet-active .countdown-lbl, #main-content.wedding-active .countdown-lbl { color: rgba(255,255,255,0.7); }
 
-        /* --- DRESS CODE UNIFIED CARDS --- */
+        /* --- WARDROBE --- */
         .dress-code-flex { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; align-items: center; }
-        .dress-card { width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.5); border: 1px solid var(--text-dark); border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.04); transition: border-color 0.5s; backdrop-filter: blur(4px); }
-        #main-content.sangeet-active .dress-card, #main-content.wedding-active .dress-card { border-color: var(--dynamic-title); background: rgba(255,255,255,0.1); }
+        .dress-card { width: 92%; padding: 22px 15px; border-radius: 10px; transition: border-color 0.5s; }
 
         .dress-event { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1px; }
+        #main-content.sangeet-active .dress-event, #main-content.wedding-active .dress-event { color: rgba(255,255,255,0.7); }
         .dress-badge { display: inline-block; padding: 8px 26px; font-size: 0.8rem; color: white; border-radius: 25px; text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
         .badge-yellow { background-color: var(--haldi-yellow); color: #4a3600; }
         .badge-green { background-color: var(--wedding-green); }
 
-        /* --- RSVP INPUT FIELDS --- */
+        /* --- RSVP --- */
         .rsvp-form { text-align: left; margin-top: 30px; }
         .form-group { margin-bottom: 22px; }
         .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--dynamic-text); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.5px; transition: color 0.5s; }
         .form-group input, .form-group select { width: 100%; padding: 15px 12px; border: 1px solid var(--text-dark); border-radius: 8px; background: rgba(255,255,255,0.8); font-family: var(--font-sans); color: var(--text-dark); outline: none; transition: border-color 0.5s; }
-        #main-content.sangeet-active .form-group input, #main-content.wedding-active .form-group input { border-color: var(--dynamic-title); background: rgba(255,255,255,0.15); color: #fff; }
+        #main-content.sangeet-active .form-group input, #main-content.wedding-active .form-group input { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.15); color: #fff; }
 
         .radio-group { display: flex; gap: 20px; margin-top: 8px; }
         .radio-option { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--dynamic-text); cursor: pointer; font-weight: 500; transition: color 0.5s; }
@@ -415,7 +396,13 @@
         .submit-btn { width: 100%; background-color: var(--text-dark); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s; }
         #main-content.sangeet-active .submit-btn, #main-content.wedding-active .submit-btn { background-color: #ffffff; color: #101c2c; }
 
-        #main-content.sangeet-active .details-p { color: rgba(255,255,255,0.7) !important; }
+        #main-content.sangeet-active .form-group label, #main-content.sangeet-active .radio-option, #main-content.sangeet-active footer p,
+        #main-content.wedding-active .form-group label, #main-content.wedding-active .radio-option, #main-content.wedding-active footer p {
+            color: #ffffff !important;
+        }
+        #main-content.wedding-active .form-group label, #main-content.wedding-active .radio-option, #main-content.wedding-active footer p, #main-content.wedding-active .section-title, #main-content.wedding-active .details-p {
+            color: var(--fff6ee) !important;
+        }
 
         footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--dynamic-text); opacity: 0.7; background-color: transparent; letter-spacing: 1px; font-weight: 500; transition: color 0.5s; }
 
@@ -423,7 +410,6 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-4px); } }
-        @keyframes lightDim { from { opacity: 0.4; } to { opacity: 1; } }
         @keyframes mandapPulse { 0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 4px var(--sundowner-orange)); } 100% { transform: scale(1.08) rotate(-2deg); filter: drop-shadow(0 0 15px #ffffff); } }
     </style>
 </head>
@@ -460,7 +446,6 @@
     </svg>
 
     <div id="main-content">
-        
         <canvas id="beach-bg-canvas"></canvas>
 
         <section class="hero">
@@ -486,10 +471,10 @@
         <section>
             <h3 class="section-title">Counting Down</h3>
             <div class="countdown-container">
-                <div class="countdown-box"><span class="countdown-val" id="days">00</span><span class="countdown-lbl">Days</span></div>
-                <div class="countdown-box"><span class="countdown-val" id="hours">00</span><span class="countdown-lbl">Hrs</span></div>
-                <div class="countdown-box"><span class="countdown-val" id="mins">00</span><span class="countdown-lbl">Mins</span></div>
-                <div class="countdown-box"><span class="countdown-val" id="secs">00</span><span class="countdown-lbl">Secs</span></div>
+                <div class="countdown-box glass-card"><span class="countdown-val" id="days">00</span><span class="countdown-lbl">Days</span></div>
+                <div class="countdown-box glass-card"><span class="countdown-val" id="hours">00</span><span class="countdown-lbl">Hrs</span></div>
+                <div class="countdown-box glass-card"><span class="countdown-val" id="mins">00</span><span class="countdown-lbl">Mins</span></div>
+                <div class="countdown-box glass-card"><span class="countdown-val" id="secs">00</span><span class="countdown-lbl">Secs</span></div>
             </div>
             
             <div class="wave-separator">
@@ -506,7 +491,7 @@
             <div class="story-timeline-track">
                 <div class="story-node-wrapper" id="story-node-1" onclick="unlockStoryNode(1, 'coffee')">
                     <div class="story-marker-token">✨</div>
-                    <div class="story-card story-interactive-card">
+                    <div class="story-card story-interactive-card glass-card">
                         <span class="story-year">2022</span>
                         <h4 class="story-heading">How It All Began</h4>
                         <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Two colleagues who found in each other an unexpected best friend. It started with conversations, laughter, and comfort.</p>
@@ -515,7 +500,7 @@
 
                 <div class="story-node-wrapper" id="story-node-2" onclick="unlockStoryNode(2, 'spark')">
                     <div class="story-marker-token">⚡</div>
-                    <div class="story-card story-interactive-card">
+                    <div class="story-card story-interactive-card glass-card">
                         <span class="story-year">2023</span>
                         <h4 class="story-heading">Becoming Something More</h4>
                         <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Hearts quietly crossed a line. Head over heels, full of hopes, and unsure of what the future held — but certain it felt right.</p>
@@ -524,7 +509,7 @@
 
                 <div class="story-node-wrapper" id="story-node-3" onclick="unlockStoryNode(3, 'camera')">
                     <div class="story-marker-token">📸</div>
-                    <div class="story-card story-interactive-card">
+                    <div class="story-card story-interactive-card glass-card">
                         <span class="story-year">2024</span>
                         <h4 class="story-heading">Built in the Little Things</h4>
                         <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">No grand gestures needed. Fun trips with friends, good food, late-night talks, and showing up for each other every single day.</p>
@@ -533,7 +518,7 @@
 
                 <div class="story-node-wrapper" id="story-node-4" onclick="unlockStoryNode(4, 'lock')">
                     <div class="story-marker-token">♾️</div>
-                    <div class="story-card story-interactive-card">
+                    <div class="story-card story-interactive-card glass-card">
                         <span class="story-year">2025</span>
                         <h4 class="story-heading">The Leap of Faith</h4>
                         <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">With hope in their hearts, they took the biggest step yet — bringing families into their story. And the universe said yes.</p>
@@ -542,7 +527,7 @@
 
                 <div class="story-node-wrapper" id="story-node-5" onclick="unlockStoryNode(5, 'heart')">
                     <div class="story-marker-token">❤️</div>
-                    <div class="story-card story-interactive-card">
+                    <div class="story-card story-interactive-card glass-card">
                         <span class="story-year">2026</span>
                         <h4 class="story-heading">And Now... Goa</h4>
                         <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Their favorite place. Their next forever. They’re getting married, and they’d love for you to be part of it.</p>
@@ -601,7 +586,7 @@
                 
                 <div class="track-node-wrapper" id="node-sangeet" onclick="triggerEventAtmosphere('sangeet')">
                     <div class="track-marker"></div>
-                    <div class="track-card">
+                    <div class="track-card glass-card">
                         <span class="event-date-lbl">Friday, 11th Dec</span>
                         <p class="event-time-lbl">05:00 PM</p>
                         <h4 class="event-title-lbl">Sangeet Night</h4>
@@ -612,7 +597,7 @@
 
                 <div class="track-node-wrapper" id="node-haldi" onclick="triggerEventAtmosphere('haldi')">
                     <div class="track-marker"></div>
-                    <div class="track-card">
+                    <div class="track-card glass-card">
                         <span class="event-date-lbl">Saturday, 12th Dec</span>
                         <p class="event-time-lbl">11:00 AM</p>
                         <h4 class="event-title-lbl">Haldi Ceremony</h4>
@@ -623,7 +608,7 @@
 
                 <div class="track-node-wrapper" id="node-wedding" onclick="triggerEventAtmosphere('wedding')">
                     <div class="track-marker"></div>
-                    <div class="track-card">
+                    <div class="track-card glass-card">
                         <svg class="mandap-frame-svg" viewBox="0 0 100 100">
                             <path d="M15,95 L15,40 L85,40 L85,95 M10,40 L90,40 M22,40 L22,95 M78,40 L78,95" stroke-linecap="round"/>
                             <path d="M15,40 C15,15 40,10 50,22 Q60,10 85,40 M30,40 C30,22 42,18 50,26 Q58,18 70,40" stroke-linecap="round"/>
@@ -653,8 +638,8 @@
             <h3 class="section-title">Dress Code</h3>
             <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
             <div class="dress-code-flex">
-                <div class="dress-card"><div class="dress-event">Haldi Ceremony</div><div class="dress-badge badge-yellow">Shades of Yellow</div></div>
-                <div class="dress-card"><div class="dress-event">Wedding Ceremony</div><div class="dress-badge badge-green">Something Green</div></div>
+                <div class="dress-card glass-card"><div class="dress-event">Haldi Ceremony</div><div class="dress-badge badge-yellow">Shades of Yellow</div></div>
+                <div class="dress-card glass-card"><div class="dress-event">Wedding Ceremony</div><div class="dress-badge badge-green">Something Green</div></div>
             </div>
             
             <div class="wave-separator">
@@ -771,7 +756,7 @@
 
         function initBeachAssets() {
             sparkles = [];
-            for (let i = 0; i < 30; i++) { // Increased ambient bubble count for immersive beach layout
+            for (let i = 0; i < 30; i++) {
                 sparkles.push({
                     x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
                     size: Math.random() * 12 + 4, speed: Math.random() * 0.3 + 0.1, phase: Math.random() * Math.PI
@@ -829,7 +814,6 @@
             }
         }
 
-        // --- SUB ROUTINE: BALANCED SAND REVEAL MECHANIC WITH CELEBRATION PARTY BURSTS ---
         function initClassicSandScratchCard() {
             const canvas = document.getElementById('scratch-canvas');
             const ctx = canvas.getContext('2d');
@@ -839,7 +823,6 @@
             canvas.width = 280;
             canvas.height = 150;
             
-            // Build the dry sand granular pattern on top layout canvas
             ctx.fillStyle = '#dfcaaf'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             for (let i = 0; i < 700; i++) {
@@ -864,7 +847,6 @@
                     percentClearingMet = true;
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
                     
-                    // CELEBRATION UNLOCKED: Trigger upward drift of live starfish & seafoam ripples across main column spaces
                     activeAtmosphere = 'sangeet'; 
                     dynamicParticles = [];
                     for(let i=0; i<35; i++) {
@@ -963,17 +945,16 @@
             ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
             swayTime += 0.008;
 
-            // --- A. DRAW INTERACTIVE BACKGROUND CANOPIES ---
+            // --- A. IMMERSIVE COMPREHENSIVE REFRESHED PALM ARTWORK CANOPY ---
             ctxBg.save();
-            if (activeAtmosphere === 'sangeet') { ctxBg.strokeStyle = 'rgba(233, 184, 137, 0.08)'; } 
-            else if (activeAtmosphere === 'wedding') { ctxBg.strokeStyle = 'rgba(255, 246, 238, 0.16)'; } 
-            else if (activeAtmosphere === 'haldi') { ctxBg.strokeStyle = 'rgba(35, 31, 32, 0.08)'; } 
-            else { ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.1)'; }
-            ctxBg.lineWidth = 2.5;
-            drawPalmBranchFrame(ctxBg, 25, canvasBg.height * 0.18, 120, 0.4 + Math.sin(swayTime)*0.05);
-            drawPalmBranchFrame(ctxBg, 15, canvasBg.height * 0.55, 125, 0.2 + Math.cos(swayTime)*0.04);
-            drawPalmBranchFrame(ctxBg, canvasBg.width - 25, canvasBg.height * 0.32, 120, 2.8 + Math.sin(swayTime)*0.05);
-            drawPalmBranchFrame(ctxBg, canvasBg.width - 15, canvasBg.height * 0.72, 125, 2.6 + Math.cos(swayTime)*0.04);
+            ctxBg.lineWidth = 3;
+            // Configured look-up perspective to match photo source reference
+            ctxBg.strokeStyle = activeAtmosphere === 'sangeet' ? 'rgba(255,255,255,0.05)' : 'rgba(37, 72, 94, 0.16)';
+            drawPalmBranchFrame(ctxBg, 80, -20, 160, 0.8 + Math.sin(swayTime)*0.03);
+            drawPalmBranchFrame(ctxBg, 220, -40, 150, 1.4 + Math.cos(swayTime)*0.02);
+            drawPalmBranchFrame(ctxBg, 380, -10, 170, 2.1 + Math.sin(swayTime)*0.04);
+            drawPalmBranchFrame(ctxBg, 40, canvasBg.height + 40, 150, -0.6 + Math.cos(swayTime)*0.03);
+            drawPalmBranchFrame(ctxBg, canvasBg.width - 40, canvasBg.height + 30, 160, -2.4 + Math.sin(swayTime)*0.02);
             ctxBg.restore();
 
             if (activeAtmosphere !== 'sangeet') {
@@ -984,13 +965,13 @@
                 });
             }
 
-            // Always render standard fine sunlit sparkles across the main invitation area container layer
+            // Continuous drifting beach foam / sea bubbles across card bodies layout lines
             sparkles.forEach(p => {
                 p.y -= p.speed; p.phase += 0.01; if (p.y < -20) p.y = canvasBg.height + 20;
                 let opacity = (Math.sin(p.phase) + 1) / 2 * 0.25; 
                 ctxBg.beginPath(); 
                 let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size); 
-                gradient.addColorStop(0, activeAtmosphere === 'sangeet' ? `rgba(95,158,160,${opacity})` : `rgba(252, 163, 77, ${opacity})`); 
+                gradient.addColorStop(0, activeAtmosphere === 'sangeet' ? `rgba(95,158,160,${opacity})` : `rgba(255, 255, 255, ${opacity})`); 
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); 
                 ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
             });
@@ -1021,10 +1002,6 @@
             });
 
             requestAnimationFrame(renderBeachEngineLoop);
-        }
-
-        function drawPalmBranchFrame(context, x, y, length, angle) {
-            context.save(); context.translate(x, y); context.rotate(angle); context.beginPath(); context.moveTo(0, 0); context.quadraticCurveTo(length*0.5, 15, length, 0); context.stroke(); for (let i = 10; i < length; i += 6) { let r = i / length; let leafH = 30 * (1 - r*0.4); context.beginPath(); context.moveTo(i, 5 * r); context.quadraticCurveTo(i - 5, leafH, i - 12, leafH * 1.1); context.stroke(); } context.restore();
         }
 
         function triggerEventAtmosphere(mode) {
