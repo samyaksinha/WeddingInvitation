@@ -174,7 +174,6 @@
 
         #main-content.visible { opacity: 1; display: block; }
 
-        /* Full Environmental Scenic Color Transitions */
         #main-content.sangeet-active {
             background: linear-gradient(180deg, #091620 0%, #152836 50%, #221221 100%) !important;
             --dynamic-text: #f7e6d4;
@@ -208,7 +207,6 @@
             z-index: 2; 
         }
 
-        /* --- SHORELINE WAVES BETWEEN CHAPTERS --- */
         .wave-separator {
             position: absolute;
             bottom: 0; left: 0; width: 100%; height: 45px;
@@ -228,7 +226,6 @@
             font-family: var(--font-serif); font-size: 2.2rem; color: var(--dynamic-title); margin-bottom: 35px; letter-spacing: 1px; font-weight: 400; transition: color 0.5s;
         }
 
-        /* --- HERO & BRUSH SECTIONS --- */
         .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
         .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 500; }
 
@@ -246,7 +243,6 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        /* --- OPTIMIZED VERTICAL VENUE FRAME --- */
         .venue-display-frame {
             width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto;
             border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
@@ -254,36 +250,48 @@
         }
         .venue-photo { width: 100%; height: 100%; object-fit: cover; object-position: bottom center; }
 
-        /* --- OPTION 2: THE CINEMATIC JOURNEY TRACK --- */
+        /* --- THE DYNAMIC JOURNEY MODULE STYLE (OPTION 2 REFRACTED) --- */
         .story-timeline-track {
             position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%;
         }
         .story-timeline-track::before {
             content: ''; position: absolute; top: 0; left: 24px; width: 4px; height: 100%;
-            background: rgba(226, 142, 125, 0.3); border-radius: 10px;
+            background: rgba(35, 31, 32, 0.1); border-radius: 10px;
         }
         .story-node-wrapper {
             position: relative; margin-bottom: 35px; padding-left: 55px; text-align: left;
         }
         .story-node-wrapper:last-of-type { margin-bottom: 0; }
-        .story-marker {
-            position: absolute; left: 17px; top: 6px; width: 18px; height: 18px;
-            background: #ffffff; border: 3px solid var(--sunset-rose); border-radius: 50%; z-index: 10;
-            transition: all 0.3s ease;
+        
+        /* Unique Custom Token Holders instead of plain bullets */
+        .story-marker-token {
+            position: absolute; left: 12px; top: 4px; width: 28px; height: 28px;
+            background: #ffffff; border: 2px solid var(--sunset-rose); border-radius: 50%; z-index: 10;
+            display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .story-node-wrapper:hover .story-marker {
-            background: var(--sundowner-orange); transform: scale(1.2);
+        
+        .story-interactive-card {
+            background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(35, 31, 32, 0.1);
+            padding: 18px; border-radius: 14px; opacity: 0.6; transform: scale(0.97);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .story-card {
-            background: rgba(255, 255, 255, 0.7); border: 1px dashed var(--sunset-rose);
-            padding: 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            transition: all 0.3s ease;
+        
+        /* Active status adjustments for the story elements */
+        .story-node-wrapper.unlocked .story-interactive-card {
+            opacity: 1; transform: scale(1); background: #ffffff;
+            border-color: var(--sunset-rose); box-shadow: 0 6px 18px rgba(226,142,125,0.12);
         }
-        .story-card .story-year {
-            font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1px; display: block; margin-bottom: 2px;
+        .story-node-wrapper.unlocked .story-marker-token {
+            background: var(--sand-warm); border-color: var(--sundowner-orange); transform: scale(1.2);
+            box-shadow: 0 0 12px rgba(252,163,77,0.3);
         }
-        .story-card .story-heading {
-            font-family: var(--font-serif); font-size: 1.3rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 4px;
+
+        .story-interactive-card .story-year {
+            font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1.5px; display: block; margin-bottom: 2px;
+        }
+        .story-interactive-card .story-heading {
+            font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 6px;
         }
 
         /* --- TRAVEL MAP ANIMATION CONTAINER --- */
@@ -513,33 +521,33 @@
 
         <section id="our-story">
             <h3 class="section-title">Our Story</h3>
-            <p class="details-p" style="margin-bottom: 20px;">The milestones that led us to the shore.</p>
+            <p class="details-p" style="margin-bottom: 25px;">Tap each token to trace our timeline.</p>
             
             <div class="story-timeline-track">
-                <div class="story-node-wrapper">
-                    <div class="story-marker"></div>
-                    <div class="story-card">
+                <div class="story-node-wrapper" id="story-node-1" onclick="unlockStoryNode(1, 'coffee')">
+                    <div class="story-marker-token">☕</div>
+                    <div class="story-card story-interactive-card">
                         <span class="story-year">2022</span>
-                        <h4 class="story-heading">Where it Began</h4>
-                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Our paths crossed for the first time, starting a conversation that never really ended.</p>
+                        <h4 class="story-heading">First Coffee Date</h4>
+                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Our paths crossed for the first time, starting a conversion over coffee that never really ended.</p>
                     </div>
                 </div>
 
-                <div class="story-node-wrapper">
-                    <div class="story-marker"></div>
-                    <div class="story-card">
+                <div class="story-node-wrapper" id="story-node-2" onclick="unlockStoryNode(2, 'plane')">
+                    <div class="story-marker-token">✈️</div>
+                    <div class="story-card story-interactive-card">
                         <span class="story-year">2024</span>
-                        <h4 class="story-heading">First Travel Miles</h4>
-                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Exploring new places together and discovering we make the perfect travel partners.</p>
+                        <h4 class="story-heading">Travel Miles</h4>
+                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Exploring new places together and discovering we make the absolute perfect adventure partners.</p>
                     </div>
                 </div>
 
-                <div class="story-node-wrapper">
-                    <div class="story-marker"></div>
-                    <div class="story-card">
-                        <span class="story-year">2025</span>
+                <div class="story-node-wrapper" id="story-node-3" onclick="unlockStoryNode(3, 'heart')">
+                    <div class="story-marker-token">❤️</div>
+                    <div class="story-card story-interactive-card">
+                        <span class="story-year">2026</span>
                         <h4 class="story-heading">The Promise</h4>
-                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Deciding on a forever kind of love and beginning the plans for our dream beach celebration.</p>
+                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Deciding on a forever kind of love and bringing our journey to the shores of Goa.</p>
                     </div>
                 </div>
             </div>
@@ -704,6 +712,9 @@
             initCoverCanvas();
             initCoverFlares();
             renderCoverEngineLoop();
+            
+            // Unlock first node initially so timeline doesn't look barren on load
+            document.getElementById('story-node-1').classList.add('unlocked');
         });
 
         function initCoverCanvas() {
@@ -781,113 +792,96 @@
             }
         }
 
+        // --- SUB ROUTINE: STORY TRIGGER ENVIRONMENTALS MECHANISM ---
+        function unlockStoryNode(stepIndex, type) {
+            // Highlight target card with unlocked scaling rules
+            document.querySelectorAll('.story-node-wrapper').forEach((node, idx) => {
+                if(idx + 1 <= stepIndex) {
+                    node.classList.add('unlocked');
+                } else {
+                    node.classList.remove('unlocked');
+                }
+            });
+
+            // Connect story interactions directly to floating backdrop engines
+            if(type === 'coffee') {
+                activeAtmosphere = 'default';
+                dynamicParticles = [];
+            } else if (type === 'plane') {
+                // Trigger quick flying airplane particles onto global canvas space
+                activeAtmosphere = 'sangeet'; 
+                dynamicParticles = [];
+                for(let i=0; i<15; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width, y: canvasBg.height + 20,
+                        speedY: -(Math.random() * 2 + 1), speedX: Math.random() * 1 - 0.5,
+                        size: 14, angle: 0, rotSpeed: 0,
+                        char: '✈️', color: 'rgba(252,163,77,0.5)'
+                    });
+                }
+            } else if (type === 'heart') {
+                // Trigger dense falling love hearts particles onto canvas spaces
+                activeAtmosphere = 'wedding';
+                dynamicParticles = [];
+                for(let i=0; i<30; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width, y: -Math.random() * 100,
+                        speedY: Math.random() * 1 + 0.5, speedX: Math.random() * 0.6 - 0.3,
+                        size: Math.random() * 6 + 6, angle: Math.random() * Math.PI, rotSpeed: 0.01,
+                        isAmber: false, isPetal: true, color: 'rgba(226,142,125,0.8)'
+                    });
+                }
+            }
+        }
+
         function initTravelRouteMap() {
             const travelCanvas = document.getElementById('travel-canvas');
             const tCtx = travelCanvas.getContext('2d');
-            
-            travelCanvas.width = 320;
-            travelCanvas.height = 340;
-
+            travelCanvas.width = 320; travelCanvas.height = 340;
             const destGoa = { x: 105, y: 245 };
             const routes = [
-                { startX: 100, startY: 100 }, // New Delhi
-                { startX: 130, startY: 120 }, // Jaipur
-                { startX: 235, startY: 140 }, // Patna
-                { startX: 140, startY: 165 }, // Mandsaur
-                { startX: 145, startY: 175 }, // Ratlam
-                { startX: 155, startY: 180 }, // Ujjain
-                { startX: 102, startY: 215 }  // Mumbai
+                { startX: 100, startY: 100 }, { startX: 130, startY: 120 }, { startX: 235, startY: 140 },
+                { startX: 140, startY: 165 }, { startX: 145, startY: 175 }, { startX: 155, startY: 180 }, { startX: 102, startY: 215 }
             ];
 
-            travelHubs = routes.map((orig, idx) => ({
-                origin: orig,
-                progress: idx * 0.15,
-                speed: 0.0055
-            }));
-
             function drawIndiaOutline(ctx) {
-                ctx.save();
-                ctx.beginPath();
-                ctx.moveTo(70, 40);
-                ctx.lineTo(130, 30); ctx.lineTo(155, 50); ctx.lineTo(145, 85);
-                ctx.lineTo(195, 100); ctx.lineTo(260, 115); ctx.lineTo(290, 150);
-                ctx.lineTo(250, 190); ctx.lineTo(215, 205); ctx.lineTo(185, 240);
-                ctx.lineTo(150, 320); ctx.lineTo(135, 335); ctx.lineTo(130, 310);
-                ctx.lineTo(105, 250); ctx.lineTo(95, 210); ctx.lineTo(65, 175);
-                ctx.lineTo(80, 150); ctx.lineTo(55, 140); ctx.lineTo(65, 105);
-                ctx.closePath();
-                ctx.fillStyle = '#eaf2f7';
-                ctx.fill();
-                ctx.strokeStyle = 'rgba(13,34,47,0.18)';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                ctx.restore();
+                ctx.save(); ctx.beginPath(); ctx.moveTo(70, 40); ctx.lineTo(130, 30); ctx.lineTo(155, 50); ctx.lineTo(145, 85);
+                ctx.lineTo(195, 100); ctx.lineTo(260, 115); ctx.lineTo(290, 150); ctx.lineTo(250, 190); ctx.lineTo(215, 205); ctx.lineTo(185, 240);
+                ctx.lineTo(150, 320); ctx.lineTo(135, 335); ctx.lineTo(130, 310); ctx.lineTo(105, 250); ctx.lineTo(95, 210); ctx.lineTo(65, 175);
+                ctx.lineTo(80, 150); ctx.lineTo(55, 140); ctx.lineTo(65, 105); ctx.closePath();
+                ctx.fillStyle = '#eaf2f7'; ctx.fill(); ctx.strokeStyle = 'rgba(13,34,47,0.18)'; ctx.lineWidth = 2; ctx.stroke(); ctx.restore();
             }
 
             function drawTravelMapLoop() {
                 tCtx.clearRect(0, 0, travelCanvas.width, travelCanvas.height);
                 drawIndiaOutline(tCtx);
-
                 activeRouteProgress += 0.012;
-                if (activeRouteProgress > 1) {
-                    activeRouteProgress = 0;
-                    activeRouteIndex = (activeRouteIndex + 1) % routes.length;
-                }
+                if (activeRouteProgress > 1) { activeRouteProgress = 0; activeRouteIndex = (activeRouteIndex + 1) % routes.length; }
 
                 routes.forEach((route, idx) => {
-                    tCtx.beginPath();
-                    tCtx.moveTo(route.startX, route.startY);
-                    
-                    const midX = (route.startX + destGoa.x) / 2 - (idx * 2);
-                    const midY = (route.startY + destGoa.y) / 2 - 20;
+                    tCtx.beginPath(); tCtx.moveTo(route.startX, route.startY);
+                    const midX = (route.startX + destGoa.x) / 2 - (idx * 2); const midY = (route.startY + destGoa.y) / 2 - 20;
                     tCtx.quadraticCurveTo(midX, midY, destGoa.x, destGoa.y);
 
                     if (idx < activeRouteIndex) {
-                        tCtx.strokeStyle = '#e64c3c';
-                        tCtx.lineWidth = 3;
-                        tCtx.stroke();
+                        tCtx.strokeStyle = '#e64c3c'; tCtx.lineWidth = 3; tCtx.stroke();
                     } else if (idx === activeRouteIndex) {
-                        tCtx.save();
-                        tCtx.strokeStyle = 'rgba(230,76,60,0.2)';
-                        tCtx.lineWidth = 3;
-                        tCtx.stroke();
-
-                        tCtx.beginPath();
-                        tCtx.strokeStyle = '#e64c3c';
-                        tCtx.lineWidth = 3.5;
-                        tCtx.moveTo(route.startX, route.startY);
-
-                        let currX = route.startX;
-                        let currY = route.startY;
+                        tCtx.save(); tCtx.strokeStyle = 'rgba(230,76,60,0.2)'; tCtx.lineWidth = 3; tCtx.stroke();
+                        tCtx.beginPath(); tCtx.strokeStyle = '#e64c3c'; tCtx.lineWidth = 3.5; tCtx.moveTo(route.startX, route.startY);
+                        let currX = route.startX; let currY = route.startY;
                         for (let t = 0; t <= activeRouteProgress; t += 0.05) {
                             currX = (1 - t) * (1 - t) * route.startX + 2 * (1 - t) * t * midX + t * t * destGoa.x;
                             currY = (1 - t) * (1 - t) * route.startY + 2 * (1 - t) * t * midY + t * t * destGoa.y;
                             tCtx.lineTo(currX, currY);
                         }
-                        tCtx.stroke();
-
-                        tCtx.translate(currX, currY);
-                        tCtx.fillStyle = '#d35400';
-                        tCtx.fillRect(-5, -4, 10, 7); 
-                        tCtx.fillStyle = '#f1c40f';
-                        tCtx.fillRect(-2, -2, 4, 4);  
-                        tCtx.restore();
+                        tCtx.stroke(); tCtx.translate(currX, currY); tCtx.fillStyle = '#d35400'; tCtx.fillRect(-5, -4, 10, 7); tCtx.fillStyle = '#f1c40f'; tCtx.fillRect(-2, -2, 4, 4); tCtx.restore();
                     } else {
-                        tCtx.strokeStyle = 'rgba(13,34,47,0.06)';
-                        tCtx.lineWidth = 1.5;
-                        tCtx.stroke();
+                        tCtx.strokeStyle = 'rgba(13,34,47,0.06)'; tCtx.lineWidth = 1.5; tCtx.stroke();
                     }
                 });
 
-                tCtx.fillStyle = '#e64c3c';
-                tCtx.beginPath(); tCtx.arc(destGoa.x, destGoa.y, 6, 0, Math.PI * 2); tCtx.fill();
-                tCtx.strokeStyle = '#ffffff'; tCtx.lineWidth = 2; tCtx.stroke();
-                
-                tCtx.fillStyle = '#231f20';
-                tCtx.font = '700 11px Montserrat';
-                tCtx.letterSpacing = '1px';
-                tCtx.fillText('GOA', destGoa.x - 12, destGoa.y + 19);
-
+                tCtx.fillStyle = '#e64c3c'; tCtx.beginPath(); tCtx.arc(destGoa.x, destGoa.y, 6, 0, Math.PI * 2); tCtx.fill(); tCtx.strokeStyle = '#ffffff'; tCtx.lineWidth = 2; tCtx.stroke();
+                tCtx.fillStyle = '#231f20'; tCtx.font = '700 11px Montserrat'; tCtx.letterSpacing = '1px'; tCtx.fillText('GOA', destGoa.x - 12, destGoa.y + 19);
                 requestAnimationFrame(drawTravelMapLoop);
             }
             drawTravelMapLoop();
@@ -898,15 +892,10 @@
             swayTime += 0.008;
 
             ctxBg.save();
-            if (activeAtmosphere === 'sangeet') {
-                ctxBg.strokeStyle = 'rgba(233, 184, 137, 0.08)'; 
-            } else if (activeAtmosphere === 'wedding') {
-                ctxBg.strokeStyle = 'rgba(255, 246, 238, 0.14)'; 
-            } else if (activeAtmosphere === 'haldi') {
-                ctxBg.strokeStyle = 'rgba(35, 31, 32, 0.08)'; 
-            } else {
-                ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.1)'; 
-            }
+            if (activeAtmosphere === 'sangeet') { ctxBg.strokeStyle = 'rgba(233, 184, 137, 0.08)'; } 
+            else if (activeAtmosphere === 'wedding') { ctxBg.strokeStyle = 'rgba(255, 246, 238, 0.14)'; } 
+            else if (activeAtmosphere === 'haldi') { ctxBg.strokeStyle = 'rgba(35, 31, 32, 0.08)'; } 
+            else { ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.1)'; }
             ctxBg.lineWidth = 2;
             drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.2, 110, 0.4 + Math.sin(swayTime)*0.05);
             drawPalmBranchFrame(ctxBg, 10, canvasBg.height * 0.6, 120, 0.2 + Math.cos(swayTime)*0.04);
@@ -916,56 +905,36 @@
 
             if (activeAtmosphere !== 'sangeet') {
                 birds.forEach(b => {
-                    b.x += b.speed; b.wingPhase += 0.05;
-                    if (b.x > canvasBg.width + 30) b.x = -30;
-                    ctxBg.save(); 
-                    ctxBg.strokeStyle = activeAtmosphere === 'wedding' ? 'rgba(255,246,238,0.25)' : 'rgba(13, 34, 47, 0.15)';
-                    ctxBg.lineWidth = 1.2; ctxBg.beginPath();
-                    let wingY = Math.sin(b.wingPhase) * (b.size * 0.35);
-                    ctxBg.moveTo(b.x - b.size, b.y + wingY);
-                    ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.25, b.x, b.y);
-                    ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.25, b.x + b.size, b.y + wingY);
-                    ctxBg.stroke(); ctxBg.restore();
+                    b.x += b.speed; b.wingPhase += 0.05; if (b.x > canvasBg.width + 30) b.x = -30;
+                    ctxBg.save(); ctxBg.strokeStyle = activeAtmosphere === 'wedding' ? 'rgba(255,246,238,0.25)' : 'rgba(13, 34, 47, 0.15)'; ctxBg.lineWidth = 1.2; ctxBg.beginPath();
+                    let wingY = Math.sin(b.wingPhase) * (b.size * 0.35); ctxBg.moveTo(b.x - b.size, b.y + wingY); ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.25, b.x, b.y); ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.25, b.x + b.size, b.y + wingY); ctxBg.stroke(); ctxBg.restore();
                 });
             }
 
             if (activeAtmosphere === 'default') {
                 sparkles.forEach(p => {
-                    p.y -= p.speed; p.phase += 0.01;
-                    if (p.y < -20) p.y = canvasBg.height + 20;
-                    let opacity = (Math.sin(p.phase) + 1) / 2 * 0.3;
-                    ctxBg.beginPath();
-                    let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                    gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
-                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                    ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
+                    p.y -= p.speed; p.phase += 0.01; if (p.y < -20) p.y = canvasBg.height + 20;
+                    let opacity = (Math.sin(p.phase) + 1) / 2 * 0.3; ctxBg.beginPath(); let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size); gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`); gradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
                 });
             }
 
             dynamicParticles.forEach(p => {
                 p.y += p.speedY; p.x += p.speedX; p.angle += p.rotSpeed;
-                ctxBg.save();
-                ctxBg.translate(p.x, p.y);
-                ctxBg.rotate(p.angle);
+                ctxBg.save(); ctxBg.translate(p.x, p.y); ctxBg.rotate(p.angle);
 
                 if (activeAtmosphere === 'sangeet') {
-                    ctxBg.fillStyle = p.color;
-                    ctxBg.font = `600 ${p.size}px sans-serif`;
-                    ctxBg.fillText(p.char, 0, 0);
-                } else if (activeAtmosphere === 'haldi') {
-                    ctxBg.fillStyle = p.color;
-                    ctxBg.beginPath();
-                    for (let i = 0; i < 5; i++) { 
-                        ctxBg.rotate(Math.PI / 2.5);
-                        ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8);
-                        ctxBg.quadraticCurveTo(p.size * 0.8, -p.size * 0.4, 0, 0);
+                    // Handles typography notes rendering OR Story airplane emojis tracking
+                    if(p.char) {
+                        ctxBg.fillStyle = p.color; ctxBg.font = `600 ${p.size}px sans-serif`; ctxBg.fillText(p.char, 0, 0);
                     }
-                    ctxBg.fill();
+                } else if (activeAtmosphere === 'haldi') {
+                    ctxBg.fillStyle = p.color; ctxBg.beginPath(); for (let i = 0; i < 5; i++) { ctxBg.rotate(Math.PI / 2.5); ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8); ctxBg.quadraticCurveTo(p.size * 0.8, -p.size * 0.4, 0, 0); } ctxBg.fill();
                 } else if (activeAtmosphere === 'wedding') {
-                    ctxBg.fillStyle = p.color;
-                    ctxBg.beginPath();
-                    ctxBg.arc(0, 0, p.size, 0, Math.PI * 2);
-                    ctxBg.fill();
+                    if (p.isPetal) {
+                        ctxBg.fillStyle = p.color; ctxBg.beginPath(); ctxBg.moveTo(0, 0); ctxBg.bezierCurveTo(-p.size, -p.size, -p.size * 1.5, p.size * 0.5, 0, p.size * 1.5); ctxBg.bezierCurveTo(p.size * 1.5, p.size * 0.5, p.size, -p.size, 0, 0); ctxBg.fill();
+                    } else {
+                        ctxBg.fillStyle = p.color; ctxBg.beginPath(); ctxBg.arc(0, 0, p.size, 0, Math.PI * 2); ctxBg.fill();
+                    }
                 }
                 ctxBg.restore();
             });
@@ -974,111 +943,51 @@
         }
 
         function drawPalmBranchFrame(context, x, y, length, angle) {
-            context.save(); context.translate(x, y); context.rotate(angle); context.beginPath(); context.moveTo(0, 0);
-            context.quadraticCurveTo(length*0.5, 15, length, 0); context.stroke();
-            for (let i = 10; i < length; i += 6) {
-                let r = i / length; let leafH = 30 * (1 - r*0.4); context.beginPath(); context.moveTo(i, 5 * r);
-                context.quadraticCurveTo(i - 5, leafH, i - 12, leafH * 1.1); context.stroke();
-            }
-            context.restore();
+            context.save(); context.translate(x, y); context.rotate(angle); context.beginPath(); context.moveTo(0, 0); context.quadraticCurveTo(length*0.5, 15, length, 0); context.stroke(); for (let i = 10; i < length; i += 6) { let r = i / length; let leafH = 30 * (1 - r*0.4); context.beginPath(); context.moveTo(i, 5 * r); context.quadraticCurveTo(i - 5, leafH, i - 12, leafH * 1.1); context.stroke(); } context.restore();
         }
 
         function triggerEventAtmosphere(mode) {
             const containerFrame = document.getElementById('main-content');
             const bodyNode = document.getElementById('invitation-body');
-            
-            document.querySelectorAll('.track-node-wrapper').forEach(el => {
-                if(el.id !== `node-${mode}`) el.classList.remove('selected');
-            });
+            document.querySelectorAll('.track-node-wrapper').forEach(el => { if(el.id !== `node-${mode}`) el.classList.remove('selected'); });
 
             const targetingNode = document.getElementById(`node-${mode}`);
-            if (activeAtmosphere === mode) {
-                activeAtmosphere = 'default';
-                containerFrame.className = 'visible';
-                bodyNode.className = '';
-                targetingNode.classList.remove('selected');
-                dynamicParticles = [];
-                return;
-            }
+            if (activeAtmosphere === mode) { activeAtmosphere = 'default'; containerFrame.className = 'visible'; bodyNode.className = ''; targetingNode.classList.remove('selected'); dynamicParticles = []; return; }
 
-            activeAtmosphere = mode;
-            targetingNode.classList.add('selected');
-            dynamicParticles = []; 
+            activeAtmosphere = mode; targetingNode.classList.add('selected'); dynamicParticles = []; 
 
             if (mode === 'sangeet') {
-                containerFrame.className = 'visible sangeet-active';
-                bodyNode.className = 'sangeet-mode';
+                containerFrame.className = 'visible sangeet-active'; bodyNode.className = 'sangeet-mode';
                 const notesList = ['♪', '♫', '♬', '♩'];
-                for(let i = 0; i < 45; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
-                        speedY: -(Math.random() * 1.2 + 0.6), speedX: Math.random() * 0.6 - 0.3,
-                        size: Math.random() * 12 + 12, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.02 - 0.01,
-                        char: notesList[Math.floor(Math.random() * notesList.length)],
-                        color: Math.random() > 0.4 ? 'rgba(233, 184, 137, 0.6)' : 'rgba(95, 158, 160, 0.7)'
-                    });
-                }
+                for(let i = 0; i < 45; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random() * 1.2 + 0.6), speedX: Math.random() * 0.6 - 0.3, size: Math.random() * 12 + 12, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.02 - 0.01, char: notesList[Math.floor(Math.random() * notesList.length)], color: Math.random() > 0.4 ? 'rgba(233, 184, 137, 0.6)' : 'rgba(95, 158, 160, 0.7)' }); }
             } else if (mode === 'haldi') {
-                containerFrame.className = 'visible haldi-active';
-                bodyNode.className = 'haldi-mode';
-                for(let i=0; i<75; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, 
-                        speedY: Math.random() * 2.0 + 1.5, speedX: Math.sin(Math.random() * Math.PI) * 0.6,
-                        size: Math.random() * 14 + 10, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.05 - 0.025,
-                        color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)'
-                    });
-                }
+                containerFrame.className = 'visible haldi-active'; bodyNode.className = 'haldi-mode';
+                for(let i=0; i<75; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: Math.random() * 2.0 + 1.5, speedX: Math.sin(Math.random() * Math.PI) * 0.6, size: Math.random() * 14 + 10, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.05 - 0.025, color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)' }); }
             } else if (mode === 'wedding') {
-                containerFrame.className = 'visible wedding-active';
-                bodyNode.className = 'wedding-mode';
-                for(let i=0; i<35; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
-                        speedY: -(Math.random() * 0.8 + 0.3), speedX: Math.random() * 0.4 - 0.2,
-                        size: Math.random() * 3 + 1.5, angle: 0, rotSpeed: 0,
-                        color: Math.random() > 0.5 ? 'rgba(253, 179, 102, 0.6)' : 'rgba(226, 142, 125, 0.5)'
-                    });
-                }
+                containerFrame.className = 'visible wedding-active'; bodyNode.className = 'wedding-mode';
+                for(let i=0; i<35; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random() * 0.8 + 0.3), speedX: Math.random() * 0.4 - 0.2, size: Math.random() * 3 + 1.5, angle: 0, rotSpeed: 0, color: Math.random() > 0.5 ? 'rgba(253, 179, 102, 0.6)' : 'rgba(226, 142, 125, 0.5)' }); }
+                launchWeddingFireworks();
             }
+        }
+        
+        function launchWeddingFireworks() {
+            if (activeAtmosphere !== 'wedding') return;
+            const x = Math.random() * canvasBg.width; const y = canvasBg.height * 0.25; const particleCount = 65;
+            const colors = ['#fca34d', '#ffcd94', '#ffffff', '#e28e7d']; const burstColor = colors[Math.floor(Math.random()*colors.length)];
+            for (let i = 0; i < particleCount; i++) { const angle = Math.random() * Math.PI * 2; const speed = Math.random() * 6.5 + 2; dynamicParticles.push({ x: x, y: y, speedX: Math.cos(angle) * speed, speedY: Math.sin(angle) * speed, gravity: 0.08, friction: 0.95, size: Math.random() * 2.5 + 1, opacity: 1, fadeSpeed: Math.random() * 0.014 + 0.007, isAmber: false, isPetal: false, color: burstColor }); }
+            setTimeout(launchWeddingFireworks, Math.random() * 1400 + 800);
         }
 
         function initSandScratchCard() {
-            const canvas = document.getElementById('scratch-canvas');
-            const ctx = canvas.getContext('2d');
-            let isDrawing = false;
-            ctx.fillStyle = '#dfcaaf'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < 800; i++) {
-                ctx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80';
-                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
-            }
-            ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px';
-            ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
-
-            function scratch(e) {
-                if (!isDrawing) return;
-                e.preventDefault();
-                const rect = canvas.getBoundingClientRect();
-                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath(); ctx.arc(x, y, 26, 0, Math.PI * 2); ctx.fill();
-            }
-            canvas.addEventListener('mousedown', () => isDrawing = true);
-            canvas.addEventListener('mousemove', scratch);
-            window.addEventListener('mouseup', () => isDrawing = false);
-            canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
-            canvas.addEventListener('touchmove', scratch, {passive: false});
-            window.addEventListener('touchend', () => isDrawing = false);
+            const canvas = document.getElementById('scratch-canvas'); const ctx = canvas.getContext('2d'); let isDrawing = false; ctx.fillStyle = '#dfcaaf'; ctx.fillRect(0, 0, canvas.width, canvas.height); for (let i = 0; i < 800; i++) { ctx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80'; ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5); } ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px'; ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
+            function scratch(e) { if (!isDrawing) return; e.preventDefault(); const rect = canvas.getBoundingClientRect(); const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left; const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top; ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x, y, 26, 0, Math.PI * 2); ctx.fill(); }
+            canvas.addEventListener('mousedown', () => isDrawing = true); canvas.addEventListener('mousemove', scratch); window.addEventListener('mouseup', () => isDrawing = false); canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false}); canvas.addEventListener('touchmove', scratch, {passive: false}); window.addEventListener('touchend', () => isDrawing = false);
         }
 
         const target = new Date('December 12, 2026 16:30:00').getTime();
         setInterval(() => {
             const diff = target - new Date().getTime();
-            document.getElementById('days').innerText = Math.floor(diff / (1000*60*60*24)).toString().padStart(2,'0');
-            document.getElementById('hours').innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0');
-            document.getElementById('mins').innerText = Math.floor((diff % (1000*60*60)) / (1000*60)).toString().padStart(2,'0');
-            document.getElementById('secs').innerText = Math.floor((diff % (1000*60)) / 1000).toString().padStart(2,'0');
+            document.getElementById('days').innerText = Math.floor(diff / (1000*60*60*24)).toString().padStart(2,'0'); document.getElementById('hours').innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0'); document.getElementById('mins').innerText = Math.floor((diff % (1000*60*60)) / (1000*60)).toString().padStart(2,'0'); document.getElementById('secs').innerText = Math.floor((diff % (1000*60)) / 1000).toString().padStart(2,'0');
         }, 1000);
 
         function handleRSVP(e) { e.preventDefault(); alert("RSVP Recorded! See you under the Goa sunset!"); }
