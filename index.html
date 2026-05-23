@@ -18,7 +18,7 @@
             --sand-warm: #f7e6d4; /* Warm sunlit sand base */
             --honey-glow: #f5d3b3; /* Rich golden hour tone */
             --amber-blush: #e8b495; /* Mellow orange-blush accent */
-            --text-dark: #231f20; /* High contrast sunset charcoal for crisp text */
+            --text-dark: #231f20; /* Sunset charcoal text */
             --text-muted: #5e5255;
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
@@ -195,32 +195,35 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        /* --- VENUE IMAGES & MINI MAP WIDGET --- */
+        /* --- OPTIMIZED VERTICAL VENUE FRAME --- */
         .venue-display-frame {
             width: 100%;
             max-width: 320px;
-            height: 180px;
-            margin: 0 auto 25px auto;
-            border-radius: 12px;
+            height: 380px; /* Tall viewport configuration to naturally preserve vertical alignment rules */
+            margin: 0 auto 30px auto;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(35, 31, 32, 0.1);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(35, 31, 32, 0.12);
+            background: #ffffff;
         }
         .venue-photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: bottom center; /* anchors view context dynamically to base elements */
         }
 
+        /* --- SLIMMED MICRO MAP WIDGET --- */
         .map-widget-box {
             width: 100%;
-            max-width: 240px; /* Reduced to match smaller design profile requests */
+            max-width: 200px; /* Reduced profile */
             margin: 25px auto 10px auto;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             border: 1px solid var(--text-dark);
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             transition: transform 0.2s ease;
         }
         .map-widget-box:active {
@@ -228,24 +231,24 @@
         }
         .map-graphic-preview {
             width: 100%;
-            height: 80px; /* Slimmed down height */
+            height: 50px; /* Extremely lean aspect crop tracking map design accents */
             background-color: #e5e3df;
             background-image: 
-                linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.05) 50%, transparent 51%),
-                linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.05) 50%, transparent 51%),
-                radial-gradient(circle at 65% 45%, var(--sunset-rose) 6px, transparent 7px);
+                linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
+                radial-gradient(circle at 60% 45%, var(--sunset-rose) 4px, transparent 5px);
             position: relative;
         }
         .map-pin-icon {
             position: absolute;
-            top: 45%; left: 65%;
+            top: 45%; left: 60%;
             transform: translate(-50%, -50%);
-            width: 20px; height: 20px;
+            width: 16px; height: 16px;
             fill: var(--ocean-navy);
             animation: pinBounce 2s ease-in-out infinite;
         }
         .map-action-bar {
-            padding: 10px 12px;
+            padding: 8px 10px;
             background: #ffffff;
             border-top: 1px solid rgba(35,31,32,0.1);
         }
@@ -253,18 +256,18 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 5px;
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             background-color: var(--text-dark);
             color: #ffffff;
             font-family: var(--font-sans);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             text-decoration: none;
-            border-radius: 20px;
+            border-radius: 15px;
         }
 
         /* --- TIMELINE ELEMENTS --- */
@@ -308,7 +311,7 @@
         @keyframes waveSwim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-5px); } }
+        @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-4px); } }
     </style>
 </head>
 <body>
@@ -393,8 +396,8 @@
                     </svg>
                 </div>
                 <div class="map-action-bar">
-                    <a href="https://maps.google.com/?q=Dallas+Beach+Resorts+Ashvem+Beach+Goa" target="_blank" class="map-btn">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                    <a href="https://maps.google.com/?q=Dallas+Beach+Resorts+Ashvem+Goa" target="_blank" class="map-btn">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
                         Open Maps
                     </a>
                 </div>
@@ -421,7 +424,7 @@
             
             <div class="wave-separator">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path class="wave-sep-2" d="M0,40 C150,100 350,100 500,40 C650,100 850,100 1000,40 L1500,120 L0,120 Z"></path>
+                    <path class="wave-sep-2" d="M0,40 C150,100 350,100 500,40 L1500,120 L0,120 Z"></path>
                 </svg>
             </div>
         </section>
