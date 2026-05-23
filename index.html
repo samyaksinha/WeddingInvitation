@@ -795,7 +795,7 @@
             
             // DYNAMIC WEB AUDIO API HOOK: Triggers the pre-loaded background score instantly upon entering 
             if (audioPlayer) {
-                audioPlayer.volume = 0.3; // 👈 0.0 (silent) to 1.0 (full) — adjust to taste
+                audioPlayer.volume = 0.7; // 👈 0.0 (silent) to 1.0 (full) — adjust to taste
                 audioPlayer.play().catch(err => console.log("Audio autoplay requires user interaction handshake: ", err));
             }
             
