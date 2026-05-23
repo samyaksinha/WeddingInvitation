@@ -195,63 +195,76 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        /* --- MAP WIDGET STYLING --- */
+        /* --- VENUE IMAGES & MINI MAP WIDGET --- */
+        .venue-display-frame {
+            width: 100%;
+            max-width: 320px;
+            height: 180px;
+            margin: 0 auto 25px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(35, 31, 32, 0.1);
+        }
+        .venue-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .map-widget-box {
             width: 100%;
-            max-width: 340px;
-            margin: 30px auto 10px auto;
-            background: rgba(255, 255, 255, 0.7);
+            max-width: 240px; /* Reduced to match smaller design profile requests */
+            margin: 25px auto 10px auto;
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid var(--text-dark);
-            border-radius: 14px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.04);
-            transition: transform 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease;
         }
         .map-widget-box:active {
             transform: scale(0.98);
         }
         .map-graphic-preview {
             width: 100%;
-            height: 120px;
+            height: 80px; /* Slimmed down height */
             background-color: #e5e3df;
-            /* Dynamic aesthetic abstract line mapping representation */
             background-image: 
-                linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.06) 50%, transparent 51%),
-                linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.06) 50%, transparent 51%),
-                radial-gradient(circle at 70% 40%, var(--sunset-rose) 8px, transparent 9px);
+                linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.05) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.05) 50%, transparent 51%),
+                radial-gradient(circle at 65% 45%, var(--sunset-rose) 6px, transparent 7px);
             position: relative;
         }
         .map-pin-icon {
             position: absolute;
-            top: 40%; left: 70%;
+            top: 45%; left: 65%;
             transform: translate(-50%, -50%);
-            width: 24px; height: 24px;
+            width: 20px; height: 20px;
             fill: var(--ocean-navy);
             animation: pinBounce 2s ease-in-out infinite;
         }
         .map-action-bar {
-            padding: 15px;
+            padding: 10px 12px;
             background: #ffffff;
             border-top: 1px solid rgba(35,31,32,0.1);
-            text-align: center;
         }
         .map-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background-color: var(--text-dark);
             color: #ffffff;
             font-family: var(--font-sans);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             text-decoration: none;
-            border-radius: 25px;
-            box-shadow: 0 4px 12px rgba(35,31,32,0.15);
+            border-radius: 20px;
         }
 
         /* --- TIMELINE ELEMENTS --- */
@@ -295,7 +308,7 @@
         @keyframes waveSwim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-6px); } }
+        @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-5px); } }
     </style>
 </head>
 <body>
@@ -363,6 +376,11 @@
 
         <section id="venue">
             <h3 class="section-title">The Venue</h3>
+            
+            <div class="venue-display-frame">
+                <img src="venue.jpeg" alt="Dallas Beach Resorts" class="venue-photo">
+            </div>
+
             <p class="venue-title">Dallas Beach Resorts</p>
             <p class="details-p" style="font-weight: 500; margin-top: 8px; color: var(--ocean-navy);">Ashvem Beach</p>
             <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
@@ -376,8 +394,8 @@
                 </div>
                 <div class="map-action-bar">
                     <a href="https://maps.google.com/?q=Dallas+Beach+Resorts+Ashvem+Beach+Goa" target="_blank" class="map-btn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-                        Open in Google Maps
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                        Open Maps
                     </a>
                 </div>
             </div>
