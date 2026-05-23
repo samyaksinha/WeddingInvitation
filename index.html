@@ -10,14 +10,15 @@
     
     <style>
         :root {
-            --ocean-navy: #1b3644;
-            --seaglass-teal: #5f9ea0;
-            --sand-gold: #d4be9f;
-            --sand-light: #f4eee3;
-            --sunset-orange: #fceade;
-            --sunset-rose: #f3d1c1;
-            --text-dark: #2c3e46;
-            --text-muted: #697a81;
+            /* Cinematic Sundowner & Golden Hour Palette */
+            --ocean-navy: #0d222f;
+            --sundowner-orange: #fca34d;
+            --sunset-rose: #d67d6b;
+            --twilight-purple: #4a2840;
+            --gold-glow: #e2a76f;
+            --sand-warm: #fcf5ee;
+            --text-dark: #1f111c;
+            --text-muted: #5c4b57;
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
             --haldi-yellow: #f5c242;
@@ -33,13 +34,13 @@
 
         body {
             font-family: var(--font-sans);
-            background-color: #f5f2eb;
+            background-color: var(--twilight-purple);
             color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* --- LANDING COVER (Cinematic Glow & Waves) --- */
+        /* --- LANDING COVER (Cinematic Sundowner Glow & Waves) --- */
         #curtain-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -49,9 +50,10 @@
             justify-content: center;
             align-items: center;
             transition: transform 1.3s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-            background: linear-gradient(135deg, #ffffff, var(--sunset-orange), var(--sunset-rose));
+            /* Rich twilight to amber horizon sunset gradient */
+            background: linear-gradient(135deg, var(--twilight-purple), var(--sunset-rose), var(--sundowner-orange));
             background-size: 400% 400%;
-            animation: gradientGlow 8s ease infinite;
+            animation: gradientGlow 10s ease infinite;
         }
 
         #curtain-overlay.opened {
@@ -60,7 +62,6 @@
             pointer-events: none;
         }
 
-        /* Bounded Cover Canvas for Palms/Flares strictly inside the First Page layout */
         #cover-anim-canvas {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -85,17 +86,17 @@
             border-radius: 50%;
             background: #ffffff;
             overflow: hidden; 
-            box-shadow: 0 15px 35px rgba(27, 54, 68, 0.12);
-            border: 2px solid var(--sand-gold);
+            box-shadow: 0 15px 35px rgba(31, 17, 28, 0.3);
+            border: 2px solid var(--gold-glow);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .couple-img { width: 100%; height: 100%; object-fit: cover; }
-        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--seaglass-teal); margin-bottom: 10px; font-weight: 500; }
-        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.8rem; font-weight: 300; letter-spacing: 1px; color: var(--ocean-navy); line-height: 1.2; margin-bottom: 10px; }
-        .location-tag { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--sand-gold); margin-bottom: 40px; font-weight: 500; }
+        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-glow); margin-bottom: 10px; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.8rem; font-weight: 300; letter-spacing: 1px; color: #ffffff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .location-tag { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; opacity: 0.9; margin-bottom: 40px; font-weight: 500; }
 
         .enter-btn {
             background: #ffffff;
@@ -110,21 +111,20 @@
             font-weight: 500;
             border-radius: 30px;
             transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(27, 54, 68, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        .enter-btn:hover { background-color: var(--ocean-navy); color: white; }
+        .enter-btn:hover { background-color: var(--ocean-navy); color: white; border-color: var(--ocean-navy); }
 
-        /* Integrated Enhanced Rolling Sea Waves on Cover layout */
+        /* Integrated Deep Sundowner Sea Waves on Cover */
         .cover-waves {
             position: absolute;
             bottom: 0; left: 0; width: 100%; height: 75px;
-            fill: #ffffff; opacity: 0.25;
             z-index: 5;
             pointer-events: none;
         }
-        .cover-wave-layer { animation: waveSwim 8s linear infinite; fill: var(--sand-gold); }
-        .cover-wave-layer:nth-child(2) { opacity: 0.4; fill: var(--seaglass-teal); animation: waveSwim 5s linear infinite reverse; }
-        .cover-wave-layer:nth-child(3) { opacity: 0.8; fill: #ffffff; animation: waveSwim 3s linear infinite; }
+        .cover-wave-layer { animation: waveSwim 8s linear infinite; fill: var(--twilight-purple); opacity: 0.3; }
+        .cover-wave-layer:nth-child(2) { fill: var(--sunset-rose); opacity: 0.5; animation: waveSwim 5s linear infinite reverse; }
+        .cover-wave-layer:nth-child(3) { fill: var(--sand-warm); opacity: 1; animation: waveSwim 3s linear infinite; }
 
         /* --- INTEGRATED BACKGROUND CANVAS --- */
         #beach-bg-canvas {
@@ -143,8 +143,9 @@
             min-height: 100vh;
             position: relative;
             z-index: 5;
-            box-shadow: 0 0 50px rgba(27, 54, 68, 0.08);
-            background: linear-gradient(180deg, #ffffff 0%, var(--sand-light) 30%, var(--sunset-orange) 60%, var(--sunset-rose) 100%);
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+            /* Rich progressive gradient moving down into the twilight dinner atmosphere */
+            background: linear-gradient(180deg, var(--sand-warm) 0%, var(--sunset-orange) 40%, var(--sunset-rose) 70%, var(--twilight-purple) 100%);
         }
 
         #main-content.visible { opacity: 1; display: block; }
@@ -164,9 +165,10 @@
             overflow: hidden; line-height: 0; transform: translateY(1px);
         }
         .wave-separator svg { position: relative; display: block; width: 300%; height: 45px; }
-        .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: var(--sand-gold); opacity: 0.25; }
-        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--seaglass-teal); opacity: 0.15; }
+        .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: var(--sunset-rose); opacity: 0.3; }
+        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--sand-warm); opacity: 0.4; }
 
+        /* Color adaptive titles for visibility over deeper gradients toward the bottom */
         .section-title {
             font-family: var(--font-serif);
             font-size: 2.2rem;
@@ -175,15 +177,19 @@
             letter-spacing: 1px;
             font-weight: 400;
         }
+        
+        #rsvp .section-title, #dress-code .section-title {
+            color: #ffffff;
+        }
 
         /* --- HERO & BRUSH SECTIONS --- */
-        .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sand-gold); font-size: 2.4rem; display: block; }
+        .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
         .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; }
 
         .scratch-container {
             position: relative; width: 280px; height: 150px; margin: 30px auto;
-            border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(27,54,68,0.05);
-            border: 1px solid rgba(212, 190, 159, 0.4);
+            border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(31,17,28,0.1);
+            border: 1px solid rgba(214, 125, 107, 0.4);
             background: white;
         }
         .scratch-reveal-text {
@@ -191,42 +197,49 @@
             justify-content: center; align-items: center; background: #fffdf9; z-index: 1;
         }
         .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.7rem; color: var(--ocean-navy); font-weight: 600; letter-spacing: 0.5px; }
-        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--seaglass-teal); margin-top: 4px; }
+        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--sunset-rose); margin-top: 4px; }
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
-        .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--seaglass-teal); margin-top: 15px; }
+        .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--sunset-rose); margin-top: 15px; font-weight: 500; }
 
         /* --- TIMELINE ELEMENTS --- */
         .timeline { margin-top: 40px; text-align: left; padding-left: 15px; position: relative; }
-        .timeline::before { content: ''; position: absolute; left: 4px; top: 5px; width: 1px; height: 92%; background-color: var(--sand-gold); }
+        .timeline::before { content: ''; position: absolute; left: 4px; top: 5px; width: 1px; height: 92%; background-color: var(--gold-glow); }
         .timeline-date-header { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ocean-navy); font-weight: 600; margin: 30px 0 15px -15px; display: flex; align-items: center; gap: 10px; }
-        .timeline-date-header::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(to right, var(--sand-gold), transparent); }
+        .timeline-date-header::after { content: ''; flex-grow: 1; height: 1px; background: linear-gradient(to right, var(--gold-glow), transparent); }
         .timeline-item { position: relative; margin-bottom: 28px; padding-left: 25px; }
-        .timeline-item::before { content: ''; position: absolute; left: -14px; top: 7px; width: 7px; height: 7px; background-color: var(--seaglass-teal); border-radius: 50%; }
-        .time { font-size: 0.75rem; color: var(--seaglass-teal); font-weight: 600; letter-spacing: 0.5px; }
+        .timeline-item::before { content: ''; position: absolute; left: -14px; top: 7px; width: 7px; height: 7px; background-color: var(--sunset-rose); border-radius: 50%; }
+        .time { font-size: 0.75rem; color: var(--sunset-rose); font-weight: 600; letter-spacing: 0.5px; }
         .event-title { font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-dark); }
 
         /* --- COUNTDOWN BOX MATRIX --- */
         .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
-        .countdown-box { background: rgba(255,255,255,0.85); border: 1px solid rgba(212,190,159,0.3); width: 75px; padding: 14px 0; border-radius: 8px; }
+        .countdown-box { background: rgba(255,255,255,0.85); border: 1px solid rgba(212,190,159,0.3); width: 75px; padding: 14px 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .countdown-val { font-family: var(--font-serif); font-size: 1.8rem; color: var(--ocean-navy); display: block; font-weight: 400; }
         .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
 
-        /* --- DRESS CODE PROFILE CARDS --- */
+        /* --- DRESS CODE CARDS --- */
         .dress-code-flex { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; align-items: center; }
-        .dress-card { width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.8); border: 1px solid rgba(212,190,159,0.25); border-radius: 10px; }
+        .dress-card { width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.9); border: 1px solid rgba(214,125,107,0.25); border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
         .dress-event { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1px; }
         .dress-badge { display: inline-block; padding: 8px 26px; font-size: 0.8rem; color: white; border-radius: 25px; text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
         .badge-yellow { background-color: var(--haldi-yellow); color: #4a3600; }
         .badge-green { background-color: var(--wedding-green); }
+        #dress-code .details-p { color: #ffffff; opacity: 0.95; }
 
         /* --- RSVP MODERATION INPUT LAYER --- */
+        #rsvp .details-p { color: #ffffff; opacity: 0.9; }
         .rsvp-form { text-align: left; margin-top: 30px; }
         .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--ocean-navy); margin-bottom: 8px; font-weight: 500; letter-spacing: 0.5px; }
-        .form-group input, .form-group select { width: 100%; padding: 15px 12px; border: 1px solid var(--sand-gold); border-radius: 8px; background: white; font-family: var(--font-sans); color: var(--text-dark); outline: none; }
-        .submit-btn { width: 100%; background-color: var(--ocean-navy); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 500; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(27,54,68,0.15); }
+        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: #ffffff; margin-bottom: 8px; font-weight: 500; letter-spacing: 0.5px; }
+        .form-group input, .form-group select { width: 100%; padding: 15px 12px; border: 1px solid var(--gold-glow); border-radius: 8px; background: white; font-family: var(--font-sans); color: var(--text-dark); outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--sundowner-orange); box-shadow: 0 0 10px rgba(252,163,77,0.3); }
+        .radio-group { display: flex; gap: 20px; margin-top: 8px; }
+        .radio-option { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: #ffffff; cursor: pointer; }
+        .radio-option input { width: auto; accent-color: var(--sundowner-orange); }
+        .submit-btn { width: 100%; background-color: var(--sundowner-orange); color: var(--ocean-navy); border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(252,163,77,0.3); transition: all 0.3s; }
+        .submit-btn:hover { background-color: var(--gold-glow); }
 
-        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--text-muted); background-color: transparent; letter-spacing: 1px; }
+        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: #ffffff; opacity: 0.7; background-color: transparent; letter-spacing: 1px; }
 
         @keyframes waveSwim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -299,7 +312,7 @@
         <section id="venue">
             <h3 class="section-title">The Venue</h3>
             <p class="venue-title">Dallas Beach Resorts</p>
-            <p class="details-p" style="font-weight: 500; margin-top: 8px; color: var(--seaglass-teal);">Ashvem Beach</p>
+            <p class="details-p" style="font-weight: 500; margin-top: 8px; color: var(--twilight-purple);">Ashvem Beach</p>
             <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
             <p class="details-p">North Goa, Goa — 403512</p>
             
@@ -331,6 +344,7 @@
 
         <section id="dress-code">
             <h3 class="section-title">Dress Code</h3>
+            <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
             <div class="dress-code-flex">
                 <div class="dress-card"><div class="dress-event">Haldi Ceremony</div><div class="dress-badge badge-yellow">Shades of Yellow</div></div>
                 <div class="dress-card"><div class="dress-event">Wedding Ceremony</div><div class="dress-badge badge-green">Something Green</div></div>
@@ -345,6 +359,7 @@
 
         <section id="rsvp">
             <h3 class="section-title">RSVP</h3>
+            <p class="details-p">Kindly respond by November 1, 2026</p>
             <form class="rsvp-form" onsubmit="handleRSVP(event)">
                 <div class="form-group"><label>Your Full Name</label><input type="text" id="guest-name" required placeholder="e.g., Jane Doe"></div>
                 <div class="form-group"><label>Attendance</label>
@@ -360,16 +375,14 @@
 
         <footer>
             <p>Thank you for sharing this journey with us.</p>
-            <p style="margin-top: 12px; font-size: 0.65rem; color: var(--text-muted); opacity: 0.8;">S&amp;S • 2026 • GOA</p>
+            <p style="margin-top: 12px; font-size: 0.65rem; color: #ffffff; opacity: 0.6;">S&amp;S • 2026 • GOA</p>
         </footer>
     </div>
 
     <script>
-        // Global background assets context
         const canvasBg = document.getElementById('beach-bg-canvas');
         const ctxBg = canvasBg.getContext('2d');
         
-        // Front Cover explicit context loops 
         const canvasCover = document.getElementById('cover-anim-canvas');
         const ctxCover = canvasCover.getContext('2d');
         
@@ -379,7 +392,6 @@
         let swayTime = 0;
         let coverAnimationId = null;
 
-        // Initialization execution
         window.addEventListener('DOMContentLoaded', () => {
             initCoverCanvas();
             initCoverFlares();
@@ -407,30 +419,28 @@
             ctxCover.clearRect(0, 0, canvasCover.width, canvasCover.height);
             swayTime += 0.012;
 
-            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE (Top Corners) ---
+            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE (Dusky Sundowner Tones) ---
             ctxCover.save();
-            ctxCover.strokeStyle = 'rgba(212, 190, 159, 0.28)'; // Higher visual contrast sand gold 
+            ctxCover.strokeStyle = 'rgba(226, 167, 111, 0.25)'; /* Warm Golden-Hour Tint */
             ctxCover.lineWidth = 2.5;
 
-            // Top Left Cover Tree
             drawPalmBranchFrame(ctxCover, 0, 0, 130, 0.6 + Math.sin(swayTime)*0.04);
             drawPalmBranchFrame(ctxCover, -10, 20, 110, 0.9 + Math.cos(swayTime)*0.03);
 
-            // Top Right Cover Tree
             drawPalmBranchFrame(ctxCover, canvasCover.width, 0, 130, 2.5 + Math.sin(swayTime)*0.04);
             drawPalmBranchFrame(ctxCover, canvasCover.width + 10, 20, 110, 2.2 + Math.cos(swayTime)*0.03);
             ctxCover.restore();
 
-            // --- 2. DRAW FLOATING SUN FLARES ON COVER PAGE ---
+            // --- 2. DRAW FLOATING SUN FLARES ON COVER ---
             coverFlares.forEach(f => {
                 f.y -= f.speed;
                 f.phase += 0.015;
                 if (f.y < -20) f.y = canvasCover.height + 20;
 
-                let opacity = (Math.sin(f.phase) + 1) / 2 * 0.3;
+                let opacity = (Math.sin(f.phase) + 1) / 2 * 0.35;
                 ctxCover.beginPath();
                 let gradient = ctxCover.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.size);
-                gradient.addColorStop(0, `rgba(245, 194, 66, ${opacity})`);
+                gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
                 ctxCover.fillStyle = gradient;
                 ctxCover.arc(f.x, f.y, f.size, 0, Math.PI * 2);
@@ -441,7 +451,6 @@
         }
 
         function openInvitation() {
-            // Cancel cover canvas loop execution to preserve battery/compute threads
             if(coverAnimationId) cancelAnimationFrame(coverAnimationId);
 
             document.getElementById('main-content').classList.add('visible');
@@ -466,12 +475,12 @@
         }
 
         function initBeachAssets() {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 25; i++) {
                 sparkles.push({
                     x: Math.random() * canvasBg.width,
                     y: Math.random() * canvasBg.height,
-                    size: Math.random() * 12 + 6,
-                    speed: Math.random() * 0.6 + 0.2,
+                    size: Math.random() * 14 + 6,
+                    speed: Math.random() * 0.5 + 0.2,
                     phase: Math.random() * Math.PI
                 });
             }
@@ -479,9 +488,9 @@
             for (let i = 0; i < 4; i++) {
                 birds.push({
                     x: Math.random() * canvasBg.width,
-                    y: 120 + (Math.random() * 300),
-                    speed: Math.random() * 0.4 + 0.2,
-                    size: Math.random() * 8 + 10,
+                    y: 120 + (Math.random() * 250),
+                    speed: Math.random() * 0.3 + 0.15,
+                    size: Math.random() * 6 + 10,
                     wingPhase: Math.random() * Math.PI
                 });
             }
@@ -490,47 +499,47 @@
         function renderBeachEngineLoop() {
             ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
 
-            // --- A. DRAW INNER SWAYING PALM LEAVES ---
+            // --- A. DRAW INNER SWAYING PALM LEAVES (Dusky Evening Silhouettes) ---
             ctxBg.save();
-            ctxBg.strokeStyle = 'rgba(212, 190, 159, 0.14)'; 
+            ctxBg.strokeStyle = 'rgba(74, 40, 64, 0.15)'; 
             ctxBg.lineWidth = 2;
             
-            drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.2, 110, 0.4 + Math.sin(swayTime)*0.05);
-            drawPalmBranchFrame(ctxBg, 10, canvasBg.height * 0.55, 120, 0.2 + Math.cos(swayTime)*0.04);
+            drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.18, 110, 0.4 + Math.sin(swayTime)*0.05);
+            drawPalmBranchFrame(ctxBg, 10, canvasBg.height * 0.52, 120, 0.2 + Math.cos(swayTime)*0.04);
             
-            drawPalmBranchFrame(ctxBg, canvasBg.width - 20, canvasBg.height * 0.35, 110, 2.8 + Math.sin(swayTime)*0.05);
-            drawPalmBranchFrame(ctxBg, canvasBg.width - 10, canvasBg.height * 0.72, 120, 2.6 + Math.cos(swayTime)*0.04);
+            drawPalmBranchFrame(ctxBg, canvasBg.width - 20, canvasBg.height * 0.32, 110, 2.8 + Math.sin(swayTime)*0.05);
+            drawPalmBranchFrame(ctxBg, canvasBg.width - 10, canvasBg.height * 0.68, 120, 2.6 + Math.cos(swayTime)*0.04);
             ctxBg.restore();
 
             // --- B. DRAW SOARING SEAGULL BIRDS ---
             birds.forEach(b => {
                 b.x += b.speed;
-                b.wingPhase += 0.08;
+                b.wingPhase += 0.06;
                 if (b.x > canvasBg.width + 30) b.x = -30;
 
                 ctxBg.save();
-                ctxBg.strokeStyle = 'rgba(27, 54, 68, 0.22)';
+                ctxBg.strokeStyle = 'rgba(13, 34, 47, 0.2)';
                 ctxBg.lineWidth = 1.5;
                 ctxBg.beginPath();
                 
-                let wingY = Math.sin(b.wingPhase) * (b.size * 0.4);
+                let wingY = Math.sin(b.wingPhase) * (b.size * 0.35);
                 ctxBg.moveTo(b.x - b.size, b.y + wingY);
-                ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.3, b.x, b.y);
-                ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.3, b.x + b.size, b.y + wingY);
+                ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.25, b.x, b.y);
+                ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.25, b.x + b.size, b.y + wingY);
                 ctxBg.stroke();
                 ctxBg.restore();
             });
 
-            // --- C. DRAW GOLDEN FLARE SPARKS ---
+            // --- C. DRAW WARM SUNSETS FLARES ---
             sparkles.forEach(p => {
                 p.y -= p.speed;
-                p.phase += 0.02;
+                p.phase += 0.015;
                 if (p.y < -20) p.y = canvasBg.height + 20;
 
-                let opacity = (Math.sin(p.phase) + 1) / 2 * 0.35;
+                let opacity = (Math.sin(p.phase) + 1) / 2 * 0.4;
                 ctxBg.beginPath();
                 let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                gradient.addColorStop(0, `rgba(245, 194, 66, ${opacity})`);
+                gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
                 ctxBg.fillStyle = gradient;
                 ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -540,7 +549,6 @@
             requestAnimationFrame(renderBeachEngineLoop);
         }
 
-        // Shared Branch Rendering Core Logic
         function drawPalmBranchFrame(context, x, y, length, angle) {
             context.save();
             context.translate(x, y);
@@ -568,15 +576,15 @@
             const ctx = canvas.getContext('2d');
             let isDrawing = false;
             
-            ctx.fillStyle = '#e3d2ba'; 
+            ctx.fillStyle = '#dfcaaf'; /* Marginally warmer sand variant */
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             for (let i = 0; i < 800; i++) {
-                ctx.fillStyle = Math.random() > 0.5 ? '#f4eee3' : '#c9b79c';
+                ctx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80';
                 ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
             }
             
-            ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#5c4f3c'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px';
+            ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px';
             ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
 
             function scratch(e) {
