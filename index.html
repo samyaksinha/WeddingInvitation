@@ -174,6 +174,7 @@
 
         #main-content.visible { opacity: 1; display: block; }
 
+        /* Full Environmental Scenic Color Transitions */
         #main-content.sangeet-active {
             background: linear-gradient(180deg, #091620 0%, #152836 50%, #221221 100%) !important;
             --dynamic-text: #f7e6d4;
@@ -250,7 +251,7 @@
         }
         .venue-photo { width: 100%; height: 100%; object-fit: cover; object-position: bottom center; }
 
-        /* --- THE DYNAMIC JOURNEY MODULE STYLE (OPTION 2 REFRACTED) --- */
+        /* --- THE DYNAMIC JOURNEY MODULE STYLE --- */
         .story-timeline-track {
             position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%;
         }
@@ -263,7 +264,6 @@
         }
         .story-node-wrapper:last-of-type { margin-bottom: 0; }
         
-        /* Unique Custom Token Holders instead of plain bullets */
         .story-marker-token {
             position: absolute; left: 12px; top: 4px; width: 28px; height: 28px;
             background: #ffffff; border: 2px solid var(--sunset-rose); border-radius: 50%; z-index: 10;
@@ -277,7 +277,6 @@
             transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
         
-        /* Active status adjustments for the story elements */
         .story-node-wrapper.unlocked .story-interactive-card {
             opacity: 1; transform: scale(1); background: #ffffff;
             border-color: var(--sunset-rose); box-shadow: 0 6px 18px rgba(226,142,125,0.12);
@@ -521,33 +520,51 @@
 
         <section id="our-story">
             <h3 class="section-title">Our Story</h3>
-            <p class="details-p" style="margin-bottom: 25px;">Tap each token to trace our timeline.</p>
+            <p class="details-p" style="margin-bottom: 25px;">Tap tokens to activate milestone logs.</p>
             
             <div class="story-timeline-track">
                 <div class="story-node-wrapper" id="story-node-1" onclick="unlockStoryNode(1, 'coffee')">
-                    <div class="story-marker-token">☕</div>
+                    <div class="story-marker-token">✨</div>
                     <div class="story-card story-interactive-card">
                         <span class="story-year">2022</span>
-                        <h4 class="story-heading">First Coffee Date</h4>
-                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Our paths crossed for the first time, starting a conversion over coffee that never really ended.</p>
+                        <h4 class="story-heading">How It All Began</h4>
+                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Two colleagues who found in each other an unexpected best friend. It started with conversations, laughter, and comfort.</p>
                     </div>
                 </div>
 
-                <div class="story-node-wrapper" id="story-node-2" onclick="unlockStoryNode(2, 'plane')">
-                    <div class="story-marker-token">✈️</div>
+                <div class="story-node-wrapper" id="story-node-2" onclick="unlockStoryNode(2, 'spark')">
+                    <div class="story-marker-token">⚡</div>
+                    <div class="story-card story-interactive-card">
+                        <span class="story-year">2023</span>
+                        <h4 class="story-heading">Becoming Something More</h4>
+                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Hearts quietly crossed a line. Head over heels, full of hopes, and unsure of what the future held — but certain it felt right.</p>
+                    </div>
+                </div>
+
+                <div class="story-node-wrapper" id="story-node-3" onclick="unlockStoryNode(3, 'camera')">
+                    <div class="story-marker-token">📸</div>
                     <div class="story-card story-interactive-card">
                         <span class="story-year">2024</span>
-                        <h4 class="story-heading">Travel Miles</h4>
-                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Exploring new places together and discovering we make the absolute perfect adventure partners.</p>
+                        <h4 class="story-heading">Built in the Little Things</h4>
+                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">No grand gestures needed. Fun trips with friends, good food, late-night talks, and showing up for each other every single day.</p>
                     </div>
                 </div>
 
-                <div class="story-node-wrapper" id="story-node-3" onclick="unlockStoryNode(3, 'heart')">
+                <div class="story-node-wrapper" id="story-node-4" onclick="unlockStoryNode(4, 'lock')">
+                    <div class="story-marker-token">♾️</div>
+                    <div class="story-card story-interactive-card">
+                        <span class="story-year">2025</span>
+                        <h4 class="story-heading">The Leap of Faith</h4>
+                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">With hope in their hearts, they took the biggest step yet — bringing families into their story. And the universe said yes.</p>
+                    </div>
+                </div>
+
+                <div class="story-node-wrapper" id="story-node-5" onclick="unlockStoryNode(5, 'heart')">
                     <div class="story-marker-token">❤️</div>
                     <div class="story-card story-interactive-card">
                         <span class="story-year">2026</span>
-                        <h4 class="story-heading">The Promise</h4>
-                        <p class="details-p" style="font-size: 0.8rem; opacity: 0.9;">Deciding on a forever kind of love and bringing our journey to the shores of Goa.</p>
+                        <h4 class="story-heading">And Now... Goa</h4>
+                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Their favorite place. Their next forever. They’re getting married, and they’d love for you to be part of it.</p>
                     </div>
                 </div>
             </div>
@@ -713,7 +730,7 @@
             initCoverFlares();
             renderCoverEngineLoop();
             
-            // Unlock first node initially so timeline doesn't look barren on load
+            // Unlock first milestone naturally on load config
             document.getElementById('story-node-1').classList.add('unlocked');
         });
 
@@ -792,42 +809,46 @@
             }
         }
 
-        // --- SUB ROUTINE: STORY TRIGGER ENVIRONMENTALS MECHANISM ---
-        function unlockStoryNode(stepIndex, type) {
-            // Highlight target card with unlocked scaling rules
+        // --- SUB ROUTINE: STORY INTERACTION TRACK STAGED TRIGGER HANDLING ---
+        function unlockStoryNode(stepIndex, modeType) {
             document.querySelectorAll('.story-node-wrapper').forEach((node, idx) => {
-                if(idx + 1 <= stepIndex) {
-                    node.classList.add('unlocked');
-                } else {
-                    node.classList.remove('unlocked');
-                }
+                if(idx + 1 <= stepIndex) node.classList.add('unlocked');
+                else node.classList.remove('unlocked');
             });
 
-            // Connect story interactions directly to floating backdrop engines
-            if(type === 'coffee') {
+            dynamicParticles = []; // clear engine array
+
+            if(modeType === 'coffee') {
                 activeAtmosphere = 'default';
-                dynamicParticles = [];
-            } else if (type === 'plane') {
-                // Trigger quick flying airplane particles onto global canvas space
-                activeAtmosphere = 'sangeet'; 
-                dynamicParticles = [];
+            } else if (modeType === 'spark') {
+                activeAtmosphere = 'sangeet';
+                // Spawn electricity loop components
                 for(let i=0; i<15; i++) {
                     dynamicParticles.push({
-                        x: Math.random() * canvasBg.width, y: canvasBg.height + 20,
-                        speedY: -(Math.random() * 2 + 1), speedX: Math.random() * 1 - 0.5,
-                        size: 14, angle: 0, rotSpeed: 0,
-                        char: '✈️', color: 'rgba(252,163,77,0.5)'
+                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
+                        speedY: -(Math.random()*0.5 + 0.5), speedX: Math.random()*2 - 1,
+                        size: Math.random()*2 + 2, angle: 0, rotSpeed: 0, isSpark: true, color: '#fca34d'
                     });
                 }
-            } else if (type === 'heart') {
-                // Trigger dense falling love hearts particles onto canvas spaces
+            } else if (modeType === 'camera') {
+                activeAtmosphere = 'sangeet';
+                // Snapshot framework sparkles
+                for(let i=0; i<20; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width, y: canvasBg.height + 10,
+                        speedY: -(Math.random()*1 + 1), speedX: Math.random()*0.4 - 0.2,
+                        size: Math.random()*3 + 3, angle: Math.random()*Math.PI, rotSpeed: 0.02, isCameraSpark: true, color: '#ffffff'
+                    });
+                }
+            } else if (modeType === 'lock') {
+                activeAtmosphere = 'default';
+            } else if (modeType === 'heart') {
                 activeAtmosphere = 'wedding';
-                dynamicParticles = [];
-                for(let i=0; i<30; i++) {
+                for(let i=0; i<25; i++) {
                     dynamicParticles.push({
                         x: Math.random() * canvasBg.width, y: -Math.random() * 100,
-                        speedY: Math.random() * 1 + 0.5, speedX: Math.random() * 0.6 - 0.3,
-                        size: Math.random() * 6 + 6, angle: Math.random() * Math.PI, rotSpeed: 0.01,
+                        speedY: Math.random() * 1 + 0.8, speedX: Math.random() * 0.6 - 0.3,
+                        size: Math.random() * 6 + 5, angle: Math.random() * Math.PI, rotSpeed: 0.01,
                         isAmber: false, isPetal: true, color: 'rgba(226,142,125,0.8)'
                     });
                 }
@@ -923,12 +944,19 @@
                 ctxBg.save(); ctxBg.translate(p.x, p.y); ctxBg.rotate(p.angle);
 
                 if (activeAtmosphere === 'sangeet') {
-                    // Handles typography notes rendering OR Story airplane emojis tracking
                     if(p.char) {
                         ctxBg.fillStyle = p.color; ctxBg.font = `600 ${p.size}px sans-serif`; ctxBg.fillText(p.char, 0, 0);
+                    } else if (p.isSpark || p.isCameraSpark) {
+                        ctxBg.fillStyle = p.color; ctxBg.fillRect(-p.size/2, -p.size/2, p.size, p.size);
                     }
                 } else if (activeAtmosphere === 'haldi') {
-                    ctxBg.fillStyle = p.color; ctxBg.beginPath(); for (let i = 0; i < 5; i++) { ctxBg.rotate(Math.PI / 2.5); ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8); ctxBg.quadraticCurveTo(p.size * 0.8, -p.size * 0.4, 0, 0); } ctxBg.fill();
+                    // FLOW CORRECTION: Reset loops bounce falling petals down gracefully from top threshold
+                    if (p.y > canvasBg.height + 20) {
+                        p.y = -50; p.x = Math.random() * canvasBg.width;
+                    }
+                    ctxBg.fillStyle = p.color; ctxBg.beginPath(); 
+                    for (let i = 0; i < 5; i++) { ctxBg.rotate(Math.PI / 2.5); ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8); ctxBg.quadraticCurveTo(p.size * 0.8, -p.size * 0.4, 0, 0); } 
+                    ctxBg.fill();
                 } else if (activeAtmosphere === 'wedding') {
                     if (p.isPetal) {
                         ctxBg.fillStyle = p.color; ctxBg.beginPath(); ctxBg.moveTo(0, 0); ctxBg.bezierCurveTo(-p.size, -p.size, -p.size * 1.5, p.size * 0.5, 0, p.size * 1.5); ctxBg.bezierCurveTo(p.size * 1.5, p.size * 0.5, p.size, -p.size, 0, 0); ctxBg.fill();
@@ -962,7 +990,18 @@
                 for(let i = 0; i < 45; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random() * 1.2 + 0.6), speedX: Math.random() * 0.6 - 0.3, size: Math.random() * 12 + 12, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.02 - 0.01, char: notesList[Math.floor(Math.random() * notesList.length)], color: Math.random() > 0.4 ? 'rgba(233, 184, 137, 0.6)' : 'rgba(95, 158, 160, 0.7)' }); }
             } else if (mode === 'haldi') {
                 containerFrame.className = 'visible haldi-active'; bodyNode.className = 'haldi-mode';
-                for(let i=0; i<75; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: Math.random() * 2.0 + 1.5, speedX: Math.sin(Math.random() * Math.PI) * 0.6, size: Math.random() * 14 + 10, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.05 - 0.025, color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)' }); }
+                for(let i=0; i<85; i++) { 
+                    dynamicParticles.push({ 
+                        x: Math.random() * canvasBg.width, 
+                        y: -Math.random() * 300 - 50, // CRITICAL FIX: Forces ALL initial spawned particles strictly above layout viewport thresholds
+                        speedY: Math.random() * 2.0 + 1.8, 
+                        speedX: Math.sin(Math.random() * Math.PI) * 0.5, 
+                        size: Math.random() * 14 + 10, 
+                        angle: Math.random() * Math.PI, 
+                        rotSpeed: Math.random() * 0.05 - 0.025, 
+                        color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)' 
+                    }); 
+                }
             } else if (mode === 'wedding') {
                 containerFrame.className = 'visible wedding-active'; bodyNode.className = 'wedding-mode';
                 for(let i=0; i<35; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random() * 0.8 + 0.3), speedX: Math.random() * 0.4 - 0.2, size: Math.random() * 3 + 1.5, angle: 0, rotSpeed: 0, color: Math.random() > 0.5 ? 'rgba(253, 179, 102, 0.6)' : 'rgba(226, 142, 125, 0.5)' }); }
