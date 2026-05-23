@@ -10,15 +10,16 @@
     
     <style>
         :root {
-            /* Cinematic Sundowner & Golden Hour Palette */
+            /* Lightened Soft Sundowner & Golden Hour Palette */
             --ocean-navy: #0d222f;
-            --sundowner-orange: #fca34d;
-            --sunset-rose: #d67d6b;
-            --twilight-purple: #4a2840;
-            --gold-glow: #e2a76f;
-            --sand-warm: #fcf5ee;
-            --text-dark: #1f111c;
-            --text-muted: #5c4b57;
+            --sundowner-orange: #fdb366;
+            --sunset-rose: #e28e7d;
+            --twilight-purple: #633d56; /* Softened, warmer plum-twilight */
+            --gold-glow: #e9b889;
+            --sand-warm: #fff8f2; /* Warm bright cream base */
+            --honey-glow: #fae3cc; /* Soft golden backdrop */
+            --text-dark: #241420;
+            --text-muted: #6e5c69;
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
             --haldi-yellow: #f5c242;
@@ -40,7 +41,7 @@
             line-height: 1.6;
         }
 
-        /* --- LANDING COVER (Cinematic Sundowner Glow & Waves) --- */
+        /* --- LANDING COVER (Cinematic Glow & Waves) --- */
         #curtain-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -50,7 +51,6 @@
             justify-content: center;
             align-items: center;
             transition: transform 1.3s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-            /* Rich twilight to amber horizon sunset gradient */
             background: linear-gradient(135deg, var(--twilight-purple), var(--sunset-rose), var(--sundowner-orange));
             background-size: 400% 400%;
             animation: gradientGlow 10s ease infinite;
@@ -86,7 +86,7 @@
             border-radius: 50%;
             background: #ffffff;
             overflow: hidden; 
-            box-shadow: 0 15px 35px rgba(31, 17, 28, 0.3);
+            box-shadow: 0 15px 35px rgba(99, 61, 86, 0.25);
             border: 2px solid var(--gold-glow);
             display: flex;
             align-items: center;
@@ -94,8 +94,8 @@
         }
 
         .couple-img { width: 100%; height: 100%; object-fit: cover; }
-        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-glow); margin-bottom: 10px; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
-        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.8rem; font-weight: 300; letter-spacing: 1px; color: #ffffff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-glow); margin-bottom: 10px; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.8rem; font-weight: 300; letter-spacing: 1px; color: #ffffff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 10px rgba(0,0,0,0.15); }
         .location-tag { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: #ffffff; opacity: 0.9; margin-bottom: 40px; font-weight: 500; }
 
         .enter-btn {
@@ -111,7 +111,7 @@
             font-weight: 500;
             border-radius: 30px;
             transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
         }
         .enter-btn:hover { background-color: var(--ocean-navy); color: white; border-color: var(--ocean-navy); }
 
@@ -143,9 +143,9 @@
             min-height: 100vh;
             position: relative;
             z-index: 5;
-            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
-            /* Rich progressive gradient moving down into the twilight dinner atmosphere */
-            background: linear-gradient(180deg, var(--sand-warm) 0%, var(--sunset-orange) 40%, var(--sunset-rose) 70%, var(--twilight-purple) 100%);
+            box-shadow: 0 0 50px rgba(99, 61, 86, 0.2);
+            /* Softened bright sunset progression flow */
+            background: linear-gradient(180deg, var(--sand-warm) 0%, var(--honey-glow) 35%, var(--sunset-orange) 65%, var(--sunset-rose) 100%);
         }
 
         #main-content.visible { opacity: 1; display: block; }
@@ -166,9 +166,8 @@
         }
         .wave-separator svg { position: relative; display: block; width: 300%; height: 45px; }
         .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: var(--sunset-rose); opacity: 0.3; }
-        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--sand-warm); opacity: 0.4; }
+        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--sand-warm); opacity: 0.5; }
 
-        /* Color adaptive titles for visibility over deeper gradients toward the bottom */
         .section-title {
             font-family: var(--font-serif);
             font-size: 2.2rem;
@@ -177,10 +176,6 @@
             letter-spacing: 1px;
             font-weight: 400;
         }
-        
-        #rsvp .section-title, #dress-code .section-title {
-            color: #ffffff;
-        }
 
         /* --- HERO & BRUSH SECTIONS --- */
         .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
@@ -188,8 +183,8 @@
 
         .scratch-container {
             position: relative; width: 280px; height: 150px; margin: 30px auto;
-            border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(31,17,28,0.1);
-            border: 1px solid rgba(214, 125, 107, 0.4);
+            border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(31,17,28,0.05);
+            border: 1px solid rgba(226, 142, 125, 0.4);
             background: white;
         }
         .scratch-reveal-text {
@@ -213,33 +208,31 @@
 
         /* --- COUNTDOWN BOX MATRIX --- */
         .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
-        .countdown-box { background: rgba(255,255,255,0.85); border: 1px solid rgba(212,190,159,0.3); width: 75px; padding: 14px 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .countdown-box { background: rgba(255,255,255,0.85); border: 1px solid rgba(212,190,159,0.3); width: 75px; padding: 14px 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .countdown-val { font-family: var(--font-serif); font-size: 1.8rem; color: var(--ocean-navy); display: block; font-weight: 400; }
         .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
 
         /* --- DRESS CODE CARDS --- */
         .dress-code-flex { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; align-items: center; }
-        .dress-card { width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.9); border: 1px solid rgba(214,125,107,0.25); border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .dress-card { width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.85); border: 1px solid rgba(226,142,125,0.25); border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
         .dress-event { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1px; }
         .dress-badge { display: inline-block; padding: 8px 26px; font-size: 0.8rem; color: white; border-radius: 25px; text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
         .badge-yellow { background-color: var(--haldi-yellow); color: #4a3600; }
         .badge-green { background-color: var(--wedding-green); }
-        #dress-code .details-p { color: #ffffff; opacity: 0.95; }
 
         /* --- RSVP MODERATION INPUT LAYER --- */
-        #rsvp .details-p { color: #ffffff; opacity: 0.9; }
         .rsvp-form { text-align: left; margin-top: 30px; }
         .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: #ffffff; margin-bottom: 8px; font-weight: 500; letter-spacing: 0.5px; }
+        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--ocean-navy); margin-bottom: 8px; font-weight: 500; letter-spacing: 0.5px; }
         .form-group input, .form-group select { width: 100%; padding: 15px 12px; border: 1px solid var(--gold-glow); border-radius: 8px; background: white; font-family: var(--font-sans); color: var(--text-dark); outline: none; }
-        .form-group input:focus, .form-group select:focus { border-color: var(--sundowner-orange); box-shadow: 0 0 10px rgba(252,163,77,0.3); }
+        .form-group input:focus, .form-group select:focus { border-color: var(--sundowner-orange); box-shadow: 0 0 10px rgba(253,179,102,0.2); }
         .radio-group { display: flex; gap: 20px; margin-top: 8px; }
-        .radio-option { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: #ffffff; cursor: pointer; }
+        .radio-option { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--text-dark); cursor: pointer; }
         .radio-option input { width: auto; accent-color: var(--sundowner-orange); }
-        .submit-btn { width: 100%; background-color: var(--sundowner-orange); color: var(--ocean-navy); border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(252,163,77,0.3); transition: all 0.3s; }
-        .submit-btn:hover { background-color: var(--gold-glow); }
+        .submit-btn { width: 100%; background-color: var(--ocean-navy); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(13,34,47,0.15); transition: all 0.3s; }
+        .submit-btn:hover { background-color: var(--twilight-purple); }
 
-        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: #ffffff; opacity: 0.7; background-color: transparent; letter-spacing: 1px; }
+        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--ocean-navy); opacity: 0.7; background-color: transparent; letter-spacing: 1px; }
 
         @keyframes waveSwim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -375,7 +368,7 @@
 
         <footer>
             <p>Thank you for sharing this journey with us.</p>
-            <p style="margin-top: 12px; font-size: 0.65rem; color: #ffffff; opacity: 0.6;">S&amp;S • 2026 • GOA</p>
+            <p style="margin-top: 12px; font-size: 0.65rem; color: var(--ocean-navy); opacity: 0.6;">S&amp;S • 2026 • GOA</p>
         </footer>
     </div>
 
@@ -419,9 +412,9 @@
             ctxCover.clearRect(0, 0, canvasCover.width, canvasCover.height);
             swayTime += 0.012;
 
-            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE (Dusky Sundowner Tones) ---
+            // --- 1. DRAW SWAYING PALM TREES ON COVER PAGE (Warm Golden Sunset Tones) ---
             ctxCover.save();
-            ctxCover.strokeStyle = 'rgba(226, 167, 111, 0.25)'; /* Warm Golden-Hour Tint */
+            ctxCover.strokeStyle = 'rgba(233, 184, 137, 0.35)'; 
             ctxCover.lineWidth = 2.5;
 
             drawPalmBranchFrame(ctxCover, 0, 0, 130, 0.6 + Math.sin(swayTime)*0.04);
@@ -440,7 +433,7 @@
                 let opacity = (Math.sin(f.phase) + 1) / 2 * 0.35;
                 ctxCover.beginPath();
                 let gradient = ctxCover.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.size);
-                gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
+                gradient.addColorStop(0, `rgba(253, 179, 102, ${opacity})`);
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
                 ctxCover.fillStyle = gradient;
                 ctxCover.arc(f.x, f.y, f.size, 0, Math.PI * 2);
@@ -499,9 +492,9 @@
         function renderBeachEngineLoop() {
             ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
 
-            // --- A. DRAW INNER SWAYING PALM LEAVES (Dusky Evening Silhouettes) ---
+            // --- A. DRAW INNER SWAYING PALM LEAVES (Warm Tint Overlays) ---
             ctxBg.save();
-            ctxBg.strokeStyle = 'rgba(74, 40, 64, 0.15)'; 
+            ctxBg.strokeStyle = 'rgba(99, 61, 86, 0.1)'; 
             ctxBg.lineWidth = 2;
             
             drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.18, 110, 0.4 + Math.sin(swayTime)*0.05);
@@ -530,7 +523,7 @@
                 ctxBg.restore();
             });
 
-            // --- C. DRAW WARM SUNSETS FLARES ---
+            // --- C. DRAW WARM SUNSET FLARES ---
             sparkles.forEach(p => {
                 p.y -= p.speed;
                 p.phase += 0.015;
@@ -539,7 +532,7 @@
                 let opacity = (Math.sin(p.phase) + 1) / 2 * 0.4;
                 ctxBg.beginPath();
                 let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
+                gradient.addColorStop(0, `rgba(253, 179, 102, ${opacity})`);
                 gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
                 ctxBg.fillStyle = gradient;
                 ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2);
@@ -576,7 +569,7 @@
             const ctx = canvas.getContext('2d');
             let isDrawing = false;
             
-            ctx.fillStyle = '#dfcaaf'; /* Marginally warmer sand variant */
+            ctx.fillStyle = '#dfcaaf'; 
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             
             for (let i = 0; i < 800; i++) {
