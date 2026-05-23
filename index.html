@@ -245,7 +245,7 @@
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        /* --- VERTICAL VENUE COMPONENT --- */
+        /* --- DISPLAY LAYOUT MODS --- */
         .venue-display-frame {
             width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto;
             border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
@@ -294,7 +294,17 @@
         .story-interactive-card .story-year { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
         .story-interactive-card .story-heading { font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 6px; }
 
-        /* --- COMPACT LOCATION ACTION CONTAINER --- */
+        /* --- INDIA TRAVEL MAP CONTAINER --- */
+        .travel-map-container {
+            width: 100%; max-width: 320px; height: 340px; margin: 0 auto 12px auto;
+            background: #cbdce6; border: 2px solid var(--text-dark);
+            border-radius: 14px; overflow: hidden; position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.1);
+        }
+        #travel-canvas { width: 100%; height: 100%; display: block; }
+        .map-caption { font-size: 0.75rem; font-style: italic; margin-top: 0; margin-bottom: 25px; color: var(--text-muted); font-weight: 500; }
+
+        /* --- SLIMMED MAP ACTION BAR --- */
         .map-widget-box {
             width: 100%; max-width: 200px; margin: 25px auto 10px auto;
             background: rgba(255, 255, 255, 0.9); border: 1px solid var(--text-dark);
@@ -321,7 +331,7 @@
             font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; border-radius: 15px;
         }
 
-        /* --- INTERACTIVE CARD TRACKS --- */
+        /* --- THE INTERACTIVE BEACH CARD TRACK --- */
         .beach-map-track { position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%; }
         .beach-map-track::before {
             content: ''; position: absolute; top: 0; left: 24px; width: 6px; height: 100%;
@@ -392,24 +402,29 @@
         .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); transition: color 0.5s; }
         #main-content.sangeet-active .countdown-lbl, #main-content.wedding-active .countdown-lbl { color: rgba(255,255,255,0.7); }
 
-        /* --- OVERHAULED WARDROBE INTERACTIVE FLEX SWATCHES --- */
+        /* --- DRESS CODE STATIC LOGS --- */
         .dress-code-flex { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; align-items: center; }
+        
         .dress-card { 
             width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.9); border: 1px solid var(--text-dark); 
-            border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.04); cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.04); cursor: default; /* Changed cursor to indicate non-interactive info panels */
         }
-        .dress-card:active { transform: scale(0.98); }
-        
         #main-content.sangeet-active .dress-card, #main-content.wedding-active .dress-card { border-color: var(--dynamic-title); background: rgba(255,255,255,0.95); }
 
         .dress-event { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1.5px; font-weight: 600; }
         .dress-badge { display: inline-block; padding: 10px 30px; font-size: 0.85rem; color: white; border-radius: 25px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
-        /* Updated custom swatch backgrounds */
-        .badge-bling { background: linear-gradient(45deg, #2c3e50, #bdc3c7, #2c3e50); color: #ffffff; border: 1px dashed #fff; }
-        .badge-bright-pastel { background: linear-gradient(135deg, #f5c242 0%, #fbe3e3 100%); color: #4a3600; }
-        .badge-sage { background-color: var(--sage-green); color: #ffffff; }
+        /* HIGH-GLOSS ANIMATED SHIMMERING BLING BADGE */
+        .badge-bling { 
+            background: linear-gradient(45deg, #d4af37, #fff, #aa7c11, #fff, #d4af37);
+            background-size: 400% 400%;
+            color: #231f20; 
+            border: 1px solid #aa7c11;
+            font-weight: 700;
+            animation: blingShimmer 5s linear infinite, blingPulse 2s ease-in-out infinite alternate;
+        }
+        .badge-bright-pastel { background: linear-gradient(135deg, #f5c242 0%, #fbe3e3 100%); color: #4a3600; border: 1px solid #f5c242; }
+        .badge-sage { background-color: var(--sage-green); color: #ffffff; border: 1px solid #6b8e6b; }
 
         /* --- RSVP INPUT FIELDS --- */
         .rsvp-form { text-align: left; margin-top: 30px; }
@@ -440,6 +455,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-4px); } }
+        @keyframes blingShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
+        @keyframes blingPulse { 0% { box-shadow: 0 4px 10px rgba(212,175,55,0.2); } 100% { box-shadow: 0 4px 20px rgba(212,175,55,0.6), inset 0 0 10px rgba(255,255,255,0.5); } }
     </style>
 </head>
 <body id="invitation-body">
@@ -660,17 +677,17 @@
 
         <section id="dress-code">
             <h3 class="section-title">Dress Code</h3>
-            <p class="details-p">Tap each event to preview the look and paint our celebration.</p>
+            <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
             <div class="dress-code-flex">
-                <div class="dress-card" onclick="triggerEventAtmosphere('sangeet')">
+                <div class="dress-card">
                     <div class="dress-event">Sangeet Night</div>
                     <div class="dress-badge badge-bling">Bling</div>
                 </div>
-                <div class="dress-card" onclick="triggerEventAtmosphere('haldi')">
+                <div class="dress-card">
                     <div class="dress-event">Haldi Ceremony</div>
                     <div class="dress-badge badge-bright-pastel">Bright / Pastel Colors</div>
                 </div>
-                <div class="dress-card" onclick="triggerEventAtmosphere('wedding')">
+                <div class="dress-card">
                     <div class="dress-event">Wedding Vows</div>
                     <div class="dress-badge badge-sage">Sage Green</div>
                 </div>
