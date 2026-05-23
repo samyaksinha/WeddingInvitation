@@ -174,7 +174,6 @@
 
         #main-content.visible { opacity: 1; display: block; }
 
-        /* Full Environmental Scenic Color Transitions */
         #main-content.sangeet-active {
             background: linear-gradient(180deg, #091620 0%, #152836 50%, #221221 100%) !important;
             --dynamic-text: #f7e6d4;
@@ -227,13 +226,14 @@
             font-family: var(--font-serif); font-size: 2.2rem; color: var(--dynamic-title); margin-bottom: 35px; letter-spacing: 1px; font-weight: 400; transition: color 0.5s;
         }
 
+        /* --- HERO & OPTIMIZED WAVE SCRATCH CONTAINER --- */
         .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
         .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 500; }
 
         .scratch-container {
             position: relative; width: 280px; height: 150px; margin: 30px auto;
             border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(13,34,47,0.06);
-            border: 2px solid var(--text-dark); background: white;
+            border: 2px solid var(--text-dark); background: transparent;
         }
         .scratch-reveal-text {
             position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
@@ -241,9 +241,11 @@
         }
         .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.7rem; color: var(--text-dark); font-weight: 600; letter-spacing: 0.5px; }
         .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
-        #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
+        
+        #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
+        /* --- OPTIMIZED VERTICAL VENUE FRAME --- */
         .venue-display-frame {
             width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto;
             border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
@@ -251,7 +253,7 @@
         }
         .venue-photo { width: 100%; height: 100%; object-fit: cover; object-position: bottom center; }
 
-        /* --- THE DYNAMIC JOURNEY MODULE STYLE --- */
+        /* --- STORY TIMELINE CARD STYLE --- */
         .story-timeline-track {
             position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%;
         }
@@ -491,9 +493,9 @@
                     <span class="date">DECEMBER 12, 2026</span>
                     <span class="day">Saturday</span>
                 </div>
-                <canvas id="scratch-canvas" width="280" height="150"></canvas>
+                <canvas id="scratch-canvas"></canvas>
             </div>
-            <p class="scratch-instruction">Brush the sand away to reveal our date</p>
+            <p class="scratch-instruction">Tap or brush across the shore to let the wave wash away the sand</p>
             
             <div class="wave-separator">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -616,7 +618,6 @@
 
         <section id="schedule">
             <h3 class="section-title">The Schedule</h3>
-            
             <div class="beach-map-track">
                 
                 <div class="track-node-wrapper" id="node-sangeet" onclick="triggerEventAtmosphere('sangeet')">
@@ -660,7 +661,6 @@
                         <span class="event-hint-lbl">🌅 Tap for Traditional Sundowner & Fireworks</span>
                     </div>
                 </div>
-
             </div>
             
             <div class="wave-separator">
@@ -729,8 +729,6 @@
             initCoverCanvas();
             initCoverFlares();
             renderCoverEngineLoop();
-            
-            // Unlock first milestone naturally on load config
             document.getElementById('story-node-1').classList.add('unlocked');
         });
 
@@ -784,7 +782,7 @@
             initBeachAssets();
             initTravelRouteMap(); 
             renderBeachEngineLoop();
-            setTimeout(initSandScratchCard, 350);
+            setTimeout(initIncomingWaveReveal, 350);
         }
 
         function resizeCanvas() {
@@ -816,13 +814,12 @@
                 else node.classList.remove('unlocked');
             });
 
-            dynamicParticles = []; // clear engine array
+            dynamicParticles = []; 
 
             if(modeType === 'coffee') {
                 activeAtmosphere = 'default';
             } else if (modeType === 'spark') {
                 activeAtmosphere = 'sangeet';
-                // Spawn electricity loop components
                 for(let i=0; i<15; i++) {
                     dynamicParticles.push({
                         x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
@@ -832,7 +829,6 @@
                 }
             } else if (modeType === 'camera') {
                 activeAtmosphere = 'sangeet';
-                // Snapshot framework sparkles
                 for(let i=0; i<20; i++) {
                     dynamicParticles.push({
                         x: Math.random() * canvasBg.width, y: canvasBg.height + 10,
@@ -853,6 +849,83 @@
                     });
                 }
             }
+        }
+
+        // --- OPTION 1: HIGH PERFORMANCE WAVE WASH FLUID SIMULATION ---
+        function initIncomingWaveReveal() {
+            const sCanvas = document.getElementById('scratch-canvas');
+            const sCtx = sCanvas.getContext('2d');
+            
+            sCanvas.width = 280;
+            sCanvas.height = 150;
+
+            let waveProgress = 0;
+            let activeAnimation = false;
+
+            // Render baseline sand texture pattern onto cover container box
+            function renderSandLayer() {
+                sCtx.fillStyle = '#dfcaaf';
+                sCtx.fillRect(0, 0, sCanvas.width, sCanvas.height);
+                // Draw fine grain points safely
+                for (let i = 0; i < 400; i++) {
+                    sCtx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80';
+                    sCtx.fillRect(Math.random() * sCanvas.width, Math.random() * sCanvas.height, 1.2, 1.2);
+                }
+                sCtx.font = '600 10px Montserrat'; sCtx.fillStyle = '#534335'; sCtx.textAlign = 'center'; sCtx.textBaseline = 'middle'; sCtx.letterSpacing = '2px';
+                sCtx.fillText('TOUCH TO REVEAL DATE', sCanvas.width / 2, sCanvas.height / 2);
+            }
+            renderSandLayer();
+
+            function runWaveWashAnimation() {
+                if (waveProgress >= 1.2) {
+                    sCtx.clearRect(0, 0, sCanvas.width, sCanvas.height);
+                    activeAnimation = false;
+                    return;
+                }
+
+                // Dissolve trailing edge parameters dynamically relative to wave position metrics
+                sCtx.clearRect(0, 0, sCanvas.width * waveProgress, sCanvas.height);
+
+                waveProgress += 0.025;
+
+                // Draw the incoming crest wave line overlay layout
+                const currentWaveX = sCanvas.width * waveProgress;
+
+                sCtx.save();
+                sCtx.beginPath();
+                sCtx.moveTo(currentWaveX, 0);
+                // Draw sinuous rolling ocean wave line geometry pathing variables
+                sCtx.quadraticCurveTo(currentWaveX + 25, sCanvas.height / 2, currentWaveX, sCanvas.height);
+                sCtx.lineTo(0, sCanvas.height);
+                sCtx.lineTo(0, 0);
+                sCtx.closePath();
+
+                // Composite clipping state configuration parameters
+                sCtx.globalCompositeOperation = 'destination-out';
+                sCtx.fill();
+
+                // Paint soft white shoreline water froth foam border outline overlay paths
+                sCtx.globalCompositeOperation = 'source-over';
+                sCtx.beginPath();
+                sCtx.moveTo(currentWaveX, 0);
+                sCtx.quadraticCurveTo(currentWaveX + 25, sCanvas.height / 2, currentWaveX, sCanvas.height);
+                sCtx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+                sCtx.lineWidth = 8;
+                sCtx.stroke();
+                sCtx.restore();
+
+                requestAnimationFrame(runWaveWashAnimation);
+            }
+
+            function triggerWave(e) {
+                if (activeAnimation) return;
+                e.preventDefault();
+                activeAnimation = true;
+                runWaveWashAnimation();
+            }
+
+            sCanvas.addEventListener('mousedown', triggerWave);
+            sCanvas.addEventListener('touchstart', triggerWave, { passive: false });
         }
 
         function initTravelRouteMap() {
@@ -950,7 +1023,6 @@
                         ctxBg.fillStyle = p.color; ctxBg.fillRect(-p.size/2, -p.size/2, p.size, p.size);
                     }
                 } else if (activeAtmosphere === 'haldi') {
-                    // FLOW CORRECTION: Reset loops bounce falling petals down gracefully from top threshold
                     if (p.y > canvasBg.height + 20) {
                         p.y = -50; p.x = Math.random() * canvasBg.width;
                     }
@@ -993,7 +1065,7 @@
                 for(let i=0; i<85; i++) { 
                     dynamicParticles.push({ 
                         x: Math.random() * canvasBg.width, 
-                        y: -Math.random() * 300 - 50, // CRITICAL FIX: Forces ALL initial spawned particles strictly above layout viewport thresholds
+                        y: -Math.random() * 300 - 50, 
                         speedY: Math.random() * 2.0 + 1.8, 
                         speedX: Math.sin(Math.random() * Math.PI) * 0.5, 
                         size: Math.random() * 14 + 10, 
@@ -1016,20 +1088,6 @@
             for (let i = 0; i < particleCount; i++) { const angle = Math.random() * Math.PI * 2; const speed = Math.random() * 6.5 + 2; dynamicParticles.push({ x: x, y: y, speedX: Math.cos(angle) * speed, speedY: Math.sin(angle) * speed, gravity: 0.08, friction: 0.95, size: Math.random() * 2.5 + 1, opacity: 1, fadeSpeed: Math.random() * 0.014 + 0.007, isAmber: false, isPetal: false, color: burstColor }); }
             setTimeout(launchWeddingFireworks, Math.random() * 1400 + 800);
         }
-
-        function initSandScratchCard() {
-            const canvas = document.getElementById('scratch-canvas'); const ctx = canvas.getContext('2d'); let isDrawing = false; ctx.fillStyle = '#dfcaaf'; ctx.fillRect(0, 0, canvas.width, canvas.height); for (let i = 0; i < 800; i++) { ctx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80'; ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5); } ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px'; ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
-            function scratch(e) { if (!isDrawing) return; e.preventDefault(); const rect = canvas.getBoundingClientRect(); const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left; const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top; ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x, y, 26, 0, Math.PI * 2); ctx.fill(); }
-            canvas.addEventListener('mousedown', () => isDrawing = true); canvas.addEventListener('mousemove', scratch); window.addEventListener('mouseup', () => isDrawing = false); canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false}); canvas.addEventListener('touchmove', scratch, {passive: false}); window.addEventListener('touchend', () => isDrawing = false);
-        }
-
-        const target = new Date('December 12, 2026 16:30:00').getTime();
-        setInterval(() => {
-            const diff = target - new Date().getTime();
-            document.getElementById('days').innerText = Math.floor(diff / (1000*60*60*24)).toString().padStart(2,'0'); document.getElementById('hours').innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0'); document.getElementById('mins').innerText = Math.floor((diff % (1000*60*60)) / (1000*60)).toString().padStart(2,'0'); document.getElementById('secs').innerText = Math.floor((diff % (1000*60)) / 1000).toString().padStart(2,'0');
-        }, 1000);
-
-        function handleRSVP(e) { e.preventDefault(); alert("RSVP Recorded! See you under the Goa sunset!"); }
     </script>
 </body>
 </html>
