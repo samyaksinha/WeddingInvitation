@@ -40,38 +40,19 @@
             line-height: 1.6;
         }
 
-        /* --- SCREEN PARTICLES (Sun Flare Sparkles) --- */
-        #sparkle-container {
+        /* --- GLOBAL BACKGROUND RENDERING CANVAS --- */
+        #beach-bg-canvas {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            display: none;
-        }
-
-        .sparkle {
-            position: absolute;
-            background: radial-gradient(circle, rgba(245,194,66,0.5) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            will-change: transform;
-        }
-
-        /* --- VISIBLE SWAYING PALM SILHOUETTES --- */
-        .coastal-palm {
-            position: fixed;
-            width: 140px;
-            height: auto;
-            color: var(--sand-gold);
-            opacity: 0.25; /* Highly visible styling overlay */
-            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1; /* Sits securely behind text but above vanilla backdrop colors */
             pointer-events: none;
             display: none;
-            transform-origin: top center;
         }
-        .palm-left { top: 5%; left: -20px; animation: gentleSway 6s ease-in-out infinite; }
-        .palm-right { top: 40%; right: -20px; animation: gentleSway 8s ease-in-out infinite reverse; transform: scaleX(-1); }
 
-        /* --- LANDING COVER (Sunset Theme) --- */
+        /* --- LANDING COVER --- */
         #curtain-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -148,7 +129,6 @@
         }
 
         #main-content.visible { opacity: 1; display: block; }
-        #main-content.visible ~ .coastal-palm, #main-content.visible ~ #sparkle-container { display: block; }
 
         section {
             padding: 85px 30px;
@@ -157,7 +137,7 @@
             position: relative;
         }
 
-        /* --- VISIBLE RUNNING WAVES --- */
+        /* --- SHORELINE WAVES --- */
         .wave-separator {
             position: absolute;
             bottom: 0; left: 0; width: 100%; height: 45px;
@@ -165,8 +145,6 @@
         }
 
         .wave-separator svg { position: relative; display: block; width: 300%; height: 45px; }
-        
-        /* Colored clearly to avoid background washouts */
         .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: var(--sand-gold); opacity: 0.25; }
         .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--seaglass-teal); opacity: 0.15; }
 
@@ -231,11 +209,6 @@
 
         footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--text-muted); background-color: transparent; letter-spacing: 1px; }
 
-        /* --- SAFARI COMPATIBLE SWAY TRACKS --- */
-        @keyframes gentleSway {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(6deg); }
-        }
         @keyframes waveSwim {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -257,14 +230,7 @@
         </div>
     </div>
 
-    <svg class="coastal-palm palm-left" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5,5 Q30,15 45,55 M45,55 Q20,35 2,25 M45,55 Q65,30 85,10 M45,55 Q70,60 95,65 M45,55 Q50,75 55,98" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    </svg>
-    <svg class="coastal-palm palm-right" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5,5 Q30,15 45,55 M45,55 Q20,35 2,25 M45,55 Q65,30 85,10 M45,55 Q70,60 95,65 M45,55 Q50,75 55,98" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    </svg>
-
-    <div id="sparkle-container"></div>
+    <canvas id="beach-bg-canvas"></canvas>
 
     <div id="main-content">
         
@@ -373,60 +339,116 @@
     </div>
 
     <script>
-        let sparkleArray = [];
-        const container = document.getElementById('sparkle-container');
+        // --- HARDWARE COMPATIBLE CANVAS ENGINE FOR CODES & SAFARI ---
+        const canvasBg = document.getElementById('beach-bg-canvas');
+        const ctxBg = canvasBg.getContext('2d');
+        let particles = [];
+        let swayAngle = 0;
 
         function openInvitation() {
             document.getElementById('main-content').classList.add('visible');
             document.getElementById('curtain-overlay').classList.add('opened');
             
-            // Activate High-Performance Javascript Animation Engine Loop
-            initSparkleEngine();
-            animateSparkles();
+            // Activate and correctly map viewport configurations to Canvas matrix
+            canvasBg.style.display = 'block';
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Build elements arrays
+            initSparkles();
+            renderBeachEngineLoop();
             
             setTimeout(initSandScratchCard, 350);
         }
 
-        // --- Hardware-Accelerated Animation Loop Engine ---
-        function initSparkleEngine() {
+        function resizeCanvas() {
+            canvasBg.width = window.innerWidth;
+            canvasBg.height = window.innerHeight;
+        }
+
+        // Initialize JavaScript Flare Sparkles tracking matrix
+        function initSparkles() {
             for (let i = 0; i < 15; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                const size = Math.random() * 20 + 8;
-                sparkle.style.width = size + 'px';
-                sparkle.style.height = size + 'px';
-                
-                let data = {
-                    element: sparkle,
+                particles.push({
                     x: Math.random() * window.innerWidth,
-                    y: window.innerHeight + (Math.random() * 200),
-                    speed: Math.random() * 1.5 + 0.5,
-                    scaleSpeed: Math.random() * 0.005 + 0.002,
-                    currentScale: 0.4
-                };
-                
-                container.appendChild(sparkle);
-                sparkleArray.push(data);
+                    y: Math.random() * window.innerHeight + window.innerHeight,
+                    size: Math.random() * 15 + 8,
+                    speed: Math.random() * 0.8 + 0.3,
+                    opacitySpeed: Math.random() * 0.01 + 0.005,
+                    currentOpacity: Math.random()
+                });
             }
         }
 
-        function animateSparkles() {
-            sparkleArray.forEach(p => {
+        // Procedural Vector Render Engine for Palms and Sun flares
+        function renderBeachEngineLoop() {
+            ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
+            
+            // 1. Render and compute floating golden flares
+            particles.forEach(p => {
                 p.y -= p.speed;
-                p.currentScale += p.scaleSpeed;
+                // Calculate dynamic fading states securely
+                p.currentOpacity += p.opacitySpeed;
+                if(p.currentOpacity > 1 || p.currentOpacity < 0) p.opacitySpeed = -p.opacitySpeed;
                 
-                // Reset particles when drifting off-screen bound loops
-                if (p.y < -30 || p.currentScale > 1.5) {
-                    p.y = window.innerHeight + 50;
-                    p.x = Math.random() * window.innerWidth;
-                    p.currentScale = 0.4;
+                if (p.y < -30) {
+                    p.y = canvasBg.height + 30;
+                    p.x = Math.random() * canvasBg.width;
                 }
                 
-                // Using transform instead of top/left layout calls to ensure Mac Safari fluid performance
-                p.element.style.transform = `translate3d(${p.x}px, ${p.y}px, 0) scale(${p.currentScale})`;
+                ctxBg.beginPath();
+                let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+                gradient.addColorStop(0, `rgba(245, 194, 66, ${Math.abs(p.currentOpacity) * 0.3})`);
+                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+                ctxBg.fillStyle = gradient;
+                ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctxBg.fill();
             });
+
+            // 2. Compute a unified frame matrix calculation for the sways
+            swayAngle += 0.012;
+            let dynamicSway = Math.sin(swayAngle) * 5; 
+
+            // 3. Render Top Left Palm Tree Node
+            ctxBg.save();
+            ctxBg.translate(-10, 40);
+            ctxBg.rotate((15 + dynamicSway) * Math.PI / 180);
+            drawPalmBranch(0, 0, 160);
+            ctxBg.restore();
+
+            // 4. Render Center Right Palm Tree Node
+            ctxBg.save();
+            ctxBg.translate(canvasBg.width + 10, canvasBg.height * 0.45);
+            ctxBg.scale(-1, 1); // Flip horizontally for symmetry
+            ctxBg.rotate((12 + dynamicSway) * Math.PI / 180);
+            drawPalmBranch(0, 0, 150);
+            ctxBg.restore();
+
+            requestAnimationFrame(renderBeachEngineLoop);
+        }
+
+        // Custom Vector Path Painter for Palm Fronds
+        function drawPalmBranch(x, y, length) {
+            ctxBg.strokeStyle = 'rgba(212, 190, 159, 0.28)'; // Matte Sand Gold
+            ctxBg.lineWidth = 3;
+            ctxBg.lineCap = 'round';
             
-            requestAnimationFrame(animateSparkles);
+            // Main frond spine core line
+            ctxBg.beginPath();
+            ctxBg.quadraticCurveTo(x + length*0.4, y + 20, x + length, y + length*0.3);
+            ctxBg.stroke();
+            
+            // Render individual leaves sprouting along the spine matrix lines
+            ctxBg.lineWidth = 1.5;
+            for (let i = 10; i < length; i += 8) {
+                let ratio = i / length;
+                let leafLen = 45 * (1 - ratio * 0.5);
+                
+                ctxBg.beginPath();
+                ctxBg.moveTo(x + i*0.9, y + i*0.2);
+                ctxBg.quadraticCurveTo(x + i - leafLen*0.3, y + i*0.2 + leafLen, x + i - leafLen, y + i*0.2 + leafLen*1.2);
+                ctxBg.stroke();
+            }
         }
 
         // --- Interactive Sand Drawing Canvas Layer ---
