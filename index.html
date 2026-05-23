@@ -10,940 +10,137 @@
     
     <style>
         :root {
-            /* Warm Balanced Golden Hour Baseline */
+            --text-dark: #231f20;
             --ocean-navy: #0d222f;
             --sundowner-orange: #fca34d;
             --sunset-rose: #e28e7d;
             --gold-glow: #e9b889;
-            --sand-warm: #f7e6d4; 
-            --honey-glow: #f5d3b3; 
-            --amber-blush: #e8b495; 
-            --text-dark: #231f20; 
-            --text-muted: #5e5255;
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Montserrat', sans-serif;
+            --sand-warm: #f7e6d4;
+            --honey-glow: #f5d3b3;
+            --amber-blush: #e8b495;
             --haldi-yellow: #f5c242;
-            --pastel-pink: #fbe3e3; 
-            --sundowner-sky: #ffcd94; 
-            --wedding-green: #2e5a44;
-            
-            /* Dynamic State Overrides */
             --dynamic-bg: linear-gradient(180deg, var(--sand-warm) 0%, var(--honey-glow) 35%, var(--amber-blush) 70%, var(--sundowner-orange) 100%);
-            --dynamic-text: var(--text-dark);
-            --dynamic-title: var(--text-dark);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--honey-glow); color: var(--text-dark); overflow-x: hidden; }
 
-        body {
-            font-family: var(--font-sans);
-            background-color: #f5d3b3;
-            color: var(--dynamic-text);
-            overflow-x: hidden;
-            line-height: 1.6;
-            transition: color 0.5s ease;
-        }
-
-        /* --- LANDING COVER --- */
-        #curtain-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: transform 1.3s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
-            background: linear-gradient(135deg, var(--sand-warm), var(--amber-blush), var(--sundowner-orange));
-            background-size: 400% 400%;
-            animation: gradientGlow 10s ease infinite;
-        }
-
-        #curtain-overlay.opened {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        #cover-anim-canvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .curtain-content {
-            text-align: center;
-            padding: 24px;
-            width: 100%;
-            max-width: 400px;
-            animation: fadeIn 1.5s ease;
-            position: relative;
-            z-index: 10;
-        }
-
-        .illustration-frame {
-            width: 210px;
-            height: 210px;
-            margin: 0 auto 30px auto;
-            border-radius: 50%;
-            background: #ffffff;
-            overflow: hidden; 
-            box-shadow: 0 15px 35px rgba(94, 82, 85, 0.2);
-            border: 2px solid var(--text-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .couple-img { width: 100%; height: 100%; object-fit: cover; }
-        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--text-dark); opacity: 0.8; margin-bottom: 10px; font-weight: 600; }
-        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.8rem; font-weight: 300; letter-spacing: 1px; color: var(--text-dark); line-height: 1.2; margin-bottom: 10px; }
-        .location-tag { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 40px; font-weight: 500; }
-
-        .enter-btn {
-            background: #ffffff;
-            border: 2px solid var(--text-dark);
-            padding: 15px 50px;
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-dark);
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 30px;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            position: relative;
-            z-index: 100;
-        }
-        .enter-btn:hover { background-color: var(--text-dark); color: white; }
-
-        .cover-waves {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 75px;
-            z-index: 5;
-            pointer-events: none;
-        }
-        .cover-wave-layer { animation: waveSwim 8s linear infinite; fill: var(--amber-blush); opacity: 0.5; }
-        .cover-wave-layer:nth-child(2) { fill: var(--sundowner-orange); opacity: 0.4; animation: waveSwim 5s linear infinite reverse; }
-        .cover-wave-layer:nth-child(3) { fill: var(--sand-warm); opacity: 1; animation: waveSwim 3s linear infinite; }
-
-        /* --- IMMERSIVE VIEWPORT BACKGROUND CANVAS --- */
+        /* --- Fullscreen Engine --- */
         #beach-bg-canvas {
-            position: fixed; 
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 1; 
-            pointer-events: none;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 3; pointer-events: none;
         }
 
-        /* --- OVERHEAD FIXED CANOPIES --- */
-        #fullscreen-fixed-canopy {
-            position: fixed;
-            top: -20px; left: 50%;
-            transform: translateX(-50%);
-            width: 100%; max-width: 480px;
-            height: 140px;
-            z-index: 6;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.8s cubic-bezier(0.165, 0.84, 0.44, 1), top 0.8s ease;
+        /* --- UI Styles --- */
+        #curtain-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, var(--sand-warm), var(--amber-blush), var(--sundowner-orange));
+            transition: transform 1.3s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
         }
-        body.sangeet-mode #fullscreen-fixed-canopy, body.wedding-mode #fullscreen-fixed-canopy {
-            opacity: 1; top: 0;
-        }
+        #curtain-overlay.opened { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+        
+        .main-content { padding: 40px 20px; max-width: 480px; margin: 0 auto; display: none; }
+        .main-content.visible { display: block; }
 
-        /* --- MAIN MOBILE INVITE CONTAINER --- */
-        #main-content {
-            opacity: 0;
-            display: none; 
-            max-width: 480px;
-            margin: 0 auto;
-            min-height: 100vh;
-            position: relative;
-            z-index: 5;
-            box-shadow: 0 0 50px rgba(13, 34, 47, 0.15);
-            background: var(--dynamic-bg);
-            transition: background 0.8s ease;
-        }
-
-        #main-content.visible { opacity: 1; display: block; }
-
-        /* Full Environmental Scenic Color Transitions */
-        #main-content.sangeet-active {
-            background: linear-gradient(180deg, #091620 0%, #152836 50%, #221221 100%) !important;
-            --dynamic-text: #f7e6d4;
-            --dynamic-title: #ffffff;
-        }
-        #main-content.haldi-active {
-            background: var(--pastel-pink) !important;
-            --dynamic-text: #231f20;
-            --dynamic-title: #d49a3b;
-        }
-        #main-content.wedding-active {
-            /* Traditional Rich Saffron Sundowner Gradient Mix */
-            background: linear-gradient(180deg, #4d1215 0%, #b84322 45%, #fca34d 100%) !important;
-            --dynamic-text: #fff6ee;
-            --dynamic-title: #fdb366;
-        }
-
-        #main-content.sangeet-active .track-card, #main-content.wedding-active .track-card {
-            background: rgba(255,255,255,0.08) !important;
-            border-color: var(--dynamic-title) !important;
-        }
-        #main-content.haldi-active .track-card {
-             background: rgba(255, 255, 255, 0.6) !important;
-             border-color: var(--sundowner-orange) !important;
-        }
-
-        section {
-            padding: 85px 30px;
-            text-align: center;
-            background-color: transparent;
-            position: relative;
-            z-index: 2; 
-        }
-
-        /* --- SHORELINE WAVES BETWEEN CHAPTERS --- */
-        .wave-separator {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 45px;
-            overflow: hidden; line-height: 0; transform: translateY(1px);
-        }
-        .wave-separator svg { position: relative; display: block; width: 300%; height: 45px; }
-        .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: var(--sunset-rose); opacity: 0.25; transition: fill 0.8s, opacity 0.8s; }
-        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--sand-warm); opacity: 0.5; transition: fill 0.8s, opacity 0.8s; }
-
-        #main-content.sangeet-active .wave-sep-1 { fill: #221221; opacity: 0.5; }
-        #main-content.sangeet-active .wave-sep-2 { fill: #091620; }
-        #main-content.haldi-active .wave-sep-1, #main-content.haldi-active .wave-sep-2 { fill: #ffffff; opacity: 0.6; }
-        #main-content.wedding-active .wave-sep-1 { fill: #b84322; opacity: 0.4; }
-        #main-content.wedding-active .wave-sep-2 { fill: #4d1215; }
-
-        .section-title {
-            font-family: var(--font-serif); font-size: 2.2rem; color: var(--dynamic-title); margin-bottom: 35px; letter-spacing: 1px; font-weight: 400; transition: color 0.5s;
-        }
-
-        /* --- HERO & BRUSH SECTIONS --- */
-        .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
-        .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 500; }
-
-        .scratch-container {
-            position: relative; width: 280px; height: 150px; margin: 30px auto;
-            border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(13,34,47,0.06);
-            border: 2px solid var(--text-dark); background: white;
-        }
-        .scratch-reveal-text {
-            position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; background: #fffdf9; z-index: 1;
-        }
-        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.7rem; color: var(--text-dark); font-weight: 600; letter-spacing: 0.5px; }
-        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
-        #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; }
-        .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
-
-        /* --- OPTIMIZED VERTICAL VENUE FRAME --- */
         .venue-display-frame {
             width: 100%; max-width: 320px; height: 380px; margin: 0 auto 30px auto;
-            border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(35, 31, 32, 0.12); background: #ffffff;
+            border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
         }
         .venue-photo { width: 100%; height: 100%; object-fit: cover; object-position: bottom center; }
 
-        /* --- SLIMMED MICRO MAP WIDGET --- */
         .map-widget-box {
-            width: 100%; max-width: 200px; margin: 25px auto 10px auto;
-            background: rgba(255, 255, 255, 0.9); border: 1px solid var(--text-dark);
-            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            transition: transform 0.2s ease;
+            width: 100%; max-width: 160px; margin: 20px auto; border: 1px solid var(--text-dark);
+            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .map-widget-box:active { transform: scale(0.98); }
-        .map-graphic-preview {
-            width: 100%; height: 50px; background-color: #e5e3df;
-            background-image: 
-                linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
-                linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
-                radial-gradient(circle at 60% 45%, var(--sunset-rose) 4px, transparent 5px);
-            position: relative;
-        }
-        .map-pin-icon {
-            position: absolute; top: 45%; left: 60%; transform: translate(-50%, -50%);
-            width: 16px; height: 16px; fill: var(--ocean-navy); animation: pinBounce 2s ease-in-out infinite;
-        }
-        .map-action-bar { padding: 8px 10px; background: #ffffff; border-top: 1px solid rgba(35,31,32,0.1); }
         .map-btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 100%;
-            padding: 8px; background-color: var(--text-dark); color: #ffffff; font-family: var(--font-sans);
-            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; border-radius: 15px;
+            display: block; width: 100%; padding: 8px; background: var(--text-dark); color: #fff;
+            text-align: center; font-size: 0.7rem; text-decoration: none; text-transform: uppercase;
         }
 
-        /* --- THE INTERACTIVE BEACH MAP TRACK --- */
-        .beach-map-track { position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%; }
-        .beach-map-track::before {
-            content: ''; position: absolute; top: 0; left: 24px; width: 6px; height: 100%;
-            background: var(--sand-gold); border-radius: 10px; box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .track-node-wrapper { position: relative; margin-bottom: 45px; padding-left: 55px; text-align: left; cursor: pointer; }
-        .track-node-wrapper:last-of-type { margin-bottom: 0; }
-
-        .track-marker {
-            position: absolute; left: 15px; top: 12px; width: 24px; height: 24px;
-            background: #ffffff; border: 3px solid var(--text-dark); border-radius: 50%; z-index: 10;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .track-card {
-            background: rgba(255, 255, 255, 0.85); border: 1px solid var(--text-dark); padding: 20px;
-            border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.03); transition: all 0.4s ease, border-color 0.8s, background-color 0.8s;
-            position: relative; overflow: hidden;
-        }
-        
-        .track-node-wrapper.selected .track-card {
-            transform: scale(1.02);
-            border-color: var(--sundowner-orange) !important;
-            background: rgba(255,255,255,0.95);
-        }
-        .track-node-wrapper.selected .track-marker {
-            background: var(--sundowner-orange);
-            transform: scale(1.25);
-        }
-
-        #main-content.sangeet-active .track-card .track-marker, #main-content.wedding-active .track-card .track-marker {
-            border-color: var(--dynamic-title) !important;
-        }
-        #main-content.haldi-active .track-card .track-marker {
-            border-color: var(--haldi-yellow) !important;
-        }
-
-        .track-card .event-date-lbl { font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; color: var(--sunset-rose); transition: color 0.5s; }
-        #main-content.sangeet-active .track-card .event-date-lbl, #main-content.wedding-active .track-card .event-date-lbl { color: var(--gold-glow); }
-        #main-content.haldi-active .track-card .event-date-lbl { color: #d49a3b; }
-
-        .track-card .event-time-lbl { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-bottom: 4px; transition: color 0.5s; }
-        .track-card .event-title-lbl { font-family: var(--font-serif); font-size: 1.5rem; color: var(--dynamic-text); line-height: 1.2; margin-bottom: 6px; transition: color 0.5s; }
-        .track-card .event-hint-lbl { font-size: 0.7rem; font-style: italic; color: var(--seaglass-teal); display: inline-block; margin-top: 5px; transition: color 0.5s; }
-        .details-p { transition: color 0.5s; color: var(--dynamic-text); }
-
-        #main-content.sangeet-active .track-card .event-time-lbl, #main-content.wedding-active .track-card .event-time-lbl { color: rgba(255,255,255,0.7); }
-        #main-content.sangeet-active .track-card .event-hint-lbl, #main-content.wedding-active .track-card .event-hint-lbl { color: var(--gold-glow); }
-
-        /* Traditional Indian Royal Mandap Canopy Frame Artwork Focus */
-        .mandap-frame-svg {
-            position: absolute; bottom: -12px; right: -12px; width: 85px; height: 85px; fill: none; stroke: var(--sand-gold); stroke-width: 1.2; opacity: 0.35; transition: all 0.6s ease;
-        }
-        .track-node-wrapper.selected .mandap-frame-svg { stroke: var(--sundowner-orange); opacity: 0.8; transform: scale(1.1) rotate(-2deg); }
-        body.wedding-mode .mandap-frame-svg {
-            stroke: #ffffff;
-            opacity: 1;
-            filter: drop-shadow(0 0 12px var(--sundowner-orange));
-            animation: mandapPulse 2.5s infinite alternate;
-        }
-
-        /* --- COUNTDOWN BOX MATRIX --- */
-        .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
-        .countdown-box { background: rgba(255,255,255,0.9); border: 1px solid var(--text-dark); width: 75px; padding: 14px 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: border-color 0.5s; }
-        #main-content.sangeet-active .countdown-box, #main-content.wedding-active .countdown-box { border-color: var(--dynamic-title); }
-
-        .countdown-val { font-family: var(--font-serif); font-size: 1.8rem; color: #231f20; display: block; font-weight: 400; transition: color 0.5s; }
-        #main-content.sangeet-active .countdown-val, #main-content.wedding-active .countdown-val { color: var(--dynamic-text); }
-
-        .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); transition: color 0.5s; }
-        #main-content.sangeet-active .countdown-lbl, #main-content.wedding-active .countdown-lbl { color: rgba(255,255,255,0.7); }
-
-        /* --- DRESS CODE CARDS --- */
-        .dress-code-flex { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; align-items: center; }
-        .dress-card { width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.9); border: 1px solid var(--text-dark); border-radius: 10px; box-shadow: 0 6px 15px rgba(0,0,0,0.04); transition: border-color 0.5s; }
-        #main-content.sangeet-active .dress-card, #main-content.wedding-active .dress-card { border-color: var(--dynamic-title); background: rgba(255,255,255,0.95); }
-
-        .dress-event { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1px; }
-        .dress-badge { display: inline-block; padding: 8px 26px; font-size: 0.8rem; color: white; border-radius: 25px; text-transform: uppercase; font-weight: 500; letter-spacing: 1px; }
-        .badge-yellow { background-color: var(--haldi-yellow); color: #4a3600; }
-        .badge-green { background-color: var(--wedding-green); }
-
-        /* --- RSVP INPUT FIELDS --- */
-        .rsvp-form { text-align: left; margin-top: 30px; }
-        .form-group { margin-bottom: 22px; }
-        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--dynamic-text); margin-bottom: 8px; font-weight: 600; letter-spacing: 0.5px; transition: color 0.5s; }
-        .form-group input, .form-group select { width: 100%; padding: 15px 12px; border: 1px solid var(--text-dark); border-radius: 8px; background: white; font-family: var(--font-sans); color: var(--text-dark); outline: none; transition: border-color 0.5s; }
-        #main-content.sangeet-active .form-group input, #main-content.wedding-active .form-group input { border-color: var(--dynamic-title); }
-
-        .radio-group { display: flex; gap: 20px; margin-top: 8px; }
-        .radio-option { display: flex; align-items: center; gap: 6px; font-size: 0.9rem; color: var(--dynamic-text); cursor: pointer; font-weight: 500; transition: color 0.5s; }
-        .radio-option input { width: auto; accent-color: var(--ocean-navy); }
-        #main-content.sangeet-active .radio-option input, #main-content.wedding-active .radio-option input { accent-color: var(--gold-glow); }
-
-        .submit-btn { width: 100%; background-color: var(--text-dark); color: white; border: none; padding: 18px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; border-radius: 35px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: all 0.3s; }
-        #main-content.sangeet-active .submit-btn, #main-content.wedding-active .submit-btn { background-color: #ffffff; color: #101c2c; }
-
-        #main-content.sangeet-active .form-group label, #main-content.sangeet-active .radio-option, #main-content.sangeet-active footer p,
-        #main-content.wedding-active .form-group label, #main-content.wedding-active .radio-option, #main-content.wedding-active footer p {
-            color: #ffffff !important;
-        }
-        #main-content.wedding-active .form-group label, #main-content.wedding-active .radio-option, #main-content.wedding-active footer p, #main-content.wedding-active .section-title, #main-content.wedding-active .details-p {
-            color: var(--fff6ee) !important;
-        }
-
-        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--dynamic-text); opacity: 0.7; background-color: transparent; letter-spacing: 1px; font-weight: 500; transition: color 0.5s; }
-
-        @keyframes waveSwim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-4px); } }
-        @keyframes lightDim { from { opacity: 0.4; } to { opacity: 1; } }
-        @keyframes mandapPulse { 0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 4px var(--sundowner-orange)); } 100% { transform: scale(1.08) rotate(-2deg); filter: drop-shadow(0 0 15px #ffffff); } }
+        .track-node-wrapper { margin-bottom: 30px; cursor: pointer; border: 1px solid #ccc; padding: 15px; border-radius: 10px; }
+        .track-node-wrapper.selected { border-color: var(--sundowner-orange); background: #fff; }
     </style>
 </head>
-<body id="invitation-body">
+<body>
 
     <div id="curtain-overlay">
-        <canvas id="cover-anim-canvas"></canvas>
-
-        <div class="curtain-content">
-            <div class="illustration-frame">
-                <img src="https://raw.githubusercontent.com/samyaksinha/WeddingInvitation/main/couple.jpeg" alt="Samyak & Sakshi" class="couple-img">
-            </div>
-            <p class="intro-tag">A sandy celebration awaits</p>
-            <h1>Samyak & Sakshi</h1>
-            <p class="location-tag">Goa, India</p>
-            <button class="enter-btn" onclick="openInvitation()">Open Invitation</button>
-        </div>
-
-        <svg class="cover-waves" viewBox="0 24 150 28" preserveAspectRatio="none">
-            <defs><path id="wave-path" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z" /></defs>
-            <use xlink:href="#wave-path" x="48" y="0" class="cover-wave-layer" />
-            <use xlink:href="#wave-path" x="48" y="2" class="cover-wave-layer" />
-            <use xlink:href="#wave-path" x="48" y="5" class="cover-wave-layer" />
-        </svg>
+        <h1>Samyak & Sakshi</h1>
+        <button class="enter-btn" onclick="openInvitation()">Open Invitation</button>
     </div>
 
-    <svg id="fullscreen-fixed-canopy" viewBox="0 0 480 120" preserveAspectRatio="none">
-        <path d="M-10,15 Q120,70 240,15 Q360,70 490,15" fill="none" stroke="rgba(245,194,66,0.5)" stroke-width="2"/>
-        <circle cx="60" cy="33" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-        <circle cx="120" cy="45" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-        <circle cx="180" cy="40" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-        <circle cx="240" cy="15" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-        <circle cx="300" cy="40" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-        <circle cx="360" cy="45" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-        <circle cx="420" cy="33" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
-    </svg>
-
-    <div id="main-content">
-        
+    <div id="main-content" class="main-content">
         <canvas id="beach-bg-canvas"></canvas>
-
-        <section class="hero">
-            <h2>Samyak<span class="ampersand">&</span>Sakshi</h2>
-            <p class="sub-banner">Are getting married</p>
-            
-            <div class="scratch-container">
-                <div class="scratch-reveal-text">
-                    <span class="date">DECEMBER 12, 2026</span>
-                    <span class="day">Saturday</span>
-                </div>
-                <canvas id="scratch-canvas" width="280" height="150"></canvas>
-            </div>
-            <p class="scratch-instruction">Brush the sand away to reveal our date</p>
-            
-            <div class="wave-separator">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path class="wave-sep-1" d="M0,40 C150,100 350,100 500,40 C650,100 850,100 1000,40 C1150,100 1350,100 1500,40 L1500,120 L0,120 Z"></path>
-                </svg>
-            </div>
-        </section>
-
-        <section>
-            <h3 class="section-title">Counting Down</h3>
-            <div class="countdown-container">
-                <div class="countdown-box"><span class="countdown-val" id="days">00</span><span class="countdown-lbl">Days</span></div>
-                <div class="countdown-box"><span class="countdown-val" id="hours">00</span><span class="countdown-lbl">Hrs</span></div>
-                <div class="countdown-box"><span class="countdown-val" id="mins">00</span><span class="countdown-lbl">Mins</span></div>
-                <div class="countdown-box"><span class="countdown-val" id="secs">00</span><span class="countdown-lbl">Secs</span></div>
-            </div>
-            
-            <div class="wave-separator">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path class="wave-sep-2" d="M0,40 C150,100 350,100 500,40 C650,100 850,100 1000,40 L1500,120 L0,120 Z"></path>
-                </svg>
-            </div>
-        </section>
-
+        
         <section id="venue">
-            <h3 class="section-title">The Venue</h3>
-            
+            <h2>The Venue</h2>
             <div class="venue-display-frame">
                 <img src="venue.jpeg" alt="Dallas Beach Resorts" class="venue-photo">
             </div>
-
-            <p class="venue-title">Dallas Beach Resorts</p>
-            <p class="details-p" style="font-weight: 500; margin-top: 8px;">Ashvem Beach</p>
-            <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
-            <p class="details-p">North Goa, Goa — 403512</p>
-            
             <div class="map-widget-box">
-                <div class="map-graphic-preview">
-                    <svg class="map-pin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                    </svg>
-                </div>
-                <div class="map-action-bar">
-                    <a href="https://maps.google.com/?q=Dallas+Beach+Resorts+Ashvem+Goa" target="_blank" class="map-btn">
-                        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-                        Open Maps
-                    </a>
-                </div>
-            </div>
-            
-            <div class="wave-separator">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path class="wave-sep-1" d="M0,40 C150,100 350,100 500,40 L1500,120 L0,120 Z"></path>
-                </svg>
+                <a href="https://maps.google.com" target="_blank" class="map-btn">Open in Maps</a>
             </div>
         </section>
 
         <section id="schedule">
-            <h3 class="section-title">The Schedule</h3>
-            
-            <div class="beach-map-track">
-                
-                <div class="track-node-wrapper" id="node-sangeet" onclick="triggerEventAtmosphere('sangeet')">
-                    <div class="track-marker"></div>
-                    <div class="track-card">
-                        <span class="event-date-lbl">Friday, 11th Dec</span>
-                        <p class="event-time-lbl">05:00 PM</p>
-                        <h4 class="event-title-lbl">Sangeet Night</h4>
-                        <p class="details-p">Music, dance, and a starry sky over the ocean wave breaks.</p>
-                        <span class="event-hint-lbl">✨ Tap for Fullscreen Midnight Mode</span>
-                    </div>
-                </div>
-
-                <div class="track-node-wrapper" id="node-haldi" onclick="triggerEventAtmosphere('haldi')">
-                    <div class="track-marker"></div>
-                    <div class="track-card">
-                        <span class="event-date-lbl">Saturday, 12th Dec</span>
-                        <p class="event-time-lbl">11:00 AM</p>
-                        <h4 class="event-title-lbl">Haldi Ceremony</h4>
-                        <p class="details-p">A beautiful gathering filled with love and an intensive flower shower.</p>
-                        <span class="event-hint-lbl">🌼 Tap for Fullscreen Pastel Pink Shower</span>
-                    </div>
-                </div>
-
-                <div class="track-node-wrapper" id="node-wedding" onclick="triggerEventAtmosphere('wedding')">
-                    <div class="track-marker"></div>
-                    <div class="track-card">
-                        <svg class="mandap-frame-svg" viewBox="0 0 100 100">
-                            <path d="M15,95 L15,40 L85,40 L85,95 M10,40 L90,40 M22,40 L22,95 M78,40 L78,95" stroke-linecap="round"/>
-                            <path d="M15,40 C15,15 40,10 50,22 C60,10 85,15 85,40 M30,40 C30,22 42,18 50,26 C58,18 70,22 70,40" stroke-linecap="round"/>
-                            <circle cx="50" cy="24" r="1.5" fill="currentColor"/>
-                            <circle cx="35" cy="38" r="1" fill="currentColor"/><circle cx="50" cy="35" r="1" fill="currentColor"/><circle cx="65" cy="38" r="1" fill="currentColor"/>
-                        </svg>
-                        <span class="event-date-lbl">Saturday, 12th Dec</span>
-                        <p class="event-time-lbl">04:30 PM</p>
-                        <h4 class="event-title-lbl">Wedding Vows</h4>
-                        <p class="details-p">Our traditional sunset vows under the royal mandap dome canopy.</p>
-                        
-                        <p class="event-time-lbl" style="margin-top: 12px; font-weight: 600;">06:30 PM onwards</p>
-                        <h5 class="event-title-lbl" style="font-size: 1.1rem;">Dinner & Fireworks</h5>
-                        <span class="event-hint-lbl">🌅 Tap for Traditional Sundowner & Fireworks</span>
-                    </div>
-                </div>
-
+            <h2>Interactive Schedule</h2>
+            <div class="track-node-wrapper" id="node-sangeet" onclick="triggerEventAtmosphere('sangeet')">
+                <h3>Sangeet Night</h3>
+                <p>Tap to start the Midnight Mode</p>
             </div>
-            
-            <div class="wave-separator">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path class="wave-sep-2" d="M0,40 C150,100 350,100 500,40 L1500,120 L0,120 Z"></path>
-                </svg>
+            <div class="track-node-wrapper" id="node-haldi" onclick="triggerEventAtmosphere('haldi')">
+                <h3>Haldi</h3>
+                <p>Tap for Pastel Pink Flower Shower</p>
+            </div>
+            <div class="track-node-wrapper" id="node-wedding" onclick="triggerEventAtmosphere('wedding')">
+                <h3>Wedding</h3>
+                <p>Tap for Sundowner Firework Display</p>
             </div>
         </section>
-
-        <section id="dress-code">
-            <h3 class="section-title">Dress Code</h3>
-            <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
-            <div class="dress-code-flex">
-                <div class="dress-card"><div class="dress-event">Haldi Ceremony</div><div class="dress-badge badge-yellow">Shades of Yellow</div></div>
-                <div class="dress-card"><div class="dress-event">Wedding Ceremony</div><div class="dress-badge badge-green">Something Green</div></div>
-            </div>
-            
-            <div class="wave-separator">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path class="wave-sep-1" d="M0,40 L1500,120 L0,120 Z"></path>
-                </svg>
-            </div>
-        </section>
-
-        <section id="rsvp">
-            <h3 class="section-title">RSVP</h3>
-            <p class="details-p">Kindly respond by November 1, 2026</p>
-            <form class="rsvp-form" onsubmit="handleRSVP(event)">
-                <div class="form-group"><label>Your Full Name</label><input type="text" id="guest-name" required placeholder="e.g., Jane Doe"></div>
-                <div class="form-group"><label>Attendance</label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="attendance" value="yes" checked> Joyfully Accept</label>
-                        <label class="radio-option"><input type="radio" name="attendance" value="no"> Decline</label>
-                    </div>
-                </div>
-                <div class="form-group"><label>Guests</label><select id="guests-count"><option>1 Person</option><option>2 People</option></select></div>
-                <button type="submit" class="submit-btn">Send Response</button>
-            </form>
-        </section>
-
-        <footer>
-            <p>Thank you for sharing this journey with us.</p>
-            <p style="margin-top: 12px; font-size: 0.65rem; opacity: 0.7;">S&S • 2026 • GOA</p>
-        </footer>
     </div>
 
     <script>
         const canvasBg = document.getElementById('beach-bg-canvas');
         const ctxBg = canvasBg.getContext('2d');
-        
-        const canvasCover = document.getElementById('cover-anim-canvas');
-        const ctxCover = canvasCover.getContext('2d');
-        
-        let sparkles = [];
-        let birds = [];
-        let coverFlares = [];
-        let dynamicParticles = []; 
-        
-        let swayTime = 0;
-        let coverAnimationId = null;
-        let activeAtmosphere = 'default'; 
-
-        window.addEventListener('DOMContentLoaded', () => {
-            initCoverCanvas();
-            initCoverFlares();
-            renderCoverEngineLoop();
-        });
-
-        function initCoverCanvas() {
-            canvasCover.width = window.innerWidth;
-            canvasCover.height = window.innerHeight;
-        }
-
-        function initCoverFlares() {
-            for (let i = 0; i < 8; i++) {
-                coverFlares.push({
-                    x: Math.random() * canvasCover.width, y: Math.random() * canvasCover.height,
-                    size: Math.random() * 14 + 6, speed: Math.random() * 0.4 + 0.1, phase: Math.random() * Math.PI
-                });
-            }
-        }
-
-        function renderCoverEngineLoop() {
-            ctxCover.clearRect(0, 0, canvasCover.width, canvasCover.height);
-            swayTime += 0.012;
-
-            ctxCover.save();
-            ctxCover.strokeStyle = 'rgba(94, 82, 85, 0.2)'; ctxCover.lineWidth = 2.5;
-            drawPalmBranchFrame(ctxCover, 0, 0, 130, 0.6 + Math.sin(swayTime)*0.04);
-            drawPalmBranchFrame(ctxCover, -10, 20, 110, 0.9 + Math.cos(swayTime)*0.03);
-            drawPalmBranchFrame(ctxCover, canvasCover.width, 0, 130, 2.5 + Math.sin(swayTime)*0.04);
-            drawPalmBranchFrame(ctxCover, canvasCover.width + 10, 20, 110, 2.2 + Math.cos(swayTime)*0.03);
-            ctxCover.restore();
-
-            coverFlares.forEach(f => {
-                f.y -= f.speed; f.phase += 0.015;
-                if (f.y < -20) f.y = canvasCover.height + 20;
-                let opacity = (Math.sin(f.phase) + 1) / 2 * 0.35;
-                ctxCover.beginPath();
-                let gradient = ctxCover.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.size);
-                gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
-                gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                ctxCover.fillStyle = gradient; ctxCover.arc(f.x, f.y, f.size, 0, Math.PI * 2); ctxCover.fill();
-            });
-
-            coverAnimationId = requestAnimationFrame(renderCoverEngineLoop);
-        }
+        let particles = [];
+        let activeAtmosphere = 'default';
 
         function openInvitation() {
-            if(coverAnimationId) cancelAnimationFrame(coverAnimationId);
             document.getElementById('main-content').classList.add('visible');
             document.getElementById('curtain-overlay').classList.add('opened');
-            resizeCanvas();
-            window.addEventListener('resize', () => { resizeCanvas(); initCoverCanvas(); });
-            initBeachAssets();
-            renderBeachEngineLoop();
-            setTimeout(initSandScratchCard, 350);
-        }
-
-        function resizeCanvas() {
-            canvasBg.width = window.innerWidth;
-            canvasBg.height = window.innerHeight;
-        }
-
-        function initBeachAssets() {
-            sparkles = [];
-            for (let i = 0; i < 20; i++) {
-                sparkles.push({
-                    x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
-                    size: Math.random() * 14 + 6, speed: Math.random() * 0.4 + 0.15, phase: Math.random() * Math.PI
-                });
-            }
-            birds = [];
-            for (let i = 0; i < 4; i++) {
-                birds.push({
-                    x: Math.random() * canvasBg.width, y: 100 + (Math.random() * 150),
-                    speed: Math.random() * 0.3 + 0.1, size: Math.random() * 5 + 8, wingPhase: Math.random() * Math.PI
-                });
-            }
-        }
-
-        function renderBeachEngineLoop() {
-            ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
-
-            // --- A. DRAW IMMERSIVE PALM OVERLAYS ---
-            ctxBg.save();
-            if (activeAtmosphere === 'sangeet') {
-                ctxBg.strokeStyle = 'rgba(233, 184, 137, 0.08)'; 
-            } else if (activeAtmosphere === 'wedding') {
-                ctxBg.strokeStyle = 'rgba(255, 246, 238, 0.14)'; /* Light contrast for sundowner arch frame background */
-            } else if (activeAtmosphere === 'haldi') {
-                ctxBg.strokeStyle = 'rgba(35, 31, 32, 0.08)'; 
-            } else {
-                ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.1)'; 
-            }
-            ctxBg.lineWidth = 2;
-            drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.2, 110, 0.4 + Math.sin(swayTime)*0.05);
-            drawPalmBranchFrame(ctxBg, 10, canvasBg.height * 0.6, 120, 0.2 + Math.cos(swayTime)*0.04);
-            drawPalmBranchFrame(ctxBg, canvasBg.width - 20, canvasBg.height * 0.35, 110, 2.8 + Math.sin(swayTime)*0.05);
-            drawPalmBranchFrame(ctxBg, canvasBg.width - 10, canvasBg.height * 0.75, 120, 2.6 + Math.cos(swayTime)*0.04);
-            ctxBg.restore();
-
-            // --- B. DRAW SOARING BIRDS ---
-            if (activeAtmosphere !== 'sangeet') {
-                birds.forEach(b => {
-                    b.x += b.speed; b.wingPhase += 0.05;
-                    if (b.x > canvasBg.width + 30) b.x = -30;
-                    ctxBg.save(); 
-                    ctxBg.strokeStyle = activeAtmosphere === 'wedding' ? 'rgba(255,246,238,0.25)' : 'rgba(13, 34, 47, 0.15)';
-                    ctxBg.lineWidth = 1.2; ctxBg.beginPath();
-                    let wingY = Math.sin(b.wingPhase) * (b.size * 0.35);
-                    ctxBg.moveTo(b.x - b.size, b.y + wingY);
-                    ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.25, b.x, b.y);
-                    ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.25, b.x + b.size, b.y + wingY);
-                    ctxBg.stroke(); ctxBg.restore();
-                });
-            }
-
-            // --- C. DRAW ATMOSPHERE OVERRIDE SYSTEM ---
-            if (activeAtmosphere === 'default') {
-                sparkles.forEach(p => {
-                    p.y -= p.speed; p.phase += 0.01;
-                    if (p.y < -20) p.y = canvasBg.height + 20;
-                    let opacity = (Math.sin(p.phase) + 1) / 2 * 0.3;
-                    ctxBg.beginPath();
-                    let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                    gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`);
-                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                    ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
-                });
-            } else if (activeAtmosphere === 'sangeet') {
-                sparkles.forEach(p => {
-                    p.y -= p.speed * 0.5; p.phase += 0.02;
-                    if (p.y < -20) p.y = canvasBg.height + 20;
-                    let opacity = (Math.sin(p.phase) + 1) / 2 * 0.3;
-                    ctxBg.beginPath();
-                    let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
-                    gradient.addColorStop(0, `rgba(95, 158, 160, ${opacity})`);
-                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                    ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
-                });
-            } else {
-                dynamicParticles.forEach(p => {
-                    p.y += p.speedY;
-                    p.x += p.speedX;
-                    p.angle += p.rotSpeed;
-
-                    if (activeAtmosphere === 'haldi') {
-                        if (p.y > canvasBg.height + 30) {
-                            p.y = -30; p.x = Math.random() * canvasBg.width;
-                        }
-                        ctxBg.save();
-                        ctxBg.translate(p.x, p.y);
-                        ctxBg.rotate(p.angle);
-                        ctxBg.fillStyle = p.color;
-                        ctxBg.beginPath();
-                        for (let i = 0; i < 5; i++) { 
-                            ctxBg.rotate(Math.PI / 2.5);
-                            ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8);
-                            ctxBg.quadraticCurveTo(p.size * 0.8, -p.size * 0.4, 0, 0);
-                        }
-                        ctxBg.fill();
-                        ctxBg.restore();
-                    } else if (activeAtmosphere === 'wedding') {
-                        // Blend firework trail metrics and upward golden sunset embers loop parameters
-                        if(p.isAmber) {
-                            p.y += p.speedY; // moves upward naturally
-                            if(p.y < -20) { p.y = canvasBg.height + 20; p.x = Math.random() * canvasBg.width; }
-                            ctxBg.beginPath();
-                            ctxBg.fillStyle = p.color;
-                            ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                            ctxBg.fill();
-                        } else {
-                            // Falling Firework physics routines
-                            p.speedY += p.gravity; 
-                            p.speedX *= p.friction; 
-                            p.opacity -= p.fadeSpeed; 
-
-                            if (p.opacity <= 0) {
-                                p.opacity = 0; 
-                            } else {
-                                ctxBg.save();
-                                ctxBg.globalAlpha = p.opacity;
-                                ctxBg.beginPath();
-                                ctxBg.fillStyle = p.color;
-                                ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                                ctxBg.fill();
-                                ctxBg.restore();
-                            }
-                        }
-                    }
-                });
-                
-                if(activeAtmosphere === 'wedding') {
-                    dynamicParticles = dynamicParticles.filter(p => p.isAmber || p.opacity > 0);
-                }
-            }
-
-            requestAnimationFrame(renderBeachEngineLoop);
+            animate();
         }
 
         function triggerEventAtmosphere(mode) {
-            const containerFrame = document.getElementById('main-content');
-            const bodyNode = document.getElementById('invitation-body');
-            
-            document.querySelectorAll('.track-node-wrapper').forEach(el => {
-                if(el.id !== `node-${mode}`) el.classList.remove('selected');
-            });
-
-            const targetingNode = document.getElementById(`node-${mode}`);
-            
-            if (activeAtmosphere === mode) {
-                activeAtmosphere = 'default';
-                containerFrame.className = 'visible';
-                bodyNode.className = '';
-                targetingNode.classList.remove('selected');
-                dynamicParticles = [];
-                return;
-            }
-
             activeAtmosphere = mode;
-            targetingNode.classList.add('selected');
-            dynamicParticles = []; 
-
-            if (mode === 'sangeet') {
-                containerFrame.className = 'visible sangeet-active';
-                bodyNode.className = 'sangeet-mode';
-            } else if (mode === 'haldi') {
-                containerFrame.className = 'visible haldi-active';
-                bodyNode.className = 'haldi-mode';
-                for(let i=0; i<70; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width,
-                        y: Math.random() * canvasBg.height - canvasBg.height, 
-                        speedY: Math.random() * 2.0 + 1.5, speedX: Math.sin(Math.random() * Math.PI) * 0.6,
-                        size: Math.random() * 14 + 10, 
-                        angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.05 - 0.025,
-                        color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)'
-                    });
-                }
-            } else if (mode === 'wedding') {
-                containerFrame.className = 'visible wedding-active';
-                bodyNode.className = 'wedding-mode';
-                
-                // 1. Setup background engine floating warm sunset embers array loop base context parameters
-                for(let i=0; i<30; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width,
-                        y: Math.random() * canvasBg.height,
-                        speedY: -(Math.random() * 0.7 + 0.3),
-                        speedX: Math.random() * 0.4 - 0.2,
-                        size: Math.random() * 3 + 1.5,
-                        angle: 0, rotSpeed: 0,
-                        isAmber: true,
-                        color: Math.random() > 0.5 ? 'rgba(253, 179, 102, 0.5)' : 'rgba(226, 142, 125, 0.4)'
-                    });
-                }
-                // 2. Fire continuous explosive loops tracking map
-                launchWeddingFireworks();
-            }
-        }
-        
-        function launchWeddingFireworks() {
-            if (activeAtmosphere !== 'wedding') return;
-
-            const x = Math.random() * canvasBg.width;
-            const y = canvasBg.height * 0.25; 
-            const particleCount = 65;
-            const colors = ['#fca34d', '#ffcd94', '#ffffff', '#e28e7d'];
-            const burstColor = colors[Math.floor(Math.random()*colors.length)];
-
-            for (let i = 0; i < particleCount; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 6.5 + 2;
-                dynamicParticles.push({
-                    x: x, y: y,
-                    speedX: Math.cos(angle) * speed, speedY: Math.sin(angle) * speed,
-                    gravity: 0.08, friction: 0.95,
-                    size: Math.random() * 2.5 + 1,
-                    opacity: 1, fadeSpeed: Math.random() * 0.014 + 0.007,
-                    isAmber: false,
-                    color: burstColor
+            particles = [];
+            const count = mode === 'haldi' ? 100 : 50;
+            for(let i=0; i<count; i++) {
+                particles.push({
+                    x: Math.random() * window.innerWidth,
+                    y: mode === 'haldi' ? -Math.random() * 500 : Math.random() * window.innerHeight,
+                    size: mode === 'haldi' ? Math.random() * 15 + 10 : Math.random() * 3 + 1,
+                    speedY: mode === 'haldi' ? Math.random() * 2 + 1 : (Math.random() - 0.5) * 10,
+                    speedX: (Math.random() - 0.5) * 5,
+                    opacity: 1, fade: 0.01,
+                    color: mode === 'haldi' ? '#fbe3e3' : '#fca34d'
                 });
             }
-            
-            setTimeout(launchWeddingFireworks, Math.random() * 1400 + 800);
         }
 
-        // --- Interactive Sand Drawing Canvas Layer ---
-        function initSandScratchCard() {
-            const canvas = document.getElementById('scratch-canvas');
-            const ctx = canvas.getContext('2d');
-            let isDrawing = false;
-            ctx.fillStyle = '#dfcaaf'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < 800; i++) {
-                ctx.fillStyle = Math.random() > 0.5 ? '#fbf5ee' : '#ba9f80';
-                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
-            }
-            ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px';
-            ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
-
-            function scratch(e) {
-                if (!isDrawing) return;
-                e.preventDefault();
-                const rect = canvas.getBoundingClientRect();
-                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath(); ctx.arc(x, y, 26, 0, Math.PI * 2); ctx.fill();
-            }
-            canvas.addEventListener('mousedown', () => isDrawing = true);
-            canvas.addEventListener('mousemove', scratch);
-            window.addEventListener('mouseup', () => isDrawing = false);
-            canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
-            canvas.addEventListener('touchmove', scratch, {passive: false});
-            window.addEventListener('touchend', () => isDrawing = false);
+        function animate() {
+            ctxBg.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            particles.forEach(p => {
+                p.y += p.speedY; p.x += p.speedX;
+                ctxBg.globalAlpha = p.opacity;
+                ctxBg.fillStyle = p.color;
+                ctxBg.beginPath();
+                ctxBg.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                ctxBg.fill();
+                p.opacity -= p.fade;
+            });
+            requestAnimationFrame(animate);
         }
-
-        // --- Clock Counter Logic ---
-        const target = new Date('December 12, 2026 16:30:00').getTime();
-        setInterval(() => {
-            const diff = target - new Date().getTime();
-            document.getElementById('days').innerText = Math.floor(diff / (1000*60*60*24)).toString().padStart(2,'0');
-            document.getElementById('hours').innerText = Math.floor((diff % (1000*60*60*24)) / (1000*60*60)).toString().padStart(2,'0');
-            document.getElementById('mins').innerText = Math.floor((diff % (1000*60*60)) / (1000*60)).toString().padStart(2,'0');
-            document.getElementById('secs').innerText = Math.floor((diff % (1000*60)) / 1000).toString().padStart(2,'0');
-        }, 1000);
-
-        function handleRSVP(e) { e.preventDefault(); alert("RSVP Recorded! See you under the Goa sunset!"); }
     </script>
 </body>
 </html>
