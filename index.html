@@ -187,7 +187,6 @@
             --dynamic-title: #d49a3b;
         }
         #main-content.wedding-active {
-            /* Traditional Rich Saffron Sundowner Gradient Mix */
             background: linear-gradient(180deg, #4d1215 0%, #b84322 45%, #fca34d 100%) !important;
             --dynamic-text: #fff6ee;
             --dynamic-title: #fdb366;
@@ -250,11 +249,21 @@
 
         /* --- OPTIMIZED VERTICAL VENUE FRAME --- */
         .venue-display-frame {
-            width: 100%; max-width: 320px; height: 380px; margin: 0 auto 30px auto;
+            width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto;
             border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(35, 31, 32, 0.12); background: #ffffff;
         }
         .venue-photo { width: 100%; height: 100%; object-fit: cover; object-position: bottom center; }
+
+        /* --- TRAVEL MAP ANIMATION CONTAINER --- */
+        .travel-map-container {
+            width: 100%; max-width: 320px; height: 220px; margin: 0 auto 25px auto;
+            background: #112633; border: 2px solid var(--text-dark);
+            border-radius: 14px; overflow: hidden; position: relative;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.1);
+        }
+        #travel-canvas { width: 100%; height: 100%; display: block; }
+        .map-caption { font-size: 0.75rem; font-style: italic; margin-top: -15px; margin-bottom: 25px; color: var(--text-muted); font-weight: 500; }
 
         /* --- SLIMMED MICRO MAP WIDGET --- */
         .map-widget-box {
@@ -482,6 +491,11 @@
                 <img src="venue.jpeg" alt="Dallas Beach Resorts" class="venue-photo">
             </div>
 
+            <div class="travel-map-container">
+                <canvas id="travel-canvas"></canvas>
+            </div>
+            <p class="map-caption">Paths converging from across the miles...</p>
+
             <p class="venue-title">Dallas Beach Resorts</p>
             <p class="details-p" style="font-weight: 500; margin-top: 8px;">Ashvem Beach</p>
             <p class="details-p">Sy. No. 211-2A, Morjim–Mandrem Road</p>
@@ -612,6 +626,7 @@
         let birds = [];
         let coverFlares = [];
         let dynamicParticles = []; 
+        let travelHubs = []; // Array tracking live vehicles inside the mini route map
         
         let swayTime = 0;
         let coverAnimationId = null;
@@ -671,6 +686,7 @@
             resizeCanvas();
             window.addEventListener('resize', () => { resizeCanvas(); initCoverCanvas(); });
             initBeachAssets();
+            initTravelRouteMap(); // Run Map Matrix vectors
             renderBeachEngineLoop();
             setTimeout(initSandScratchCard, 350);
         }
@@ -695,6 +711,111 @@
                     speed: Math.random() * 0.3 + 0.1, size: Math.random() * 5 + 8, wingPhase: Math.random() * Math.PI
                 });
             }
+        }
+
+        // --- SUB ROUTINE: DYNAMIC HUB MAP MATRIX COGNIZANCE ENGINE ---
+        function initTravelRouteMap() {
+            const travelCanvas = document.getElementById('travel-canvas');
+            const tCtx = travelCanvas.getContext('2d');
+            
+            travelCanvas.width = 320;
+            travelCanvas.height = 220;
+
+            // Coordinate layout mapping relative to Goa (the center anchor point)
+            const destGoa = { x: 160, y: 165, name: 'Goa' };
+
+            const origins = [
+                { x: 30,  y: 50,  name: 'USA', type: 'plane', delay: 0 },
+                { x: 105, y: 40,  name: 'Jaipur', type: 'plane', delay: 0.2 },
+                { x: 170, y: 35,  name: 'New Delhi', type: 'plane', delay: 0.4 },
+                { x: 275, y: 60,  name: 'Patna', type: 'plane', delay: 0.6 },
+                { x: 120, y: 110, name: 'Mandsaur', type: 'car', delay: 0.1 },
+                { x: 155, y: 90,  name: 'Ratlam', type: 'car', delay: 0.3 },
+                { x: 195, y: 105, name: 'Ujjain', type: 'car', delay: 0.5 },
+                { x: 110, y: 155, name: 'Mumbai', type: 'car', delay: 0.7 }
+            ];
+
+            travelHubs = origins.map(orig => ({
+                origin: orig,
+                progress: orig.delay, // Stagger starts beautifully
+                speed: orig.type === 'plane' ? 0.004 : 0.006
+            }));
+
+            function drawTravelMapLoop() {
+                tCtx.clearRect(0, 0, travelCanvas.width, travelCanvas.height);
+
+                // Draw decorative ambient network connections grids
+                tCtx.strokeStyle = 'rgba(233, 184, 137, 0.06)';
+                tCtx.lineWidth = 1;
+                for (let i = 20; i < travelCanvas.width; i += 30) {
+                    tCtx.beginPath(); tCtx.moveTo(i, 0); tCtx.lineTo(i, travelCanvas.height); tCtx.stroke();
+                }
+
+                // 1. Draw arc trajectory lines
+                travelHubs.forEach(hub => {
+                    tCtx.beginPath();
+                    tCtx.strokeStyle = 'rgba(233, 184, 137, 0.25)';
+                    tCtx.lineWidth = 1.5;
+                    tCtx.setLineDash([4, 4]);
+                    
+                    tCtx.moveTo(hub.origin.x, hub.origin.y);
+                    // Create a natural parabolic curve heading towards Goa
+                    const ctrlX = (hub.origin.x + destGoa.x) / 2;
+                    const ctrlY = Math.min(hub.origin.y, destGoa.y) - 30;
+                    tCtx.quadraticCurveTo(ctrlX, ctrlY, destGoa.x, destGoa.y);
+                    tCtx.stroke();
+                    tCtx.setLineDash([]); // clear dash track arrays
+
+                    // 2. Render localized station node text strings labels
+                    tCtx.fillStyle = 'rgba(247, 230, 212, 0.6)';
+                    tCtx.font = '600 8px Montserrat';
+                    tCtx.fillText(hub.origin.name, hub.origin.x - 10, hub.origin.y - 6);
+                    
+                    tCtx.fillStyle = 'rgba(212, 190, 159, 0.4)';
+                    tCtx.beginPath(); tCtx.arc(hub.origin.x, hub.origin.y, 3, 0, Math.PI*2); tCtx.fill();
+
+                    // 3. Compute Bezier dynamic positioning updates for live tracking vehicles
+                    hub.progress += hub.speed;
+                    if(hub.progress > 1) hub.progress = 0;
+
+                    const t = hub.progress;
+                    // Quadratic Bezier explicit formula coordinates tracking mapping
+                    const currentX = (1-t)*(1-t)*hub.origin.x + 2*(1-t)*t*ctrlX + t*t*destGoa.x;
+                    const currentY = (1-t)*(1-t)*hub.origin.y + 2*(1-t)*t*ctrlY + t*t*destGoa.y;
+
+                    // Draw active vehicle vectors icon bodies
+                    tCtx.save();
+                    tCtx.translate(currentX, currentY);
+                    tCtx.fillStyle = 'var(--sundowner-orange)';
+                    
+                    if (hub.origin.type === 'plane') {
+                        // Minimalist Plane geometry
+                        tCtx.beginPath();
+                        tCtx.arc(0, 0, 4, 0, Math.PI*2);
+                        tCtx.fill();
+                        // Wing spans lines representations
+                        tCtx.fillRect(-6, -1, 12, 2);
+                    } else {
+                        // Minimalist Car indicator block shapes
+                        tCtx.fillRect(-3, -2, 6, 4);
+                        tCtx.fillStyle = '#ffffff';
+                        tCtx.fillRect(-2, -1, 4, 2);
+                    }
+                    tCtx.restore();
+                });
+
+                // Draw Main Center Destination Point
+                tCtx.fillStyle = 'var(--sundowner-orange)';
+                tCtx.beginPath(); tCtx.arc(destGoa.x, destGoa.y, 6, 0, Math.PI*2); tCtx.fill();
+                tCtx.strokeStyle = '#ffffff'; tCtx.lineWidth = 1.5; tCtx.stroke();
+                
+                tCtx.fillStyle = '#ffffff';
+                tCtx.font = '600 10px Montserrat';
+                tCtx.fillText('GOA', destGoa.x - 10, destGoa.y + 18);
+
+                requestAnimationFrame(drawTravelMapLoop);
+            }
+            drawTravelMapLoop();
         }
 
         function renderBeachEngineLoop() {
@@ -760,7 +881,6 @@
                 });
             }
 
-            // Render ALL interactive elements safely contained inside unified runtime tracking loops
             dynamicParticles.forEach(p => {
                 p.y += p.speedY;
                 p.x += p.speedX;
@@ -788,14 +908,12 @@
                     ctxBg.fill();
                 } else if (activeAtmosphere === 'wedding') {
                     if (p.isAmber) {
-                        // Rising Embers Mechanics
                         if (p.y < -20) { p.y = canvasBg.height + 20; p.x = Math.random() * canvasBg.width; }
                         ctxBg.beginPath();
                         ctxBg.fillStyle = p.color;
                         ctxBg.arc(0, 0, p.size, 0, Math.PI * 2);
                         ctxBg.fill();
                     } else if (p.isPetal) {
-                        // Falling Rose Petals Geometry Rendering
                         if (p.y > canvasBg.height + 20) { p.y = -20; p.x = Math.random() * canvasBg.width; }
                         ctxBg.fillStyle = p.color;
                         ctxBg.beginPath();
@@ -804,7 +922,6 @@
                         ctxBg.bezierCurveTo(p.size * 1.5, p.size * 0.5, p.size, -p.size, 0, 0);
                         ctxBg.fill();
                     } else {
-                        // Falling Firework physics friction tracking hooks
                         p.speedY += p.gravity;
                         p.speedX *= p.friction;
                         p.opacity -= p.fadeSpeed;
@@ -892,7 +1009,6 @@
                 containerFrame.className = 'visible wedding-active';
                 bodyNode.className = 'wedding-mode';
                 
-                // 1. Setup rising warm sunset embers
                 for(let i=0; i<35; i++) {
                     dynamicParticles.push({
                         x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
@@ -903,18 +1019,16 @@
                     });
                 }
 
-                // 2. Setup cascading rose-crimson flower petals floating across entire screen viewport
                 for(let i=0; i<30; i++) {
                     dynamicParticles.push({
                         x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height - canvasBg.height,
                         speedY: Math.random() * 1.2 + 0.8, speedX: Math.random() * 0.8 - 0.4,
                         size: Math.random() * 8 + 6, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.03 - 0.015,
                         isAmber: false, isPetal: true,
-                        color: 'rgba(226, 142, 125, 0.75)' /* Velvet Rose-crimson tint matching variables mapping palette layout */
+                        color: 'rgba(226, 142, 125, 0.75)' 
                     });
                 }
 
-                // 3. Fire continuous explosive firework trail layers
                 launchWeddingFireworks();
             }
         }
