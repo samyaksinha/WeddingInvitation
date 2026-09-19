@@ -19,7 +19,9 @@
             --honey-glow: #f5d3b3; 
             --amber-blush: #e8b495; 
             --text-dark: #231f20; 
-            --text-muted: #5e5255;
+            --text-muted: #6e5c54;
+            --header-wine: #4a1525;
+            --subheader-coral: #964234;
             --font-serif: 'Cinzel', serif;
             --font-sans: 'Montserrat', sans-serif;
             --haldi-yellow: #f5c242;
@@ -30,7 +32,7 @@
             
             --dynamic-bg: linear-gradient(180deg, var(--sand-warm) 0%, var(--honey-glow) 35%, var(--amber-blush) 70%, var(--sundowner-orange) 100%);
             --dynamic-text: var(--text-dark);
-            --dynamic-title: var(--text-dark);
+            --dynamic-title: var(--header-wine);
         }
 
         * {
@@ -102,8 +104,8 @@
         }
 
         .couple-img { width: 100%; height: 100%; object-fit: cover; }
-        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--text-dark); opacity: 0.8; margin-bottom: 10px; font-weight: 600; }
-        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.1rem; font-weight: 700; letter-spacing: 2px; color: var(--text-dark); line-height: 1.25; margin-bottom: 10px; }
+        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--subheader-coral); margin-bottom: 10px; font-weight: 600; }
+        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.1rem; font-weight: 700; letter-spacing: 2px; color: var(--header-wine); line-height: 1.25; margin-bottom: 10px; }
         .location-tag { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 40px; font-weight: 500; }
 
         .enter-btn {
@@ -235,9 +237,9 @@
         }
 
         /* --- HERO & BRUSH SECTIONS --- */
-        .hero h2 { font-family: var(--font-serif); font-size: 2.1rem; font-weight: 700; letter-spacing: 2px; }
+        .hero h2 { font-family: var(--font-serif); font-size: 2.1rem; font-weight: 700; letter-spacing: 2px; color: var(--header-wine); }
         .ampersand { font-family: var(--font-sans); font-weight: 300; font-style: normal; color: var(--sunset-rose); font-size: 2rem; display: block; margin: -4px 0; }
-        .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 500; }
+        .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--subheader-coral); margin: 15px 0; font-weight: 600; }
 
         .scratch-container {
             position: relative; width: 280px; height: 150px; margin: 30px auto;
@@ -248,8 +250,8 @@
             position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; background: #ebd4b9; z-index: 1;
         }
-        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-dark); font-weight: 700; letter-spacing: 1.5px; }
-        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
+        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.35rem; color: var(--header-wine); font-weight: 700; letter-spacing: 1.5px; }
+        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--subheader-coral); margin-top: 4px; font-weight: 600; }
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
         .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
@@ -299,8 +301,8 @@
             box-shadow: 0 0 12px rgba(252,163,77,0.3);
         }
 
-        .story-interactive-card .story-year { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
-        .story-interactive-card .story-heading { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-dark); line-height: 1.3; margin-bottom: 6px; }
+        .story-interactive-card .story-year { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--subheader-coral); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
+        .story-interactive-card .story-heading { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; color: var(--header-wine); line-height: 1.3; margin-bottom: 6px; }
 
         /* --- SLIMMED MAP ACTION BAR --- */
         .map-widget-box {
@@ -343,8 +345,8 @@
             font-size: 0.75rem;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: var(--text-dark);
-            font-weight: 500;
+            color: var(--subheader-coral);
+            font-weight: 600;
         }
         #main-content.puja-active .checkin-notice-pill,
         #main-content.sangeet-active .checkin-notice-pill,
@@ -396,13 +398,16 @@
             border-color: var(--haldi-yellow) !important;
         }
 
-        .track-card .event-date-lbl { font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; color: var(--sunset-rose); transition: color 0.5s; }
+        .track-card .event-date-lbl { font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; color: var(--subheader-coral); transition: color 0.5s; }
         #main-content.puja-active .track-card .event-date-lbl { color: #fde8ad; }
         #main-content.sangeet-active .track-card .event-date-lbl, #main-content.wedding-active .track-card .event-date-lbl { color: var(--gold-glow); }
         #main-content.haldi-active .track-card .event-date-lbl { color: #d49a3b; }
 
-        .track-card .event-time-lbl { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-bottom: 4px; transition: color 0.5s; }
-        .track-card .event-title-lbl { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; letter-spacing: 1px; color: var(--dynamic-text); line-height: 1.25; margin-bottom: 6px; transition: color 0.5s; }
+        .track-card .event-time-lbl { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; transition: color 0.5s; }
+        .track-card .event-title-lbl { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 700; letter-spacing: 1px; color: var(--header-wine); line-height: 1.25; margin-bottom: 6px; transition: color 0.5s; }
+        #main-content.puja-active .track-card .event-title-lbl,
+        #main-content.sangeet-active .track-card .event-title-lbl,
+        #main-content.wedding-active .track-card .event-title-lbl { color: var(--dynamic-title); }
         .track-card .event-hint-lbl { font-size: 0.7rem; font-style: italic; color: var(--seaglass-teal); display: inline-block; margin-top: 5px; transition: color 0.5s; }
         .details-p { transition: color 0.5s; color: var(--dynamic-text); }
 
@@ -433,12 +438,12 @@
         #main-content.sangeet-active .countdown-box, 
         #main-content.wedding-active .countdown-box { border-color: var(--dynamic-title); }
 
-        .countdown-val { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; color: #231f20; display: block; transition: color 0.5s; }
+        .countdown-val { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700; color: var(--header-wine); display: block; transition: color 0.5s; }
         #main-content.puja-active .countdown-val,
         #main-content.sangeet-active .countdown-val, 
         #main-content.wedding-active .countdown-val { color: var(--dynamic-text); }
 
-        .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); transition: color 0.5s; }
+        .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--subheader-coral); font-weight: 600; transition: color 0.5s; }
         #main-content.puja-active .countdown-lbl,
         #main-content.sangeet-active .countdown-lbl, 
         #main-content.wedding-active .countdown-lbl { color: rgba(255,255,255,0.7); }
@@ -454,7 +459,7 @@
         #main-content.sangeet-active .dress-card, 
         #main-content.wedding-active .dress-card { border-color: var(--dynamic-title); background: rgba(255,255,255,0.95); }
 
-        .dress-event { font-family: var(--font-serif); font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1.5px; font-weight: 700; }
+        .dress-event { font-family: var(--font-serif); font-size: 0.85rem; text-transform: uppercase; color: var(--subheader-coral); margin-bottom: 12px; letter-spacing: 1.5px; font-weight: 700; }
         .dress-badge { display: inline-block; padding: 10px 30px; font-size: 0.85rem; color: white; border-radius: 25px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         
         /* HIGH-GLOSS SHIMMERING METALLIC BLING BADGE */
@@ -493,8 +498,11 @@
             letter-spacing: 0.5px;
             line-height: 1.6;
             margin-bottom: 22px;
-            color: var(--dynamic-text);
+            color: var(--header-wine);
         }
+        #main-content.puja-active .presence-quote,
+        #main-content.sangeet-active .presence-quote,
+        #main-content.wedding-active .presence-quote { color: #ffffff; }
         .presence-body {
             font-size: 0.9rem;
             line-height: 1.7;
@@ -514,7 +522,7 @@
             text-transform: uppercase;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--sunset-rose);
+            color: var(--subheader-coral);
         }
         #main-content.puja-active .inviters-tag,
         #main-content.sangeet-active .inviters-tag,
@@ -526,8 +534,11 @@
             font-size: 1.45rem;
             font-weight: 700;
             letter-spacing: 1.5px;
-            color: var(--dynamic-text);
+            color: var(--header-wine);
         }
+        #main-content.puja-active .inviters-names,
+        #main-content.sangeet-active .inviters-names,
+        #main-content.wedding-active .inviters-names { color: var(--dynamic-title); }
 
         footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--dynamic-text); opacity: 0.7; background-color: transparent; letter-spacing: 1px; font-weight: 500; transition: color 0.5s; }
 
@@ -683,7 +694,7 @@
                 <img src="venue.jpeg" alt="Dallas Beach Resort" class="venue-photo">
             </div>
 
-            <p class="venue-title" style="font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px;">Dallas Beach Resorts</p>
+            <p class="venue-title" style="font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; color: var(--header-wine);">Dallas Beach Resorts</p>
             <p class="details-p" style="font-weight: 500;">Ashvem Beach,</p>
             <p class="details-p">Morjim–Mandrem Road</p>
             <p class="details-p">North Goa, Goa — 403512</p>
@@ -850,6 +861,7 @@
         let birds = [];
         let coverFlares = [];
         let dynamicParticles = []; 
+        let fireworksTimer = null;
         
         let swayTime = 0;
         let coverAnimationId = null;
@@ -1095,7 +1107,29 @@
                 });
             }
 
-            dynamicParticles.forEach(p => {
+            dynamicParticles.forEach((p, idx) => {
+                if (p.isFirework) {
+                    p.x += p.speedX;
+                    p.y += p.speedY;
+                    p.speedX *= p.friction;
+                    p.speedY = p.speedY * p.friction + p.gravity;
+                    p.opacity -= p.fadeSpeed;
+                    if (p.opacity <= 0) {
+                        dynamicParticles.splice(idx, 1);
+                        return;
+                    }
+                    ctxBg.save();
+                    ctxBg.globalAlpha = p.opacity;
+                    ctxBg.fillStyle = p.color;
+                    ctxBg.shadowBlur = 10;
+                    ctxBg.shadowColor = p.color;
+                    ctxBg.beginPath();
+                    ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctxBg.fill();
+                    ctxBg.restore();
+                    return;
+                }
+
                 p.y += p.speedY; p.x += p.speedX; p.angle += p.rotSpeed;
                 ctxBg.save(); ctxBg.translate(p.x, p.y); ctxBg.rotate(p.angle);
 
@@ -1150,8 +1184,17 @@
             document.querySelectorAll('.track-node-wrapper').forEach(el => { if(el.id !== `node-${mode}`) el.classList.remove('selected'); });
 
             const targetingNode = document.getElementById(`node-${mode}`);
-            if (activeAtmosphere === mode) { activeAtmosphere = 'default'; containerFrame.className = 'visible'; bodyNode.className = ''; targetingNode.classList.remove('selected'); dynamicParticles = []; return; }
+            if (activeAtmosphere === mode) { 
+                activeAtmosphere = 'default'; 
+                containerFrame.className = 'visible'; 
+                bodyNode.className = ''; 
+                targetingNode.classList.remove('selected'); 
+                dynamicParticles = []; 
+                if (fireworksTimer) { clearTimeout(fireworksTimer); fireworksTimer = null; }
+                return; 
+            }
 
+            if (fireworksTimer) { clearTimeout(fireworksTimer); fireworksTimer = null; }
             activeAtmosphere = mode; if(targetingNode) targetingNode.classList.add('selected'); dynamicParticles = []; 
 
             if (mode === 'puja') {
@@ -1200,10 +1243,34 @@
         
         function launchWeddingFireworks() {
             if (activeAtmosphere !== 'wedding') return;
-            const x = Math.random() * canvasBg.width; const y = canvasBg.height * 0.25; const particleCount = 65;
-            const colors = ['#fca34d', '#ffcd94', '#ffffff', '#e28e7d']; const burstColor = colors[Math.floor(Math.random()*colors.length)];
-            for (let i = 0; i < particleCount; i++) { const angle = Math.random() * Math.PI * 2; const speed = Math.random() * 6.5 + 2; dynamicParticles.push({ x: x, y: y, speedX: Math.cos(angle) * speed, speedY: Math.sin(angle) * speed, gravity: 0.08, friction: 0.95, size: Math.random() * 2.5 + 1, opacity: 1, fadeSpeed: Math.random() * 0.014 + 0.007, isAmber: false, isPetal: false, color: burstColor }); }
-            setTimeout(launchWeddingFireworks, Math.random() * 1400 + 800);
+            const burstCount = Math.floor(Math.random() * 2) + 2;
+            const colors = ['#fca34d', '#ffcd94', '#ffffff', '#e28e7d', '#ffd700', '#ff6b6b', '#ffeaa7'];
+            
+            for (let b = 0; b < burstCount; b++) {
+                const originX = Math.random() * (canvasBg.width * 0.8) + (canvasBg.width * 0.1);
+                const originY = Math.random() * (canvasBg.height * 0.35) + 40;
+                const burstColor = colors[Math.floor(Math.random() * colors.length)];
+                const particleCount = 75;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 8.5 + 2.5;
+                    dynamicParticles.push({
+                        isFirework: true,
+                        x: originX,
+                        y: originY,
+                        speedX: Math.cos(angle) * speed,
+                        speedY: Math.sin(angle) * speed,
+                        gravity: 0.12,
+                        friction: 0.94,
+                        size: Math.random() * 3 + 1.2,
+                        opacity: 1,
+                        fadeSpeed: Math.random() * 0.018 + 0.01,
+                        color: burstColor
+                    });
+                }
+            }
+            fireworksTimer = setTimeout(launchWeddingFireworks, Math.random() * 600 + 450);
         }
 
         const targetWeddingDate = new Date('December 12, 2026 16:30:00').getTime();
