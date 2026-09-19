@@ -6,7 +6,7 @@
     <title>Sakshi & Samyak - Wedding Invitation</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -20,7 +20,7 @@
             --amber-blush: #e8b495; 
             --text-dark: #231f20; 
             --text-muted: #5e5255;
-            --font-header: 'Playfair Display', serif;
+            --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Montserrat', sans-serif;
             --haldi-yellow: #f5c242;
             --pastel-pink: #fbe3e3; 
@@ -47,12 +47,6 @@
             overflow-x: hidden;
             line-height: 1.6;
             transition: color 0.5s ease;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: var(--font-header);
-            font-weight: 900;
-            letter-spacing: -0.5px;
         }
 
         /* --- LANDING COVER --- */
@@ -108,21 +102,21 @@
         }
 
         .couple-img { width: 100%; height: 100%; object-fit: cover; }
-        .intro-tag { font-family: var(--font-sans); font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; color: var(--text-dark); opacity: 0.8; margin-bottom: 10px; font-weight: 700; }
-        .curtain-content h1 { font-size: 3.2rem; color: var(--text-dark); line-height: 1.1; margin-bottom: 10px; letter-spacing: -1px; }
-        .location-tag { font-family: var(--font-sans); font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 40px; font-weight: 600; }
+        .intro-tag { font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; color: var(--text-dark); opacity: 0.8; margin-bottom: 10px; font-weight: 600; }
+        .curtain-content h1 { font-family: var(--font-serif); font-size: 2.8rem; font-weight: 300; letter-spacing: 1px; color: var(--text-dark); line-height: 1.2; margin-bottom: 10px; }
+        .location-tag { font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 40px; font-weight: 500; }
 
         .enter-btn {
             background: #ffffff;
             border: 2px solid var(--text-dark);
             padding: 15px 50px;
             font-family: var(--font-sans);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--text-dark);
             cursor: pointer;
-            font-weight: 700;
+            font-weight: 600;
             border-radius: 30px;
             transition: all 0.4s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -131,7 +125,17 @@
         }
         .enter-btn:hover { background-color: var(--text-dark); color: white; }
 
-        /* --- IMMERSIVE BACKGROUND CANVAS --- */
+        .cover-waves {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 75px;
+            z-index: 5;
+            pointer-events: none;
+        }
+        .cover-wave-layer { animation: waveSwim 8s linear infinite; fill: var(--amber-blush); opacity: 0.5; }
+        .cover-wave-layer:nth-child(2) { fill: var(--sundowner-orange); opacity: 0.4; animation: waveSwim 5s linear infinite reverse; }
+        .cover-wave-layer:nth-child(3) { fill: var(--sand-warm); opacity: 1; animation: waveSwim 3s linear infinite; }
+
+        /* --- IMMERSIVE VIEWPORT BACKGROUND CANVAS --- */
         #beach-bg-canvas {
             position: fixed; 
             top: 0; left: 0; width: 100vw; height: 100vh;
@@ -139,6 +143,7 @@
             pointer-events: none;
         }
 
+        /* --- OVERHEAD FIXED CANOPIES --- */
         #fullscreen-fixed-canopy {
             position: fixed;
             top: -20px; left: 50%;
@@ -154,6 +159,7 @@
             opacity: 1; top: 0;
         }
 
+        /* --- MAIN MOBILE INVITE CONTAINER --- */
         #main-content {
             opacity: 0;
             display: none; 
@@ -169,9 +175,40 @@
 
         #main-content.visible { opacity: 1; display: block; }
 
+        #main-content.puja-active {
+            background: linear-gradient(180deg, #421b0e 0%, #b85d19 45%, #f5c242 100%) !important;
+            --dynamic-text: #fffaf0;
+            --dynamic-title: #fde8ad;
+        }
+        #main-content.sangeet-active {
+            background: linear-gradient(180deg, #091620 0%, #152836 50%, #221221 100%) !important;
+            --dynamic-text: #f7e6d4;
+            --dynamic-title: #ffffff;
+        }
+        #main-content.haldi-active {
+            background: var(--pastel-pink) !important;
+            --dynamic-text: #231f20;
+            --dynamic-title: #d49a3b;
+        }
+        #main-content.wedding-active {
+            background: linear-gradient(180deg, #4d1215 0%, #b84322 45%, #fca34d 100%) !important;
+            --dynamic-text: #fff6ee;
+            --dynamic-title: #fdb366;
+        }
+
+        #main-content.puja-active .track-card, #main-content.sangeet-active .track-card, #main-content.wedding-active .track-card {
+            background: rgba(255,255,255,0.08) !important;
+            border-color: var(--dynamic-title) !important;
+        }
+        #main-content.haldi-active .track-card {
+            background: rgba(255, 255, 255, 0.6) !important;
+            border-color: var(--sundowner-orange) !important;
+        }
+
         section {
             padding: 85px 30px;
             text-align: center;
+            background-color: transparent;
             position: relative;
             z-index: 2; 
         }
@@ -183,51 +220,325 @@
         }
         .wave-separator svg { position: relative; display: block; width: 300%; height: 45px; }
         .wave-sep-1 { animation: waveSwim 14s linear infinite; fill: var(--sunset-rose); opacity: 0.25; transition: fill 0.8s, opacity 0.8s; }
+        .wave-sep-2 { animation: waveSwim 10s linear infinite reverse; fill: var(--sand-warm); opacity: 0.5; transition: fill 0.8s, opacity 0.8s; }
+
+        #main-content.puja-active .wave-sep-1 { fill: #b85d19; opacity: 0.4; }
+        #main-content.puja-active .wave-sep-2 { fill: #421b0e; }
+        #main-content.sangeet-active .wave-sep-1 { fill: #221221; opacity: 0.5; }
+        #main-content.sangeet-active .wave-sep-2 { fill: #091620; }
+        #main-content.haldi-active .wave-sep-1, #main-content.haldi-active .wave-sep-2 { fill: #ffffff; opacity: 0.6; }
+        #main-content.wedding-active .wave-sep-1 { fill: #b84322; opacity: 0.4; }
+        #main-content.wedding-active .wave-sep-2 { fill: #4d1215; }
 
         .section-title {
-            font-size: 2.5rem; color: var(--dynamic-title); margin-bottom: 35px; line-height: 1.1;
+            font-family: var(--font-serif); font-size: 2.2rem; color: var(--dynamic-title); margin-bottom: 35px; letter-spacing: 1px; font-weight: 400; transition: color 0.5s;
         }
 
-        .ampersand { font-family: var(--font-header); font-weight: 400; color: var(--sunset-rose); font-size: 2.8rem; display: block; }
-        .sub-banner { font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 700; }
+        /* --- HERO & BRUSH SECTIONS --- */
+        .ampersand { font-family: var(--font-serif); font-style: italic; color: var(--sunset-rose); font-size: 2.4rem; display: block; }
+        .sub-banner { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin: 15px 0; font-weight: 500; }
 
         .scratch-container {
             position: relative; width: 280px; height: 150px; margin: 30px auto;
             border-radius: 12px; overflow: hidden; box-shadow: 0 8px 25px rgba(13,34,47,0.06);
             border: 2px solid var(--text-dark); background: #ecd4b9; 
         }
-        .scratch-reveal-text .date { font-family: var(--font-header); font-size: 1.6rem; color: var(--text-dark); }
-        .scratch-reveal-text .day { font-family: var(--font-sans); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 700; }
+        .scratch-reveal-text {
+            position: absolute; width: 100%; height: 100%; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; background: #ebd4b9; z-index: 1;
+        }
+        .scratch-reveal-text .date { font-family: var(--font-serif); font-size: 1.7rem; color: var(--text-dark); font-weight: 600; letter-spacing: 0.5px; }
+        .scratch-reveal-text .day { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--text-muted); margin-top: 4px; font-weight: 500; }
         #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; touch-action: none; cursor: pointer; width: 100%; height: 100%; }
+        .scratch-instruction { font-size: 0.8rem; font-style: italic; color: var(--text-dark); margin-top: 15px; font-weight: 500; }
 
-        .story-timeline-track::before { content: ''; position: absolute; top: 0; left: 24px; width: 4px; height: 100%; background: rgba(35, 31, 32, 0.1); border-radius: 10px; }
-        .story-interactive-card .story-year { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
-        .story-interactive-card .story-heading { font-size: 1.4rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 6px; }
+        /* --- DISPLAY LAYOUT MODS --- */
+        .venue-display-frame {
+            width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto;
+            border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(35, 31, 32, 0.12); background: #ffffff;
+        }
+        .venue-photo { 
+            width: 100%; height: 100%; object-fit: cover; 
+            object-position: center 52%; 
+        }
 
-        .venue-display-frame { width: 100%; max-width: 320px; height: 380px; margin: 0 auto 20px auto; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08); border: 1px solid rgba(35, 31, 32, 0.12); background: #ffffff; }
-        .venue-title { font-size: 1.8rem; margin-bottom: 6px; }
+        /* --- THE DYNAMIC JOURNEY STORY MODULE --- */
+        .story-timeline-track {
+            position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%;
+        }
+        .story-timeline-track::before {
+            content: ''; position: absolute; top: 0; left: 24px; width: 4px; height: 100%;
+            background: rgba(35, 31, 32, 0.1); border-radius: 10px;
+        }
+        .story-node-wrapper {
+            position: relative; margin-bottom: 35px; padding-left: 55px; text-align: left;
+        }
+        .story-node-wrapper:last-of-type { margin-bottom: 0; }
+        
+        .story-marker-token {
+            position: absolute; left: 12px; top: 4px; width: 28px; height: 28px;
+            background: #ffffff; border: 2px solid var(--sunset-rose); border-radius: 50%; z-index: 10;
+            display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .story-interactive-card {
+            background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(35, 31, 32, 0.1);
+            padding: 18px; border-radius: 14px; opacity: 0.6; transform: scale(0.97);
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        
+        .story-node-wrapper.unlocked .story-interactive-card {
+            opacity: 1; transform: scale(1); background: #ffffff;
+            border-color: var(--sunset-rose); box-shadow: 0 6px 18px rgba(226,142,125,0.12);
+        }
+        .story-node-wrapper.unlocked .story-marker-token {
+            background: var(--sand-warm); border-color: var(--sundowner-orange); transform: scale(1.2);
+            box-shadow: 0 0 12px rgba(252,163,77,0.3);
+        }
 
-        .checkin-notice-pill { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 18px; margin: 0 auto 30px auto; background: rgba(255, 255, 255, 0.7); border: 1px dashed rgba(35, 31, 32, 0.25); border-radius: 20px; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dark); font-weight: 700; }
+        .story-interactive-card .story-year { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--sunset-rose); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
+        .story-interactive-card .story-heading { font-family: var(--font-serif); font-size: 1.4rem; color: var(--text-dark); line-height: 1.2; margin-bottom: 6px; }
 
-        .track-card .event-date-lbl { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; color: var(--sunset-rose); }
-        .track-card .event-time-lbl { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
-        .track-card .event-title-lbl { font-size: 1.7rem; color: var(--dynamic-text); line-height: 1.1; margin-bottom: 6px; }
+        /* --- SLIMMED MAP ACTION BAR --- */
+        .map-widget-box {
+            width: 100%; max-width: 200px; margin: 25px auto 10px auto;
+            background: rgba(255, 255, 255, 0.9); border: 1px solid var(--text-dark);
+            border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease;
+        }
+        .map-widget-box:active { transform: scale(0.98); }
+        .map-graphic-preview {
+            width: 100%; height: 50px; background-color: #e5e3df;
+            background-image: 
+                linear-gradient(90deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
+                linear-gradient(0deg, transparent 49%, rgba(13,34,47,0.04) 50%, transparent 51%),
+                radial-gradient(circle at 60% 45%, var(--sunset-rose) 4px, transparent 5px);
+            position: relative;
+        }
+        .map-pin-icon {
+            position: absolute; top: 45%; left: 60%; transform: translate(-50%, -50%);
+            width: 16px; height: 16px; fill: var(--ocean-navy); animation: pinBounce 2s ease-in-out infinite;
+        }
+        .map-action-bar { padding: 8px 10px; background: #ffffff; border-top: 1px solid rgba(35,31,32,0.1); }
+        .map-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 5px; width: 100%;
+            padding: 8px; background-color: var(--text-dark); color: #ffffff; font-family: var(--font-sans);
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: none; border-radius: 15px;
+        }
 
-        .countdown-val { font-family: var(--font-header); font-size: 2.2rem; color: #231f20; }
-        .countdown-lbl { font-family: var(--font-sans); font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700; }
+        /* --- SUBTLE HOTEL CHECK-IN NOTIFICATION --- */
+        .checkin-notice-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 18px;
+            margin: 0 auto 30px auto;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px dashed rgba(35, 31, 32, 0.25);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        #main-content.puja-active .checkin-notice-pill,
+        #main-content.sangeet-active .checkin-notice-pill,
+        #main-content.wedding-active .checkin-notice-pill {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.35);
+            color: #ffffff;
+        }
 
-        .dress-event { font-family: var(--font-sans); font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 1.5px; font-weight: 800; }
-        .dress-badge { font-family: var(--font-sans); font-weight: 700; }
+        /* --- THE INTERACTIVE BEACH CARD TRACK --- */
+        .beach-map-track { position: relative; margin: 20px auto 0 auto; padding: 10px 0; width: 100%; }
+        .beach-map-track::before {
+            content: ''; position: absolute; top: 0; left: 24px; width: 6px; height: 100%;
+            background: var(--sand-gold); border-radius: 10px; box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1);
+        }
 
-        .presence-card { background: rgba(255, 255, 255, 0.85); border: 2px solid var(--text-dark); border-radius: 16px; padding: 45px 24px; }
-        .presence-quote { font-family: var(--font-header); font-size: 1.6rem; font-weight: 900; line-height: 1.2; margin-bottom: 25px; }
-        .inviters-tag { font-family: var(--font-sans); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 800; color: var(--sunset-rose); }
-        .inviters-names { font-size: 2rem; margin-top: 5px; }
+        .track-node-wrapper { position: relative; margin-bottom: 45px; padding-left: 55px; text-align: left; cursor: pointer; }
+        .track-node-wrapper:last-of-type { margin-bottom: 0; }
+
+        .track-marker {
+            position: absolute; left: 15px; top: 12px; width: 24px; height: 24px;
+            background: #ffffff; border: 3px solid var(--text-dark); border-radius: 50%; z-index: 10;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .track-card {
+            background: rgba(255, 255, 255, 0.85); border: 1px solid var(--text-dark); padding: 20px;
+            border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.03); transition: all 0.4s ease, border-color 0.8s, background-color 0.8s;
+            position: relative; overflow: hidden;
+        }
+        
+        .track-node-wrapper.selected .track-card {
+            transform: scale(1.02);
+            border-color: var(--sundowner-orange) !important;
+            background: rgba(255,255,255,0.95);
+        }
+        .track-node-wrapper.selected .track-marker {
+            background: var(--sundowner-orange);
+            transform: scale(1.25);
+        }
+
+        #main-content.puja-active .track-card .track-marker,
+        #main-content.sangeet-active .track-card .track-marker, 
+        #main-content.wedding-active .track-card .track-marker {
+            border-color: var(--dynamic-title) !important;
+        }
+        #main-content.haldi-active .track-card .track-marker {
+            border-color: var(--haldi-yellow) !important;
+        }
+
+        .track-card .event-date-lbl { font-size: 0.75rem; text-transform: uppercase; font-weight: 600; letter-spacing: 1.5px; color: var(--sunset-rose); transition: color 0.5s; }
+        #main-content.puja-active .track-card .event-date-lbl { color: #fde8ad; }
+        #main-content.sangeet-active .track-card .event-date-lbl, #main-content.wedding-active .track-card .event-date-lbl { color: var(--gold-glow); }
+        #main-content.haldi-active .track-card .event-date-lbl { color: #d49a3b; }
+
+        .track-card .event-time-lbl { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); margin-bottom: 4px; transition: color 0.5s; }
+        .track-card .event-title-lbl { font-family: var(--font-serif); font-size: 1.5rem; color: var(--dynamic-text); line-height: 1.2; margin-bottom: 6px; transition: color 0.5s; }
+        .track-card .event-hint-lbl { font-size: 0.7rem; font-style: italic; color: var(--seaglass-teal); display: inline-block; margin-top: 5px; transition: color 0.5s; }
+        .details-p { transition: color 0.5s; color: var(--dynamic-text); }
+
+        #main-content.puja-active .track-card .event-time-lbl,
+        #main-content.sangeet-active .track-card .event-time-lbl, 
+        #main-content.wedding-active .track-card .event-time-lbl { color: rgba(255,255,255,0.7); }
+        
+        #main-content.puja-active .track-card .event-hint-lbl,
+        #main-content.sangeet-active .track-card .event-hint-lbl, 
+        #main-content.wedding-active .track-card .event-hint-lbl { color: var(--gold-glow); }
+
+        .mandap-frame-svg, .puja-frame-svg {
+            position: absolute; bottom: -12px; right: -12px; width: 85px; height: 85px; fill: none; stroke: var(--sand-gold); stroke-width: 1.2; opacity: 0.35; transition: all 0.6s ease;
+        }
+        .track-node-wrapper.selected .mandap-frame-svg,
+        .track-node-wrapper.selected .puja-frame-svg { stroke: var(--sundowner-orange); opacity: 0.8; transform: scale(1.1) rotate(-2deg); }
+        body.wedding-mode .mandap-frame-svg {
+            stroke: #ffffff; opacity: 1; filter: drop-shadow(0 0 12px var(--sundowner-orange)); animation: mandapPulse 2.5s infinite alternate;
+        }
+        body.puja-mode .puja-frame-svg {
+            stroke: #ffe082; opacity: 1; filter: drop-shadow(0 0 12px #f5c242); animation: mandapPulse 2.5s infinite alternate;
+        }
+
+        /* --- COUNTDOWN BOX MATRIX --- */
+        .countdown-container { display: flex; justify-content: center; gap: 12px; margin-top: 25px; }
+        .countdown-box { background: rgba(255,255,255,0.9); border: 1px solid var(--text-dark); width: 75px; padding: 14px 0; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.04); transition: border-color 0.5s; }
+        #main-content.puja-active .countdown-box,
+        #main-content.sangeet-active .countdown-box, 
+        #main-content.wedding-active .countdown-box { border-color: var(--dynamic-title); }
+
+        .countdown-val { font-family: var(--font-serif); font-size: 1.8rem; color: #231f20; display: block; font-weight: 400; transition: color 0.5s; }
+        #main-content.puja-active .countdown-val,
+        #main-content.sangeet-active .countdown-val, 
+        #main-content.wedding-active .countdown-val { color: var(--dynamic-text); }
+
+        .countdown-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); transition: color 0.5s; }
+        #main-content.puja-active .countdown-lbl,
+        #main-content.sangeet-active .countdown-lbl, 
+        #main-content.wedding-active .countdown-lbl { color: rgba(255,255,255,0.7); }
+
+        /* --- DRESS CODE DISPLAY BOX UNITS --- */
+        .dress-code-flex { display: flex; flex-direction: column; gap: 20px; margin-top: 30px; align-items: center; }
+        
+        .dress-card { 
+            width: 92%; padding: 22px 15px; background: rgba(255,255,255,0.9); border: 1px solid var(--text-dark); 
+            border-radius: 12px; box-shadow: 0 6px 15px rgba(0,0,0,0.04); cursor: default; 
+        }
+        #main-content.puja-active .dress-card,
+        #main-content.sangeet-active .dress-card, 
+        #main-content.wedding-active .dress-card { border-color: var(--dynamic-title); background: rgba(255,255,255,0.95); }
+
+        .dress-event { font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1.5px; font-weight: 600; }
+        .dress-badge { display: inline-block; padding: 10px 30px; font-size: 0.85rem; color: white; border-radius: 25px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        
+        /* HIGH-GLOSS SHIMMERING METALLIC BLING BADGE */
+        .badge-bling { 
+            background: linear-gradient(45deg, #d4af37, #fff, #aa7c11, #fff, #d4af37);
+            background-size: 400% 400%;
+            color: #231f20; 
+            border: 1px solid #aa7c11;
+            font-weight: 700;
+            animation: blingShimmer 5s linear infinite, blingPulse 2s ease-in-out infinite alternate;
+        }
+        .badge-bright-pastel { background: linear-gradient(135deg, #f5c242 0%, #fbe3e3 100%); color: #4a3600; border: 1px solid #f5c242; }
+        .badge-sage { background-color: var(--sage-green); color: #ffffff; border: 1px solid #6b8e6b; }
+
+        /* --- AWAITING YOUR PRESENCE STYLING --- */
+        .presence-card {
+            background: rgba(255, 255, 255, 0.85);
+            border: 2px solid var(--text-dark);
+            border-radius: 16px;
+            padding: 38px 24px;
+            box-shadow: 0 10px 30px rgba(13, 34, 47, 0.08);
+            margin-top: 20px;
+            position: relative;
+        }
+        #main-content.puja-active .presence-card,
+        #main-content.sangeet-active .presence-card,
+        #main-content.wedding-active .presence-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--dynamic-title);
+            color: #ffffff;
+        }
+        .presence-quote {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 22px;
+            color: var(--dynamic-text);
+        }
+        .presence-body {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--dynamic-text);
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        .presence-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--sunset-rose);
+            margin: 0 auto 24px auto;
+        }
+        .inviters-tag {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--sunset-rose);
+        }
+        #main-content.puja-active .inviters-tag,
+        #main-content.sangeet-active .inviters-tag,
+        #main-content.wedding-active .inviters-tag {
+            color: var(--gold-glow);
+        }
+        .inviters-names {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--dynamic-text);
+        }
+
+        footer { padding: 50px 20px; text-align: center; font-size: 0.75rem; color: var(--dynamic-text); opacity: 0.7; background-color: transparent; letter-spacing: 1px; font-weight: 500; transition: color 0.5s; }
+
+        /* --- DYNAMIC WEB AUDIO EMBED CONTROLLER --- */
+        #audio-playback-node { display: none; }
 
         @keyframes waveSwim { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientGlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes pinBounce { 0%, 100% { transform: translate(-50%, -50%) translateY(0); } 50% { transform: translate(-50%, -50%) translateY(-4px); } }
         @keyframes blingShimmer { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
-        @keyframes mandapPulse { 0% { transform: scale(1); } 100% { transform: scale(1.05); } }
+        @keyframes blingPulse { 0% { box-shadow: 0 4px 10px rgba(212,175,55,0.2); } 100% { box-shadow: 0 4px 20px rgba(212,175,55,0.6), inset 0 0 10px rgba(255,255,255,0.5); } }
+        @keyframes mandapPulse { 0% { transform: scale(1) rotate(0deg); filter: drop-shadow(0 0 4px var(--sundowner-orange)); } 100% { transform: scale(1.08) rotate(-2deg); filter: drop-shadow(0 0 15px #ffffff); } }
     </style>
 </head>
 <body id="invitation-body">
@@ -280,7 +591,7 @@
                 </div>
                 <canvas id="scratch-canvas"></canvas>
             </div>
-            <p class="scratch-instruction" style="font-weight: 700; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">Brush the sand away to reveal the wedding date</p>
+            <p class="scratch-instruction">Brush the sand away to reveal the wedding date</p>
             
             <div class="wave-separator">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -307,9 +618,9 @@
 
         <section id="our-story">
             <h3 class="section-title">Our Story</h3>
-            <p class="details-p" style="margin-bottom: 25px; font-weight: 500;">Tap tokens to activate milestone logs.</p>
+            <p class="details-p" style="margin-bottom: 25px;">Tap tokens to activate milestone logs.</p>
             
-            <div class="story-timeline-track" style="position: relative;">
+            <div class="story-timeline-track">
                 <div class="story-node-wrapper" id="story-node-1" onclick="unlockStoryNode(1, 'coffee')">
                     <div class="story-marker-token">✨</div>
                     <div class="story-card story-interactive-card">
@@ -370,10 +681,10 @@
                 <img src="venue.jpeg" alt="Dallas Beach Resort" class="venue-photo">
             </div>
 
-            <h4 class="venue-title">Dallas Beach Resorts</h4>
-            <p class="details-p" style="font-weight: 700;">Ashvem Beach,</p>
-            <p class="details-p" style="font-weight: 500;">Morjim–Mandrem Road</p>
-            <p class="details-p" style="font-weight: 500;">North Goa, Goa — 403512</p>
+            <p class="venue-title" style="font-family: var(--font-serif); font-size: 1.7rem; font-weight: 600; margin-bottom: 6px;">Dallas Beach Resorts</p>
+            <p class="details-p" style="font-weight: 500;">Ashvem Beach,</p>
+            <p class="details-p">Morjim–Mandrem Road</p>
+            <p class="details-p">North Goa, Goa — 403512</p>
             
             <div class="map-widget-box">
                 <div class="map-graphic-preview">
@@ -412,13 +723,14 @@
                             <path d="M25,65 Q50,90 75,65 Q50,75 25,65 Z" stroke-linecap="round"/>
                             <path d="M50,65 C40,50 45,35 50,22 C55,35 60,50 50,65 Z" fill="currentColor" opacity="0.3"/>
                             <circle cx="50" cy="18" r="2" fill="currentColor"/>
+                            <circle cx="35" cy="28" r="1.5" fill="currentColor"/><circle cx="65" cy="28" r="1.5" fill="currentColor"/>
                         </svg>
                         <span class="event-date-lbl">Friday, 11th Dec</span>
                         <p class="event-time-lbl">12:00 Noon</p>
                         <h4 class="event-title-lbl">Ganesh Pujan</h4>
                         <p class="details-p"><strong>Venue: TBD</strong></p>
-                        <p class="details-p" style="font-weight: 500;">Invoking divine blessings for auspicious beginnings, love, and lifelong harmony.</p>
-                        <span class="event-hint-lbl">🪔 Tap for Divine Mode</span>
+                        <p class="details-p">Invoking divine blessings for auspicious beginnings, love, and lifelong harmony.</p>
+                        <span class="event-hint-lbl">🪔 Tap for Divine Blessings Mode</span>
                     </div>
                 </div>
 
@@ -427,9 +739,9 @@
                     <div class="track-card">
                         <span class="event-date-lbl">Friday, 11th Dec</span>
                         <p class="event-time-lbl">06:00 PM</p>
-                        <h4 class="event-title-lbl"> Mayra and Sangeet Night</h4>
+                        <h4 class="event-title-lbl">Sangeet Night</h4>
                         <p class="details-p"><strong>Garden Area</strong></p>
-                        <p class="details-p" style="font-weight: 500;">Music, dance, and a starry sky over the ocean wave breaks.</p>
+                        <p class="details-p">Music, dance, and a starry sky over the ocean wave breaks.</p>
                         <span class="event-hint-lbl">✨ Tap for Midnight Mode</span>
                     </div>
                 </div>
@@ -441,7 +753,7 @@
                         <p class="event-time-lbl">09:00 AM</p>
                         <h4 class="event-title-lbl">Haldi Ceremony</h4>
                         <p class="details-p"><strong>Pool Side</strong></p>
-                        <p class="details-p" style="font-weight: 500;">A beautiful gathering filled with love and an intensive flower shower.</p>
+                        <p class="details-p">A beautiful gathering filled with love and an intensive flower shower.</p>
                         <span class="event-hint-lbl">🌼 Tap for Flower Shower</span>
                     </div>
                 </div>
@@ -452,15 +764,17 @@
                         <svg class="mandap-frame-svg" viewBox="0 0 100 100">
                             <path d="M15,95 L15,40 L85,40 L85,95 M10,40 L90,40 M22,40 L22,95 M78,40 L78,95" stroke-linecap="round"/>
                             <path d="M15,40 C15,15 40,10 50,22 Q60,10 85,40 M30,40 C30,22 42,18 50,26 Q58,18 70,40" stroke-linecap="round"/>
+                            <circle cx="50" cy="24" r="1.5" fill="currentColor"/>
+                            <circle cx="35" cy="38" r="1" fill="currentColor"/><circle cx="50" cy="35" r="1" fill="currentColor"/><circle cx="65" cy="38" r="1" fill="currentColor"/>
                         </svg>
                         <span class="event-date-lbl">Saturday, 12th Dec</span>
                         <p class="event-time-lbl">04:00 PM</p>
                         <h4 class="event-title-lbl">Wedding Vows</h4>
                         <p class="details-p"><strong>Beach Deck</strong></p>
-                        <p class="details-p" style="font-weight: 500;">Our traditional sunset vows, beneath the sky, before the ocean.</p>
+                        <p class="details-p">Our traditional sunset vows, beneath the sky, before the ocean.</p>
                         
-                        <p class="event-time-lbl" style="margin-top: 12px; font-weight: 700;">07:00 PM onwards</p>
-                        <h5 class="event-title-lbl" style="font-size: 1.2rem;">Reception Dinner</h5>
+                        <p class="event-time-lbl" style="margin-top: 12px; font-weight: 600;">07:00 PM onwards</p>
+                        <h5 class="event-title-lbl" style="font-size: 1.1rem;">Reception Dinner</h5>
                         <span class="event-hint-lbl">🌅 Tap for Fireworks</span>
                     </div>
                 </div>
@@ -475,10 +789,10 @@
 
         <section id="dress-code">
             <h3 class="section-title">Dress Code</h3>
-            <p class="details-p" style="font-weight: 500;">Help us paint our celebration against the backdrop of the sea.</p>
+            <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
             <div class="dress-code-flex">
                 <div class="dress-card">
-                    <div class="dress-event">Sangeet Night</div>
+                    <div class="dress-event">Mayra and Sangeet Night</div>
                     <div class="dress-badge badge-bling">Bling</div>
                 </div>
                 <div class="dress-card">
@@ -506,11 +820,11 @@
                     "The greatest happiness of life is the conviction that we are loved - and your presence will make our day complete."
                 </p>
                 
-                <p class="presence-body" style="font-weight: 500;">
+                <p class="presence-body">
                     As we begin this beautiful new chapter together, we humbly request the honour of your company and warm blessings to make our union truly memorable.
                 </p>
                 
-                <div style="width: 60px; height: 2px; background: var(--sunset-rose); margin: 0 auto 24px auto;"></div>
+                <div class="presence-divider"></div>
                 
                 <p class="inviters-tag">Inviting You With Warmth</p>
                 <h4 class="inviters-names">Jain and Sinha Family</h4>
@@ -518,8 +832,8 @@
         </section>
 
         <footer>
-            <p style="font-weight: 600;">Thank you for sharing this journey with us.</p>
-            <p style="margin-top: 12px; font-size: 0.65rem; opacity: 0.7; font-weight: 700; letter-spacing: 2px;">S&S • 2026 • GOA</p>
+            <p>Thank you for sharing this journey with us.</p>
+            <p style="margin-top: 12px; font-size: 0.65rem; opacity: 0.7;">S&S • 2026 • GOA</p>
         </footer>
     </div>
 
@@ -551,6 +865,10 @@
             canvasCover.height = window.innerHeight;
         }
 
+        function initTravelRouteMap() {
+            return true;
+        }
+
         function initCoverFlares() {
             coverFlares = [];
             for (let i = 0; i < 8; i++) {
@@ -568,7 +886,9 @@
             ctxCover.save();
             ctxCover.strokeStyle = 'rgba(94, 82, 85, 0.2)'; ctxCover.lineWidth = 2.5;
             drawPalmBranchFrame(ctxCover, 0, 0, 130, 0.6 + Math.sin(swayTime)*0.04);
+            drawPalmBranchFrame(ctxCover, -10, 20, 110, 0.9 + Math.cos(swayTime)*0.03);
             drawPalmBranchFrame(ctxCover, canvasCover.width, 0, 130, 2.5 + Math.sin(swayTime)*0.04);
+            drawPalmBranchFrame(ctxCover, canvasCover.width + 10, 20, 110, 2.2 + Math.cos(swayTime)*0.03);
             ctxCover.restore();
 
             coverFlares.forEach(f => {
@@ -592,7 +912,7 @@
             
             if (audioPlayer) {
                 audioPlayer.volume = 0.7;
-                audioPlayer.play().catch(err => console.log("Interaction required"));
+                audioPlayer.play().catch(err => console.log("Audio autoplay requires user interaction handshake: ", err));
             }
             
             resizeCanvas();
@@ -629,13 +949,41 @@
                 if(idx + 1 <= stepIndex) node.classList.add('unlocked');
                 else node.classList.remove('unlocked');
             });
+
             dynamicParticles = []; 
-            if(modeType === 'spark') {
+
+            if(modeType === 'coffee') {
+                activeAtmosphere = 'default';
+            } else if (modeType === 'spark') {
                 activeAtmosphere = 'sangeet';
-                for(let i=0; i<15; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random()*0.5 + 0.5), speedX: Math.random()*2 - 1, size: Math.random()*2 + 2, angle: 0, rotSpeed: 0, isSpark: true, color: '#fca34d' }); }
+                for(let i=0; i<15; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
+                        speedY: -(Math.random()*0.5 + 0.5), speedX: Math.random()*2 - 1,
+                        size: Math.random()*2 + 2, angle: 0, rotSpeed: 0, isSpark: true, color: '#fca34d'
+                    });
+                }
+            } else if (modeType === 'camera') {
+                activeAtmosphere = 'sangeet';
+                for(let i=0; i<20; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width, y: canvasBg.height + 10,
+                        speedY: -(Math.random()*1 + 1), speedX: Math.random()*0.4 - 0.2,
+                        size: Math.random()*3 + 3, angle: Math.random()*Math.PI, rotSpeed: 0.02, isCameraSpark: true, color: '#ffffff'
+                    });
+                }
+            } else if (modeType === 'lock') {
+                activeAtmosphere = 'default';
             } else if (modeType === 'heart') {
                 activeAtmosphere = 'wedding';
-                for(let i=0; i<25; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: -Math.random() * 100, speedY: Math.random() * 1 + 0.8, speedX: Math.random() * 0.6 - 0.3, size: Math.random() * 6 + 5, angle: Math.random() * Math.PI, rotSpeed: 0.01, isAmber: false, isPetal: true, color: 'rgba(226,142,125,0.8)' }); }
+                for(let i=0; i<25; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width, y: -Math.random() * 100,
+                        speedY: Math.random() * 1 + 0.8, speedX: Math.random() * 0.6 - 0.3,
+                        size: Math.random() * 6 + 5, angle: Math.random() * Math.PI, rotSpeed: 0.01,
+                        isAmber: false, isPetal: true, color: 'rgba(226,142,125,0.8)'
+                    });
+                }
             }
         }
 
@@ -644,20 +992,67 @@
             const ctx = canvas.getContext('2d');
             let isDrawing = false;
             let percentClearingMet = false;
-            canvas.width = 280; canvas.height = 150;
-            ctx.fillStyle = '#dfcaaf'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < 700; i++) { ctx.fillStyle = Math.random() > 0.5 ? '#fcf6ed' : '#b39878'; ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5); }
-            ctx.font = '700 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '2px';
-            ctx.fillText('BRUSH THE SAND', canvas.width/2, canvas.height/2);
+            
+            canvas.width = 280;
+            canvas.height = 150;
+            
+            ctx.fillStyle = '#dfcaaf'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < 700; i++) {
+                ctx.fillStyle = Math.random() > 0.5 ? '#fcf6ed' : '#b39878';
+                ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 1.5, 1.5);
+            }
+            
+            ctx.font = '500 10px Montserrat'; ctx.fillStyle = '#534335'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.letterSpacing = '3px';
+            ctx.fillText('BRUSH AWAY THE SAND', canvas.width/2, canvas.height/2);
+
+            function verifyClearanceThreshold() {
+                if (percentClearingMet) return;
+                
+                let transparentPixels = 0;
+                const canvasData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                
+                for (let i = 3; i < canvasData.length; i += 120) {
+                    if (canvasData[i] === 0) transparentPixels++;
+                }
+
+                if (transparentPixels / (canvasData.length / 120) > 0.55) {
+                    percentClearingMet = true;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    activeAtmosphere = 'sangeet'; 
+                    dynamicParticles = [];
+                    for(let i=0; i<35; i++) {
+                        dynamicParticles.push({
+                            x: Math.random() * canvasBg.width, y: canvasBg.height + 20,
+                            speedY: -(Math.random() * 1.4 + 0.7), speedX: Math.random() * 0.8 - 0.4,
+                            size: Math.random() * 8 + 8, angle: Math.random() * Math.PI, rotSpeed: 0.015,
+                            char: Math.random() > 0.5 ? '⭐' : '🫧', 
+                            color: 'rgba(247, 230, 212, 0.85)'
+                        });
+                    }
+                }
+            }
 
             function scratch(e) {
                 if (!isDrawing || percentClearingMet) return;
+                e.preventDefault();
                 const rect = canvas.getBoundingClientRect();
-                const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-                const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                const x = clientX - rect.left;
+                const y = clientY - rect.top;
+                
+                ctx.save();
                 ctx.globalCompositeOperation = 'destination-out';
-                ctx.beginPath(); ctx.arc(x, y, 22, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); 
+                ctx.arc(x, y, 22, 0, Math.PI * 2); 
+                ctx.fill();
+                ctx.restore();
+                
+                verifyClearanceThreshold();
             }
+            
             canvas.addEventListener('mousedown', () => isDrawing = true);
             canvas.addEventListener('mousemove', scratch);
             window.addEventListener('mouseup', () => isDrawing = false);
@@ -669,32 +1064,78 @@
         function renderBeachEngineLoop() {
             ctxBg.clearRect(0, 0, canvasBg.width, canvasBg.height);
             swayTime += 0.008;
+
             ctxBg.save();
-            ctxBg.strokeStyle = activeAtmosphere === 'puja' ? 'rgba(255, 232, 173, 0.15)' : 'rgba(94, 82, 85, 0.1)';
+            if (activeAtmosphere === 'puja') { ctxBg.strokeStyle = 'rgba(255, 232, 173, 0.15)'; }
+            else if (activeAtmosphere === 'sangeet') { ctxBg.strokeStyle = 'rgba(233, 184, 137, 0.08)'; } 
+            else if (activeAtmosphere === 'wedding') { ctxBg.strokeStyle = 'rgba(255, 246, 238, 0.14)'; } 
+            else if (activeAtmosphere === 'haldi') { ctxBg.strokeStyle = 'rgba(35, 31, 32, 0.08)'; } 
+            else { ctxBg.strokeStyle = 'rgba(94, 82, 85, 0.1)'; }
             ctxBg.lineWidth = 2;
             drawPalmBranchFrame(ctxBg, 20, canvasBg.height * 0.2, 110, 0.4 + Math.sin(swayTime)*0.05);
+            drawPalmBranchFrame(ctxBg, 10, canvasBg.height * 0.6, 120, 0.2 + Math.cos(swayTime)*0.04);
             drawPalmBranchFrame(ctxBg, canvasBg.width - 20, canvasBg.height * 0.35, 110, 2.8 + Math.sin(swayTime)*0.05);
+            drawPalmBranchFrame(ctxBg, canvasBg.width - 10, canvasBg.height * 0.75, 120, 2.6 + Math.cos(swayTime)*0.04);
             ctxBg.restore();
 
+            if (activeAtmosphere !== 'sangeet') {
+                birds.forEach(b => {
+                    b.x += b.speed; b.wingPhase += 0.05; if (b.x > canvasBg.width + 30) b.x = -30;
+                    ctxBg.save(); ctxBg.strokeStyle = activeAtmosphere === 'wedding' || activeAtmosphere === 'puja' ? 'rgba(255,246,238,0.25)' : 'rgba(13, 34, 47, 0.15)'; ctxBg.lineWidth = 1.2; ctxBg.beginPath();
+                    let wingY = Math.sin(b.wingPhase) * (b.size * 0.35); ctxBg.moveTo(b.x - b.size, b.y + wingY); ctxBg.quadraticCurveTo(b.x - b.size*0.5, b.y - b.size*0.25, b.x, b.y); ctxBg.quadraticCurveTo(b.x + b.size*0.5, b.y - b.size*0.25, b.x + b.size, b.y + wingY); ctxBg.stroke(); ctxBg.restore();
+                });
+            }
+
+            if (activeAtmosphere === 'default') {
+                sparkles.forEach(p => {
+                    p.y -= p.speed; p.phase += 0.01; if (p.y < -20) p.y = canvasBg.height + 20;
+                    let opacity = (Math.sin(p.phase) + 1) / 2 * 0.3; ctxBg.beginPath(); let gradient = ctxBg.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size); gradient.addColorStop(0, `rgba(252, 163, 77, ${opacity})`); gradient.addColorStop(1, 'rgba(255, 255, 255, 0)'); ctxBg.fillStyle = gradient; ctxBg.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxBg.fill();
+                });
+            }
+
             dynamicParticles.forEach(p => {
-                p.y += p.speedY; p.x += p.speedX;
-                ctxBg.save(); ctxBg.translate(p.x, p.y);
+                p.y += p.speedY; p.x += p.speedX; p.angle += p.rotSpeed;
+                ctxBg.save(); ctxBg.translate(p.x, p.y); ctxBg.rotate(p.angle);
+
                 if (activeAtmosphere === 'puja') {
-                    ctxBg.fillStyle = p.color; ctxBg.beginPath();
-                    if(p.isGlow) ctxBg.arc(0, 0, p.size, 0, Math.PI * 2);
-                    else ctxBg.ellipse(0, 0, p.size * 0.5, p.size, 0, 0, Math.PI * 2);
-                    ctxBg.fill();
+                    if (p.isGlow) {
+                        ctxBg.fillStyle = p.color;
+                        ctxBg.beginPath();
+                        ctxBg.arc(0, 0, p.size, 0, Math.PI * 2);
+                        ctxBg.fill();
+                    } else if (p.char) {
+                        ctxBg.fillStyle = p.color;
+                        ctxBg.font = `600 ${p.size}px sans-serif`;
+                        ctxBg.fillText(p.char, 0, 0);
+                    } else {
+                        // Radiant Marigold Petals
+                        if (p.y > canvasBg.height + 20) { p.y = -30; p.x = Math.random() * canvasBg.width; }
+                        ctxBg.fillStyle = p.color;
+                        ctxBg.beginPath();
+                        ctxBg.ellipse(0, 0, p.size * 0.5, p.size, 0, 0, Math.PI * 2);
+                        ctxBg.fill();
+                    }
+                } else if (activeAtmosphere === 'sangeet') {
+                    if(p.char) {
+                        ctxBg.fillStyle = p.color; ctxBg.font = `600 ${p.size}px sans-serif`; ctxBg.fillText(p.char, 0, 0);
+                    } else if (p.isSpark || p.isCameraSpark) {
+                        ctxBg.fillStyle = p.color; ctxBg.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                    }
                 } else if (activeAtmosphere === 'haldi') {
-                    if (p.y > canvasBg.height) p.y = -50;
-                    ctxBg.fillStyle = p.color; ctxBg.beginPath();
-                    for (let i = 0; i < 5; i++) { ctxBg.rotate(Math.PI / 2.5); ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8); ctxBg.quadraticCurveTo(p.size * 0.8, -p.size * 0.4, 0, 0); }
+                    if (p.y > canvasBg.height + 20) { p.y = -50; p.x = Math.random() * canvasBg.width; }
+                    ctxBg.fillStyle = p.color; ctxBg.beginPath(); 
+                    for (let i = 0; i < 5; i++) { ctxBg.rotate(Math.PI / 2.5); ctxBg.quadraticCurveTo(0, -p.size, p.size * 0.4, -p.size * 0.8); ctxBg.quadraticCurveTo(p.size * 0.8, -p.size * 0.4, 0, 0); } 
                     ctxBg.fill();
                 } else if (activeAtmosphere === 'wedding') {
-                    ctxBg.fillStyle = p.color; ctxBg.beginPath();
-                    ctxBg.arc(0, 0, p.size, 0, Math.PI * 2); ctxBg.fill();
+                    if (p.isPetal) {
+                        ctxBg.fillStyle = p.color; ctxBg.beginPath(); ctxBg.moveTo(0, 0); ctxBg.bezierCurveTo(-p.size, -p.size, -p.size * 1.5, p.size * 0.5, 0, p.size * 1.5); ctxBg.bezierCurveTo(p.size * 1.5, p.size * 0.5, p.size, -p.size, 0, 0); ctxBg.fill();
+                    } else {
+                        ctxBg.fillStyle = p.color; ctxBg.beginPath(); ctxBg.arc(0, 0, p.size, 0, Math.PI * 2); ctxBg.fill();
+                    }
                 }
                 ctxBg.restore();
             });
+
             requestAnimationFrame(renderBeachEngineLoop);
         }
 
@@ -706,38 +1147,73 @@
             const containerFrame = document.getElementById('main-content');
             const bodyNode = document.getElementById('invitation-body');
             document.querySelectorAll('.track-node-wrapper').forEach(el => { if(el.id !== `node-${mode}`) el.classList.remove('selected'); });
+
             const targetingNode = document.getElementById(`node-${mode}`);
             if (activeAtmosphere === mode) { activeAtmosphere = 'default'; containerFrame.className = 'visible'; bodyNode.className = ''; targetingNode.classList.remove('selected'); dynamicParticles = []; return; }
+
             activeAtmosphere = mode; if(targetingNode) targetingNode.classList.add('selected'); dynamicParticles = []; 
+
             if (mode === 'puja') {
                 containerFrame.className = 'visible puja-active'; bodyNode.className = 'puja-mode';
-                for(let i=0; i<40; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random() * 0.7 + 0.3), speedX: Math.random() * 0.6 - 0.3, size: Math.random() * 3 + 1.5, isGlow: true, color: 'rgba(255, 232, 173, 0.85)' }); }
-            } else if (mode === 'haldi') {
-                containerFrame.className = 'visible haldi-active'; bodyNode.className = 'haldi-mode';
-                for(let i=0; i<85; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: -Math.random() * 300 - 50, speedY: Math.random() * 2.0 + 1.8, speedX: Math.sin(Math.random() * Math.PI) * 0.5, size: Math.random() * 14 + 10, color: 'rgba(245, 194, 66, 0.85)' }); }
-            } else if (mode === 'wedding') {
-                containerFrame.className = 'visible wedding-active'; bodyNode.className = 'wedding-mode';
-                launchWeddingFireworks();
+                // Auspicious sparks and golden marigold rain
+                for(let i=0; i<40; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width,
+                        y: Math.random() * canvasBg.height,
+                        speedY: -(Math.random() * 0.7 + 0.3),
+                        speedX: Math.random() * 0.6 - 0.3,
+                        size: Math.random() * 3 + 1.5,
+                        angle: 0,
+                        rotSpeed: 0,
+                        isGlow: true,
+                        color: Math.random() > 0.5 ? 'rgba(255, 232, 173, 0.85)' : 'rgba(245, 194, 66, 0.75)'
+                    });
+                }
+                for(let i=0; i<30; i++) {
+                    dynamicParticles.push({
+                        x: Math.random() * canvasBg.width,
+                        y: -Math.random() * 200 - 20,
+                        speedY: Math.random() * 1.5 + 1.0,
+                        speedX: Math.sin(Math.random() * Math.PI) * 0.5,
+                        size: Math.random() * 10 + 6,
+                        angle: Math.random() * Math.PI,
+                        rotSpeed: 0.02,
+                        isGlow: false,
+                        color: Math.random() > 0.4 ? 'rgba(245, 166, 35, 0.85)' : 'rgba(245, 194, 66, 0.9)'
+                    });
+                }
             } else if (mode === 'sangeet') {
                 containerFrame.className = 'visible sangeet-active'; bodyNode.className = 'sangeet-mode';
+                const notesList = ['♪', '♫', '♬', '♩'];
+                for(let i = 0; i < 45; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random() * 1.2 + 0.6), speedX: Math.random() * 0.6 - 0.3, size: Math.random() * 12 + 12, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.02 - 0.01, char: notesList[Math.floor(Math.random() * notesList.length)], color: Math.random() > 0.4 ? 'rgba(233, 184, 137, 0.6)' : 'rgba(95, 158, 160, 0.7)' }); }
+            } else if (mode === 'haldi') {
+                containerFrame.className = 'visible haldi-active'; bodyNode.className = 'haldi-mode';
+                for(let i=0; i<85; i++) { 
+                    dynamicParticles.push({ x: Math.random() * canvasBg.width, y: -Math.random() * 300 - 50, speedY: Math.random() * 2.0 + 1.8, speedX: Math.sin(Math.random() * Math.PI) * 0.5, size: Math.random() * 14 + 10, angle: Math.random() * Math.PI, rotSpeed: Math.random() * 0.05 - 0.025, color: Math.random() > 0.4 ? 'rgba(245, 194, 66, 0.85)' : 'rgba(243, 138, 26, 0.8)' }); 
+                }
+            } else if (mode === 'wedding') {
+                containerFrame.className = 'visible wedding-active'; bodyNode.className = 'wedding-mode';
+                for(let i=0; i<35; i++) { dynamicParticles.push({ x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height, speedY: -(Math.random() * 0.8 + 0.3), speedX: Math.random() * 0.4 - 0.2, size: Math.random() * 3 + 1.5, angle: 0, rotSpeed: 0, color: Math.random() > 0.5 ? 'rgba(253, 179, 102, 0.6)' : 'rgba(226, 142, 125, 0.5)' }); }
+                launchWeddingFireworks();
             }
         }
         
         function launchWeddingFireworks() {
             if (activeAtmosphere !== 'wedding') return;
-            const x = Math.random() * canvasBg.width; const y = canvasBg.height * 0.25;
-            for (let i = 0; i < 50; i++) { const angle = Math.random() * Math.PI * 2; const speed = Math.random() * 5 + 2; dynamicParticles.push({ x: x, y: y, speedX: Math.cos(angle) * speed, speedY: Math.sin(angle) * speed, size: Math.random() * 2, color: '#ffffff' }); }
-            setTimeout(launchWeddingFireworks, 1500);
+            const x = Math.random() * canvasBg.width; const y = canvasBg.height * 0.25; const particleCount = 65;
+            const colors = ['#fca34d', '#ffcd94', '#ffffff', '#e28e7d']; const burstColor = colors[Math.floor(Math.random()*colors.length)];
+            for (let i = 0; i < particleCount; i++) { const angle = Math.random() * Math.PI * 2; const speed = Math.random() * 6.5 + 2; dynamicParticles.push({ x: x, y: y, speedX: Math.cos(angle) * speed, speedY: Math.sin(angle) * speed, gravity: 0.08, friction: 0.95, size: Math.random() * 2.5 + 1, opacity: 1, fadeSpeed: Math.random() * 0.014 + 0.007, isAmber: false, isPetal: false, color: burstColor }); }
+            setTimeout(launchWeddingFireworks, Math.random() * 1400 + 800);
         }
 
         const targetWeddingDate = new Date('December 12, 2026 16:30:00').getTime();
         setInterval(() => {
-            const diff = targetWeddingDate - new Date().getTime();
-            if (diff > 0) {
-                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
-                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
-                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
-                document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            const timeDifference = targetWeddingDate - new Date().getTime();
+            if (timeDifference > 0) {
+                document.getElementById('days').innerText = Math.floor(timeDifference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById('hours').innerText = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById('mins').innerText = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById('secs').innerText = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
             }
         }, 1000);
     </script>
