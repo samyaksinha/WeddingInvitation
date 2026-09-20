@@ -266,44 +266,6 @@
             object-position: center 52%; 
         }
 
-        /* --- THE DYNAMIC JOURNEY STORY MODULE --- */
-        .story-timeline-track {
-            position: relative; margin: 40px auto 0 auto; padding: 10px 0; width: 100%;
-        }
-        .story-timeline-track::before {
-            content: ''; position: absolute; top: 0; left: 24px; width: 4px; height: 100%;
-            background: rgba(35, 31, 32, 0.1); border-radius: 10px;
-        }
-        .story-node-wrapper {
-            position: relative; margin-bottom: 35px; padding-left: 55px; text-align: left;
-        }
-        .story-node-wrapper:last-of-type { margin-bottom: 0; }
-        
-        .story-marker-token {
-            position: absolute; left: 12px; top: 4px; width: 28px; height: 28px;
-            background: #ffffff; border: 2px solid var(--sunset-rose); border-radius: 50%; z-index: 10;
-            display: flex; align-items: center; justify-content: center; font-size: 0.95rem;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.06); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .story-interactive-card {
-            background: rgba(255, 255, 255, 0.5); border: 1px solid rgba(35, 31, 32, 0.1);
-            padding: 18px; border-radius: 14px; opacity: 0.6; transform: scale(0.97);
-            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        
-        .story-node-wrapper.unlocked .story-interactive-card {
-            opacity: 1; transform: scale(1); background: #ffffff;
-            border-color: var(--sunset-rose); box-shadow: 0 6px 18px rgba(226,142,125,0.12);
-        }
-        .story-node-wrapper.unlocked .story-marker-token {
-            background: var(--sand-warm); border-color: var(--sundowner-orange); transform: scale(1.2);
-            box-shadow: 0 0 12px rgba(252,163,77,0.3);
-        }
-
-        .story-interactive-card .story-year { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--subheader-coral); letter-spacing: 1.5px; display: block; margin-bottom: 2px; }
-        .story-interactive-card .story-heading { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; letter-spacing: 0.5px; color: var(--header-wine); line-height: 1.3; margin-bottom: 6px; }
-
         /* --- SLIMMED MAP ACTION BAR --- */
         .map-widget-box {
             width: 100%; max-width: 200px; margin: 25px auto 10px auto;
@@ -621,64 +583,6 @@
             </div>
         </section>
 
-        <section id="our-story">
-            <h3 class="section-title">Our Story</h3>
-            <p class="details-p" style="margin-bottom: 25px;">Tap tokens to activate milestone logs.</p>
-            
-            <div class="story-timeline-track">
-                <div class="story-node-wrapper" id="story-node-1" onclick="unlockStoryNode(1, 'coffee')">
-                    <div class="story-marker-token">✨</div>
-                    <div class="story-card story-interactive-card">
-                        <span class="story-year">2022</span>
-                        <h4 class="story-heading">How It All Began</h4>
-                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Two colleagues who found in each other an unexpected best friend. It started with conversations, laughter, and comfort.</p>
-                    </div>
-                </div>
-
-                <div class="story-node-wrapper" id="story-node-2" onclick="unlockStoryNode(2, 'spark')">
-                    <div class="story-marker-token">🫶</div>
-                    <div class="story-card story-interactive-card">
-                        <span class="story-year">2023</span>
-                        <h4 class="story-heading">Becoming Something More</h4>
-                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">Hearts quietly crossed a line. Head over heels, full of hopes, and unsure of what the future held — but certain it felt right.</p>
-                    </div>
-                </div>
-
-                <div class="story-node-wrapper" id="story-node-3" onclick="unlockStoryNode(3, 'camera')">
-                    <div class="story-marker-token">🫂</div>
-                    <div class="story-card story-interactive-card">
-                        <span class="story-year">2024</span>
-                        <h4 class="story-heading">Built in the Little Things</h4>
-                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">No grand gestures needed. Good food, great company, late-night talks, and showing up for each other every single day.</p>
-                    </div>
-                </div>
-
-                <div class="story-node-wrapper" id="story-node-4" onclick="unlockStoryNode(4, 'lock')">
-                    <div class="story-marker-token">♾️</div>
-                    <div class="story-card story-interactive-card">
-                        <span class="story-year">2025</span>
-                        <h4 class="story-heading">The Leap of Faith</h4>
-                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">With hope in their hearts, they took the biggest step yet — folding their families into their forever. And the universe said YES.</p>
-                    </div>
-                </div>
-
-                <div class="story-node-wrapper" id="story-node-5" onclick="unlockStoryNode(5, 'heart')">
-                    <div class="story-marker-token">❤️</div>
-                    <div class="story-card story-interactive-card">
-                        <span class="story-year">2026</span>
-                        <h4 class="story-heading">A Forever Promise</h4>
-                        <p class="details-p" style="font-size: 0.85rem; opacity: 0.95;">At their favourite place, with their favourite people, they are ready to make it official — a promise to love, show up, and choose each other, forever.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="wave-separator">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                    <path class="wave-sep-1" d="M0,40 C150,100 350,100 500,40 L1500,120 L0,120 Z"></path>
-                </svg>
-            </div>
-        </section>
-
         <section id="venue">
             <h3 class="section-title">Find Us Here</h3>
             
@@ -721,6 +625,24 @@
 
             <div class="beach-map-track">
                 
+                <div class="track-node-wrapper" id="node-puja" onclick="triggerEventAtmosphere('puja')">
+                    <div class="track-marker"></div>
+                    <div class="track-card">
+                        <svg class="puja-frame-svg" viewBox="0 0 100 100">
+                            <path d="M25,65 Q50,90 75,65 Q50,75 25,65 Z" stroke-linecap="round"/>
+                            <path d="M50,65 C40,50 45,35 50,22 C55,35 60,50 50,65 Z" fill="currentColor" opacity="0.3"/>
+                            <circle cx="50" cy="18" r="2" fill="currentColor"/>
+                            <circle cx="35" cy="28" r="1.5" fill="currentColor"/><circle cx="65" cy="28" r="1.5" fill="currentColor"/>
+                        </svg>
+                        <span class="event-date-lbl">Friday, 11th Dec</span>
+                        <p class="event-time-lbl">02:00 PM</p>
+                        <h4 class="event-title-lbl">Ganesh Pujan and Mayra</h4>
+                        <p class="details-p"><strong>Garden Area</strong></p>
+                        <p class="details-p">Invoking divine blessings for auspicious beginnings, love, and lifelong harmony.</p>
+                        <span class="event-hint-lbl">🪔 Tap for Divine Blessings Mode</span>
+                    </div>
+                </div>
+
                 <div class="track-node-wrapper" id="node-sangeet" onclick="triggerEventAtmosphere('sangeet')">
                     <div class="track-marker"></div>
                     <div class="track-card">
@@ -845,7 +767,6 @@
             initCoverCanvas();
             initCoverFlares();
             renderCoverEngineLoop();
-            document.getElementById('story-node-1').classList.add('unlocked');
         });
 
         function initCoverCanvas() {
@@ -929,49 +850,6 @@
                     x: Math.random() * canvasBg.width, y: 100 + (Math.random() * 150),
                     speed: Math.random() * 0.3 + 0.1, size: Math.random() * 5 + 8, wingPhase: Math.random() * Math.PI
                 });
-            }
-        }
-
-        function unlockStoryNode(stepIndex, modeType) {
-            document.querySelectorAll('.story-node-wrapper').forEach((node, idx) => {
-                if(idx + 1 <= stepIndex) node.classList.add('unlocked');
-                else node.classList.remove('unlocked');
-            });
-
-            dynamicParticles = []; 
-
-            if(modeType === 'coffee') {
-                activeAtmosphere = 'default';
-            } else if (modeType === 'spark') {
-                activeAtmosphere = 'sangeet';
-                for(let i=0; i<15; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width, y: Math.random() * canvasBg.height,
-                        speedY: -(Math.random()*0.5 + 0.5), speedX: Math.random()*2 - 1,
-                        size: Math.random()*2 + 2, angle: 0, rotSpeed: 0, isSpark: true, color: '#fca34d'
-                    });
-                }
-            } else if (modeType === 'camera') {
-                activeAtmosphere = 'sangeet';
-                for(let i=0; i<20; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width, y: canvasBg.height + 10,
-                        speedY: -(Math.random()*1 + 1), speedX: Math.random()*0.4 - 0.2,
-                        size: Math.random()*3 + 3, angle: Math.random()*Math.PI, rotSpeed: 0.02, isCameraSpark: true, color: '#ffffff'
-                    });
-                }
-            } else if (modeType === 'lock') {
-                activeAtmosphere = 'default';
-            } else if (modeType === 'heart') {
-                activeAtmosphere = 'wedding';
-                for(let i=0; i<25; i++) {
-                    dynamicParticles.push({
-                        x: Math.random() * canvasBg.width, y: -Math.random() * 100,
-                        speedY: Math.random() * 1 + 0.8, speedX: Math.random() * 0.6 - 0.3,
-                        size: Math.random() * 6 + 5, angle: Math.random() * Math.PI, rotSpeed: 0.01,
-                        isAmber: false, isPetal: true, color: 'rgba(226,142,125,0.8)'
-                    });
-                }
             }
         }
 
