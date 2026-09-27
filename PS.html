@@ -436,6 +436,97 @@
         .badge-bright-pastel { background: linear-gradient(135deg, #f5c242 0%, #fbe3e3 100%); color: #4a3600; border: 1px solid #f5c242; }
         .badge-sage { background-color: var(--sage-green); color: #ffffff; border: 1px solid #6b8e6b; }
 
+        /* --- JAIPUR RECEPTION STYLES & GLAM MOTIFS --- */
+        .reception-card {
+            background: rgba(255, 255, 255, 0.88);
+            border: 2px solid var(--text-dark);
+            border-radius: 18px;
+            padding: 34px 22px;
+            box-shadow: 0 12px 35px rgba(13, 34, 47, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        #main-content.puja-active .reception-card,
+        #main-content.sangeet-active .reception-card,
+        #main-content.wedding-active .reception-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--dynamic-title);
+            color: #ffffff;
+        }
+        .reception-tag {
+            font-family: var(--font-sans);
+            font-size: 0.72rem;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--subheader-coral);
+            margin-bottom: 8px;
+        }
+        #main-content.puja-active .reception-tag,
+        #main-content.sangeet-active .reception-tag,
+        #main-content.wedding-active .reception-tag {
+            color: var(--gold-glow);
+        }
+        .reception-city-heading {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--header-wine);
+            margin-bottom: 6px;
+        }
+        #main-content.puja-active .reception-city-heading,
+        #main-content.sangeet-active .reception-city-heading,
+        #main-content.wedding-active .reception-city-heading {
+            color: var(--dynamic-title);
+        }
+        .reception-time-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: rgba(74, 21, 37, 0.08);
+            border: 1px solid rgba(74, 21, 37, 0.2);
+            border-radius: 20px;
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--header-wine);
+            margin-bottom: 18px;
+        }
+        #main-content.puja-active .reception-time-badge,
+        #main-content.sangeet-active .reception-time-badge,
+        #main-content.wedding-active .reception-time-badge {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+        }
+        .reception-stars-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            color: #d4af37;
+            font-size: 0.95rem;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+        }
+        .reception-venue-title {
+            font-family: var(--font-serif);
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--header-wine);
+            margin-top: 10px;
+            margin-bottom: 6px;
+        }
+        #main-content.puja-active .reception-venue-title,
+        #main-content.sangeet-active .reception-venue-title,
+        #main-content.wedding-active .reception-venue-title {
+            color: var(--dynamic-title);
+        }
+
         /* --- AWAITING YOUR PRESENCE STYLING --- */
         .presence-card {
             background: rgba(255, 255, 255, 0.85);
@@ -533,6 +624,7 @@
         </svg>
     </div>
 
+    <!-- Overhead Decorative Canopy Strings -->
     <svg id="fullscreen-fixed-canopy" viewBox="0 0 480 120" preserveAspectRatio="none">
         <path d="M-10,15 Q120,70 240,15 Q360,70 490,15" fill="none" stroke="rgba(245,194,66,0.5)" stroke-width="2"/>
         <circle cx="60" cy="33" r="5" fill="#f5c242" filter="drop-shadow(0 0 6px #f5c242)"/>
@@ -547,6 +639,7 @@
     <div id="main-content">
         <canvas id="beach-bg-canvas"></canvas>
 
+        <!-- Hero Section -->
         <section class="hero">
             <h2>Sakshi<span class="ampersand">&</span>Samyak</h2>
             <p class="sub-banner">Are getting married</p>
@@ -567,6 +660,7 @@
             </div>
         </section>
 
+        <!-- Countdown Tracker Section -->
         <section>
             <h3 class="section-title">Counting Down</h3>
             <div class="countdown-container">
@@ -583,6 +677,7 @@
             </div>
         </section>
 
+        <!-- Venue Section -->
         <section id="venue">
             <h3 class="section-title">Find Us Here</h3>
             
@@ -616,6 +711,7 @@
             </div>
         </section>
 
+        <!-- Schedule Section -->
         <section id="schedule">
             <h3 class="section-title">Our Celebration Unfolds</h3>
             
@@ -625,6 +721,7 @@
 
             <div class="beach-map-track">
                 
+                <!-- GANESH PUJAN -->
                 <div class="track-node-wrapper" id="node-puja" onclick="triggerEventAtmosphere('puja')">
                     <div class="track-marker"></div>
                     <div class="track-card">
@@ -643,6 +740,7 @@
                     </div>
                 </div>
 
+                <!-- SANGEET -->
                 <div class="track-node-wrapper" id="node-sangeet" onclick="triggerEventAtmosphere('sangeet')">
                     <div class="track-marker"></div>
                     <div class="track-card">
@@ -655,6 +753,7 @@
                     </div>
                 </div>
 
+                <!-- HALDI -->
                 <div class="track-node-wrapper" id="node-haldi" onclick="triggerEventAtmosphere('haldi')">
                     <div class="track-marker"></div>
                     <div class="track-card">
@@ -667,6 +766,7 @@
                     </div>
                 </div>
 
+                <!-- WEDDING -->
                 <div class="track-node-wrapper" id="node-wedding" onclick="triggerEventAtmosphere('wedding')">
                     <div class="track-marker"></div>
                     <div class="track-card">
@@ -696,6 +796,7 @@
             </div>
         </section>
 
+        <!-- Dress Code Section -->
         <section id="dress-code">
             <h3 class="section-title">Dress Code</h3>
             <p class="details-p">Help us paint our celebration against the backdrop of the sea.</p>
@@ -721,6 +822,60 @@
             </div>
         </section>
 
+        <!-- DEDICATED JAIPUR RECEPTION INVITATION PAGE -->
+        <section id="reception">
+            <h3 class="section-title">The Celebration Continues</h3>
+            
+            <div class="reception-card">
+                <div class="reception-stars-row">
+                    <span>✨</span>
+                    <span>✦</span>
+                    <span>★</span>
+                    <span>✦</span>
+                    <span>✨</span>
+                </div>
+
+                <p class="reception-tag">Wedding Reception</p>
+                <h4 class="reception-city-heading">Jaipur</h4>
+                
+                <div class="reception-time-badge">
+                    Wednesday, 16th December • 06:00 PM Onwards
+                </div>
+
+                <p class="details-p" style="font-size: 0.9rem; line-height: 1.7; margin-bottom: 20px;">
+                    Under a canopy of stars and shimmering lights, join us as we raise a toast to our new beginnings in the Pink City. An evening of celebratory flavours, music, laughter, and timeless memories.
+                </p>
+
+                <div style="width: 50px; height: 1.5px; background: var(--sunset-rose); margin: 0 auto 18px auto; opacity: 0.6;"></div>
+
+                <h5 class="reception-venue-title">Niksa Banquet</h5>
+                <p class="details-p" style="font-weight: 600;">Jawahar Lal Nehru Marg,</p>
+                <p class="details-p">Opposite MNIT College, Bajaj Nagar</p>
+                <p class="details-p">Jaipur, Rajasthan — 302015</p>
+
+                <div class="map-widget-box">
+                    <div class="map-graphic-preview">
+                        <svg class="map-pin-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    </div>
+                    <div class="map-action-bar">
+                        <a href="https://maps.google.com/?q=Niksa+Banquet+JLN+Marg+Jaipur" target="_blank" class="map-btn">
+                            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                            Open Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wave-separator">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path class="wave-sep-2" d="M0,40 C150,100 350,100 500,40 L1500,120 L0,120 Z"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Awaiting Your Presence Section -->
         <section id="presence">
             <h3 class="section-title">Awaiting your Presence</h3>
             
